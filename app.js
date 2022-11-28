@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/product", productRouter);
 app.use("/user", userRouter);
-app.use("/edit_products", edit_productsRouter);
+app.use("/edit-products", edit_productsRouter);
 app.use("/statistic", statisticRouter);
 app.use("/accounts", accountsRouter);
 //app.use("/", usersRouter);
@@ -44,7 +44,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error" ,{layout: false});
 });
 
 module.exports = app;
