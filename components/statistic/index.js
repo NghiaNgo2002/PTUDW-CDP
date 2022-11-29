@@ -4,6 +4,5 @@ const router = express.Router();
 const edit_productsController = require('./statisticController');
 
 router.get('/', edit_productsController.statistic);
-router.get('/statistic', edit_productsController.statistic);
 
 module.exports = router;

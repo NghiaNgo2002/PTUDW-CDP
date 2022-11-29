@@ -1,9 +1,5 @@
-/**
-* Template Name: NiceAdmin - v2.4.1
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+var isLogin = false;
+
 (function() {
   "use strict";
 
@@ -18,10 +14,6 @@
       return document.querySelector(el)
     }
   }
-
-  /**
-   * Easy event listener function
-   */
   const on = (type, el, listener, all = false) => {
     if (all) {
       select(el, all).forEach(e => e.addEventListener(type, listener))
@@ -281,17 +273,18 @@
   /**
    * Initiate Bootstrap validation check
    */
-  var needsValidation = document.querySelectorAll('.needs-validation')
-
+  var needsValidation = document.querySelectorAll('.needs-validation');
   Array.prototype.slice.call(needsValidation)
     .forEach(function(form) {
       form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
+        /*if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
         }
 
-        form.classList.add('was-validated')
+        form.classList.add('was-validated')*/
+        isLogin = true;
+        console.log(isLogin);
       }, false)
     })
 
