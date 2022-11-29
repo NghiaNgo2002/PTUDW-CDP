@@ -33,7 +33,7 @@ app.use("/user", userRouter);
 app.use("/edit-products", edit_productsRouter);
 app.use("/statistic", statisticRouter);
 app.use("/accounts", accountsRouter);
-app.use("/products_menu", products_menuRouter);
+app.use("/products-menu", products_menuRouter);
 app.use("/contact", contactRouter);
 app.use("/faq", faqRouter);
 

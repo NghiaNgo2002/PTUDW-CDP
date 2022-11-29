@@ -1,8 +1,6 @@
 const globalVar = require('../../routes/globalVar');
 
 exports.profile = (req, res)=>{
-    if(!globalVar.getIsLogin()){
-        res.redirect("/");
-    }
+    globalVar.changeIsLogin(true);
     res.render('user/profile');
 }
