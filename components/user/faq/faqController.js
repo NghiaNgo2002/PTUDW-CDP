@@ -1,6 +1,9 @@
-const globalVar = require('../../../routes/globalVar');
+const globalVar = require("../../../routes/globalVar");
 
-exports.faq = (req, res)=>{
-  globalVar.changeIsLogin(true);
-  res.render('user/faq/faq', { layout: "user_layout"});
-}
+exports.faq = (req, res) => {
+  if (isLogin !== 2) {
+    if (isLogin === 1) res.redirect("/admin");
+    res.redirect("/");
+  }
+  res.render("user/faq/faq", { layout: "user_layout" });
+};
