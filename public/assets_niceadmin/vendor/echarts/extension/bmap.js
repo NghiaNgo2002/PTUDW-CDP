@@ -90,7 +90,7 @@
     var rect = this.getViewRect();
     return {
       coordSys: {
-        // The name exposed to user is always 'cartesian2d' but not 'grid'.
+        // The name exposed to profile is always 'cartesian2d' but not 'grid'.
         type: 'bmap',
         x: rect.x,
         y: rect.y,
