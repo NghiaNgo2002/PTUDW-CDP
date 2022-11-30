@@ -15,6 +15,7 @@ const products_menuRouter = require("./components/products_menu/index");
 const contactRouter = require("./components/contact/index");
 const faqRouter = require("./components/faq/index");
 const cartRouter = require("./components/cart/index");
+const orders_historyRouter = require("./components/orders_history/index");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/products-menu", products_menuRouter);
 app.use("/contact", contactRouter);
 app.use("/faq", faqRouter);
 app.use("/cart", cartRouter);
+app.use("/orders-history", orders_historyRouter);
 
 //app.use("/", usersRouter);
 
