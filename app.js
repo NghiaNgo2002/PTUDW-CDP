@@ -14,6 +14,7 @@ const accountsRouter = require("./components/accounts/index");
 const products_menuRouter = require("./components/products_menu/index");
 const contactRouter = require("./components/contact/index");
 const faqRouter = require("./components/faq/index");
+const cartRouter = require("./components/cart/index");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/accounts", accountsRouter);
 app.use("/products-menu", products_menuRouter);
 app.use("/contact", contactRouter);
 app.use("/faq", faqRouter);
+app.use("/cart", cartRouter);
 
 //app.use("/", usersRouter);
 
@@ -52,7 +54,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error" ,{layout: false});
+  res.render("error", { layout: false });
 });
 
 module.exports = app;
