@@ -1,8 +1,8 @@
 const globalVar = require("../../../routes/globalVar");
 
-exports.products_menu = (req, res) => {
+exports.details = (req, res) => {
   if (!globalVar.getIsLogin()) {
     res.redirect("/");
   }
-  res.render("user/products_menu/menu", { layout: "user_layout" });
+  res.render("user/products/details", { layout: "user_layout" });
 };
