@@ -2078,7 +2078,7 @@ var deepEqual = module.exports = function (actual, expected, opts) {
   // with Object.prototype.hasOwnProperty.call), the same set of keys
   // (although not necessarily the same order), equivalent values for every
   // corresponding key, and an identical 'prototype' property. Note: this
-  // edit_accounts for both named and indexed properties on Arrays.
+  // accounts for both named and indexed properties on Arrays.
   } else {
     return objEquiv(actual, expected, opts);
   }
