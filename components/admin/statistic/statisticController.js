@@ -5,5 +5,5 @@ exports.statistic = (req, res) => {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
-  res.render("admin/statistic/statistic", { layout: "admin_layout" });
+  res.render("admin/statistic/statistic", {agent, layout: "admin_layout" });
 };

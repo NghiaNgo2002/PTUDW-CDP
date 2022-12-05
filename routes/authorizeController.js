@@ -27,7 +27,7 @@ exports.authorize = async (req, res)=>{
     }
     agent = account;
     account = Object.values(account);
-    if(account[1] === username && account[3] === password){
+    if(account[1] === username && account[2] === password){
         if(username === "admin"){
             isLogin = 1;
             res.redirect("/admin");

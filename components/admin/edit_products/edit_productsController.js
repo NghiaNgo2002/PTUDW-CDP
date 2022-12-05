@@ -5,5 +5,5 @@ exports.edit_products = (req, res) => {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
-  res.render("admin/edit_products/edit_table", { layout: "admin_layout" });
+  res.render("admin/edit_products/edit_table", {agent, layout: "admin_layout" });
 };

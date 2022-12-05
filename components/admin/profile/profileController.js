@@ -5,5 +5,5 @@ exports.profile = (req, res) => {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
-  res.render("admin/profile/profile", { layout: "admin_layout" });
+  res.render("admin/profile/profile", { agent, layout: "admin_layout" });
 };

@@ -8,5 +8,5 @@ exports.account = (req, res) => {
     res.redirect("/");
   }
 
-  res.render("admin/edit_accounts/accounts", { layout: "admin_layout" });
+  res.render("admin/edit_accounts/accounts", {agent, layout: "admin_layout" });
 };

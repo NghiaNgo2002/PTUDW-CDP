@@ -8,5 +8,5 @@ exports.details = async (req, res, next) => {
   }
   const { productId } = req.params;
   const product = await productsService.get(productId);
-  res.render("user/products/details", { product, layout: "user_layout" });
+  res.render("user/products/details", { product, agent, layout: "user_layout" });
 };

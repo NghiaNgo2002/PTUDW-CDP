@@ -16,6 +16,7 @@ exports.products_menu = async (req, res) => {
     products_menu_Mi,
     products_menu_Nuoc,
     products_menu_Khac,
+    agent,
     layout: "user_layout",
   });
 };
