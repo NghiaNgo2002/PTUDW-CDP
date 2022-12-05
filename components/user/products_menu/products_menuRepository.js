@@ -1,7 +1,7 @@
 const db = require("../../../db");
 
-exports.getAll = async () => {
-  const result = await db.connection.execute("select * from menu");
+exports.getCategory = async (category) => {
+  const result = await db.connection.execute("SELECT * FROM netcafe.menu where CATEGORY like ?",[category]);
   return result[0];
 };
 

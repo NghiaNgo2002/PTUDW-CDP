@@ -19,7 +19,7 @@
             data-bs-toggle="tab"
             data-bs-target="#menu-starters"
           >
-            <h4>Starters</h4>
+            <h4>Cơm</h4>
           </a>
         </li><!-- End tab nav item -->
 
@@ -29,13 +29,13 @@
             data-bs-toggle="tab"
             data-bs-target="#menu-breakfast"
           >
-            <h4>Breakfast</h4>
+            <h4>Mì</h4>
           </a>
         </li><!-- End tab nav item -->
 
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-            <h4>Lunch</h4>
+            <h4>Nước</h4>
           </a>
         </li><!-- End tab nav item -->
 
@@ -45,7 +45,7 @@
             data-bs-toggle="tab"
             data-bs-target="#menu-dinner"
           >
-            <h4>Dinner</h4>
+            <h4>Khác</h4>
           </a>
         </li><!-- End tab nav item -->
 
@@ -57,15 +57,15 @@
 
           <div class="tab-header text-center">
             <p>Menu</p>
-            <h3>Starters</h3>
+            <h3>Cơm</h3>
           </div>
           <div class="row gy-5">
-            {{#each products_menu}}
+            {{#each products_menu_Com}}
               <div class="col-lg-4 menu-item">
                 <a href="products/{{ID}}">
                   <div>
                     <img
-                      src="/assets_menu/img/menu/menu-item-1.png"
+                      src="/assets_menu/img/menu/{{IMAGE}}"
                       class="menu-img img-fluid"
                       alt=""
                     />
@@ -91,17 +91,17 @@
 
           <div class="tab-header text-center">
             <p>Menu</p>
-            <h3>Breakfast</h3>
+            <h3>Mì</h3>
           </div>
 
           <div class="row gy-5">
 
-            {{#each products_menu}}
+            {{#each products_menu_Mi}}
               <div class="col-lg-4 menu-item">
                 <a href="products/{{ID}}">
                   <div>
                     <img
-                      src="/assets_menu/img/menu/menu-item-1.png"
+                      src="/assets_menu/img/menu/{{IMAGE}}"
                       class="menu-img img-fluid"
                       alt=""
                     />
@@ -128,17 +128,17 @@
 
           <div class="tab-header text-center">
             <p>Menu</p>
-            <h3>Lunch</h3>
+            <h3>Nước</h3>
           </div>
 
           <div class="row gy-5">
 
-            {{#each products_menu}}
+            {{#each products_menu_Nuoc}}
               <div class="col-lg-4 menu-item">
                 <a href="products/{{ID}}">
                   <div>
                     <img
-                      src="/assets_menu/img/menu/menu-item-1.png"
+                      src="/assets_menu/img/menu/{{IMAGE}}"
                       class="menu-img img-fluid"
                       alt=""
                     />
@@ -165,17 +165,17 @@
 
           <div class="tab-header text-center">
             <p>Menu</p>
-            <h3>Dinner</h3>
+            <h3>Khác</h3>
           </div>
 
           <div class="row gy-5">
 
-            {{#each products_menu}}
+            {{#each products_menu_Khac}}
               <div class="col-lg-4 menu-item">
                 <a href="products/{{ID}}">
                   <div>
                     <img
-                      src="/assets_menu/img/menu/menu-item-1.png"
+                      src="/assets_menu/img/menu/{{IMAGE}}"
                       class="menu-img img-fluid"
                       alt=""
                     />

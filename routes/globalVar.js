@@ -1,4 +1,5 @@
 global.isLogin = 0;
+global.agent = {};
 
 exports.getIsLogin = ()=>{
     return isLogin;

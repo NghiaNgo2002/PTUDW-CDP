@@ -25,6 +25,7 @@ exports.authorize = async (req, res)=>{
         loginPage(res);
         return;
     }
+    agent = account;
     account = Object.values(account);
     if(account[1] === username && account[3] === password){
         if(username === "admin"){
