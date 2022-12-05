@@ -1,7 +1,23 @@
 const db = require("../../../db");
 
+exports.getAll = async () => {
+  const result = await db.connection.execute("SELECT * FROM netcafe.menu");
+  return result[0];
+};
+
+exports.sort = async (sort) => {
+  const result = await db.connection.execute(
+    "SELECT * FROM netcafe.menu where CATEGORY like ?",
+    [category]
+  );
+  return result[0];
+};
+
 exports.getCategory = async (category) => {
-  const result = await db.connection.execute("SELECT * FROM netcafe.menu where CATEGORY like ?",[category]);
+  const result = await db.connection.execute(
+    "SELECT * FROM netcafe.menu where CATEGORY like ?",
+    [category]
+  );
   return result[0];
 };
 
