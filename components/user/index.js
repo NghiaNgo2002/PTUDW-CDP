@@ -15,7 +15,7 @@ router.get("/contact", contact.contact);
 router.get("/profile", profile.profile);
 router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
-router.get("/products", products.details);
+router.get("/products/:productId", products.details);
 router.get("/products_menu", products_menu.products_menu);
 
 module.exports = router;
