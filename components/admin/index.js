@@ -14,4 +14,12 @@ router.get("/profile", profile.profile);
 router.get("/statistic", statistic.statistic);
 router.get("/register", register.register);
 
+//edit
+router.get("/edit_accounts/:id", edit_accounts.details)
+// del
+router.post("/edit_accounts/del",edit_accounts.delete)
+
+//update
+router.post("/update", edit_accounts.save);
+
 module.exports = router;

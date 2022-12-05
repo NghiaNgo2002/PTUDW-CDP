@@ -1,0 +1,52 @@
+<main id="main" class="main">
+    <form method="POST">
+        <div class="card">
+            <h5 class="card-header">
+                Accounts Editor
+            </h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="txtUserID" class="font-weight-bold">AccountID</label>
+                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{this.detail.ID}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="txtUserName" class="font-weight-bold">User Name</label>
+                    <input type="text" class="form-control" id="txtUserName" name="UserName" value="{{this.detail.PHONENUMBER}}"
+                           autofocus>
+                </div>
+                <div class="form-group" class="font-weight-bold">
+                    <label for="txtEmail" class="font-weight-bold">User Email</label>
+                    <input type="text" class="form-control" id="txtEmail" name="Budget" value="{{this.detail.BUDGET}}"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="txtSubID2" class="font-weight-bold">Current Permission</label>
+                    <input type="text" class="form-control" id="txtSubID2" name="Current Rank" value="{{this.detail.LEVEL}}" readonly>
+                </div>
+                <div class="form-check form-group">
+                    <input name="isRePass" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        <span class="font-weight-bold">Reset Password</span>  into '1234'
+                    </label>
+                </div>
+
+            </div>
+            <div class="card-footer text-muted">
+                <a class="btn btn-outline-secondary" href="/admin/edit_accounts" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Back to List
+                </a>
+
+
+                <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/del">
+                    <i class="fas fa-user-alt-slash    "></i>
+                    Delete
+                </button>
+                <button type="submit" class="btn btn-dark" formaction="/admin/edit_accounts/save">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</main>

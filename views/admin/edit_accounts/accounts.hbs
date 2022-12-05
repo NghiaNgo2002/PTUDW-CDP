@@ -1,101 +1,78 @@
 <main id="main" class="main">
-    <div class="card">
-        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
-            Accounts Table
-        </h3>
-        <div class="card-body">
-            <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2"
-      ><a href="#!" class="text-success"
-      ><i class="fas fa-plus fa-2x" aria-hidden="true"></i></a
-      ></span>
-                <table class="table table-bordered table-responsive-md table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center">No.</th>
-                        <th class="text-center">Username</th>
-                        <th class="text-center">Password</th>
-                        <th class="text-center">Budget</th>
-                        <th class="text-center">Time</th>
-                        <th class="text-center">Rank</th>
-                        <th class="text-center">Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="pt-3-half" contenteditable="true">1</td>
-                        <td class="pt-3-half" contenteditable="true">abcd</td>
-                        <td class="pt-3-half" contenteditable="true">12345</td>
-                        <td class="pt-3-half" contenteditable="true">130,000</td>
-                        <td class="pt-3-half" contenteditable="true">1:30</td>
-                        <td class="pt-3-half" contenteditable="true">Gold</td>
-
-                        </td>
-                        <td>
-              <span class="table-remove"
-              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove
-                </button></span
-              >
-                        </td>
-                    </tr>
-                    <!-- This is our clonable table line -->
-                    <tr>
-                        <td class="pt-3-half" contenteditable="true">2</td>
-                        <td class="pt-3-half" contenteditable="true">phuc4570</td>
-                        <td class="pt-3-half" contenteditable="true">45704570</td>
-                        <td class="pt-3-half" contenteditable="true">10,000</td>
-                        <td class="pt-3-half" contenteditable="true">2:45</td>
-                        <td class="pt-3-half" contenteditable="true">Diamond</td>
-
-                        </td>
-                        <td>
-              <span class="table-remove"
-              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove
-                </button></span
-              >
-                        </td>
-                    </tr>
-                    <!-- This is our clonable table line -->
-                    <tr>
-                        <td class="pt-3-half" contenteditable="true">3</td>
-                        <td class="pt-3-half" contenteditable="true">NoName</td>
-                        <td class="pt-3-half" contenteditable="true">nopassword</td>
-                        <td class="pt-3-half" contenteditable="true">520,000</td>
-                        <td class="pt-3-half" contenteditable="true">15:30</td>
-                        <td class="pt-3-half" contenteditable="true">Diamond</td>
-
-                        </td>
-                        <td>
-              <span class="table-remove"
-              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove
-                </button></span
-              >
-                        </td>
-                    </tr>
-                    <!-- This is our clonable table line -->
-                    <tr class="hide">
-                        <td class="pt-3-half" contenteditable="true">4</td>
-                        <td class="pt-3-half" contenteditable="true">Hayato</td>
-                        <td class="pt-3-half" contenteditable="true">Eskimo123</td>
-                        <td class="pt-3-half" contenteditable="true">0</td>
-                        <td class="pt-3-half" contenteditable="true">00:05</td>
-                        <td class="pt-3-half" contenteditable="true">Copper</td>
-
-                        </td>
-                        <td>
-              <span class="table-remove"
-              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove
-                </button></span
-              >
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="d-flex flex-row bd-highlight mt-3 mr-2 justify-content-between">
+        <h5 class="ml-3">ACCOUNT MANAGEMENT BOARD</h5>
+        <a class="btn btn-dark" href="/admin/edit_accounts/add" role="button">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            Add Account
+        </a>
+    </div>
+    <div class="p-2 bg-muted">
+        <div class="card h-100 mb-100 shadow">
+            <h5 class="card-header bg-dark text-light d-flex justify-content-between">
+                Student Accounts
+                {{! <a class="btn btn-outline-dark" href="/admin/categories/add" role="button">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Add Category
+            </a> }}
+            </h5>
+            {{#if this.sempty}}
+                <div class="card-body">
+                    <p class="card-text">
+                        Không có dữ liệu.
+                    </p>
+                </div>
+            {{else}}
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                                ID
+                            </th>
+                            <th scope="col">
+                                User Name
+                            </th>
+                            <th scope="col">
+                                Status
+                            </th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this.list_accounts}}
+                            <tr>
+                                <th scope="row">
+                                    {{ID}}
+                                </th>
+                                <td>
+                                    {{PHONENUMBER}}
+                                </td>
+                                <td>
+                                    {{#if isLocked}}
+                                        <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
+                                    {{else}}
+                                        <i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>
+                                    {{/if}}
+                                </td>
+                                <td class="text-right">
+                                    <a
+                                            class="btn btn-sm btn-dark"
+                                            href="/admin/edit_accounts/{{ID}}"
+                                            role="button"
+                                            title="Edit Accounts"
+                                    >
+                                        <i class="fas fa-user-cog    "></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            {{/if}}
+            {{! <div class="card-footer text-muted">
+          Footer
+        </div> }}
         </div>
     </div>
 </main>
