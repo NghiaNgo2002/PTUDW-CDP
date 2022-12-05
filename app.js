@@ -7,7 +7,6 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
-const authorizeRouter = require("./routes/authorize");
 const globalVar = require("./routes/globalVar");
 
 const app = express();
@@ -23,7 +22,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/access", authorizeRouter);
 app.use("/admin", adminRouter);
 app.use("/user", usersRouter);
 
