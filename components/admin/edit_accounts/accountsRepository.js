@@ -15,14 +15,22 @@ exports.getId = async (id) => {
     return result[0][0];
 }
 
-exports.delete = async (id) => {
-    await db.connection.execute('delete * from accounts where id = ?', [id]);
-}
 
 exports.delete = async (id) => {
     await db.connection.execute('delete * from accounts where id = ?', [id]);
 }
 
 exports.save = async (id) => {
+    const idNum = {UserId : id.UserId};
+    const phonenumber = {PhoneNumber: id.PhoneNumber};
+    const budget = {Budget: id.Budget};
+    const isResetpass = {isRepass: id.isRepass};
+    if(isResetpass) {
+        const password = '1234';
+    }
     await db.connection.execute('update accounts set ? id = ?', [id]);
+    const temp = Object.values(agent);
+    await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [phonenumber, password, budget, idNum]);
+    const result = await db.connection.execute("SELECT * FROM netcafe.accounts where PHONENUMBER like ?;", [phonenumber]);
+    agent = result[0][0];
 }

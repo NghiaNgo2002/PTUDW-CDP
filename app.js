@@ -8,7 +8,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
 const globalVar = require("./routes/globalVar");
-
+const hdb = require("./public/handlebars");
 const app = express();
 
 // view engine setup
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use("/", indexRouter);
 app.use("/admin", adminRouter);

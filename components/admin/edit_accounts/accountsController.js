@@ -14,9 +14,14 @@ exports.account = async (req, res) => {
 };
 
 exports.details = async (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
   const { id:id } = req.params;
   console.log(req.params);
   const detail = await accounts.getId(id);
+  console.log(detail.ACTIVE);
   res.render('admin/edit_accounts/details', {
     detail,
     agent,
@@ -24,6 +29,10 @@ exports.details = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
   const { accountId } = req.params;
   await accounts.delete(accountId);
   res.render('admin/edit_accounts/details',{
@@ -32,9 +41,17 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.save = async (req, res, next) => {
-  const { accountId } = req.params;
-  await accounts.delete(accountId);
-  res.render('admin/edit_accounts/details',{
-    agent,
-    layout: "admin_layout"});
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
+  const account = req.body;
+  console.log(req.body);
+  console.log("11111111111111111");
+  if (account['isRePass'] == 'true') {
+    account['password'] = '1234';
+  }
+
+  await accounts.save(account);
+  res.redirect("/admin/edit_accounts");
 };

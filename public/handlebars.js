@@ -1,4 +1,5 @@
 const Handlebars = require("handlebars");
+const hbs_sections = require('express-handlebars-sections');
 Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, options) {
     var operators = {
         'eq': function(l,r) { return l == r; },
@@ -51,4 +52,5 @@ Handlebars.registerHelper('compare', function (lvalue, rvalue, options) {
     }
 
 });
+
 
