@@ -48,11 +48,11 @@
                                     {{PHONENUMBER}}
                                 </td>
                                 <td>
-                                    {{#if isLocked}}
-                                        <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
-                                    {{else}}
+                                    {{#when ACTIVE 'eq' 1}}
                                         <i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>
-                                    {{/if}}
+                                    {{else}}
+                                        <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
+                                    {{/when}}
                                 </td>
                                 <td class="text-right">
                                     <a

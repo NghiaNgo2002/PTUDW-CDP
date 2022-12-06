@@ -21,16 +21,17 @@ exports.delete = async (id) => {
 }
 
 exports.save = async (id) => {
-    const idNum = {UserId : id.UserId};
-    const phonenumber = {PhoneNumber: id.PhoneNumber};
-    const budget = {Budget: id.Budget};
+    const obj = Object.values(id);
     const isResetpass = {isRepass: id.isRepass};
-    if(isResetpass) {
+    console.log(obj);
+    console.log(isResetpass);
+    if(obj[4]) {
         const password = '1234';
+        await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [obj[1], password, obj[2], obj[0]]);
     }
-    await db.connection.execute('update accounts set ? id = ?', [id]);
-    const temp = Object.values(agent);
-    await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [phonenumber, password, budget, idNum]);
-    const result = await db.connection.execute("SELECT * FROM netcafe.accounts where PHONENUMBER like ?;", [phonenumber]);
+    else{
+        await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, BUDGET = ? WHERE ID = ?;", [obj[1], obj[2], obj[0]]);
+    }
+    const result = await db.connection.execute("SELECT * FROM netcafe.accounts where PHONENUMBER like ?;", [obj[1]]);
     agent = result[0][0];
 }

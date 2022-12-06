@@ -46,12 +46,13 @@ exports.save = async (req, res, next) => {
     res.redirect("/");
   }
   const account = req.body;
-  console.log(req.body);
-  console.log("11111111111111111");
+
+
   if (account['isRePass'] == 'true') {
     account['password'] = '1234';
   }
-
+  delete account.isRePass;
   await accounts.save(account);
+  console.log(req.body);
   res.redirect("/admin/edit_accounts");
 };
