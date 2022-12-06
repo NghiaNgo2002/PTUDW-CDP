@@ -40,7 +40,7 @@ exports.delete = async (req, res, next) => {
     layout: "admin_layout"});
 };
 
-exports.save = async (req, res, next) => {
+exports.saveEdit = async (req, res, next) => {
   if (isLogin !== 1) {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
@@ -51,8 +51,33 @@ exports.save = async (req, res, next) => {
   if (account['isRePass'] == 'true') {
     account['password'] = '1234';
   }
-  delete account.isRePass;
-  await accounts.save(account);
+  //delete account.isRePass;
+  await accounts.saveEdit(account);
   console.log(req.body);
   res.redirect("/admin/edit_accounts");
 };
+
+exports.add = (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
+  res.render('admin/edit_accounts/add', {
+    agent,
+    layout: "admin_layout"
+  });
+}
+
+exports.saveAdd = async (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
+  const account = req.body;
+  console.log(account);
+  await accounts.add(account);
+  res.render('admin/edit_accounts', {
+    agent,
+    layout: "admin_layout"
+  });
+}

@@ -20,8 +20,8 @@ exports.delete = async (id) => {
     await db.connection.execute('delete * from accounts where id = ?', [id]);
 }
 
-exports.save = async (id) => {
-    const obj = Object.values(id);
+exports.saveEdit = async (id) => {
+    var obj = Object.values(id);
     const isResetpass = {isRepass: id.isRepass};
     console.log(obj);
     console.log(isResetpass);
@@ -34,4 +34,12 @@ exports.save = async (id) => {
     }
     const result = await db.connection.execute("SELECT * FROM netcafe.accounts where PHONENUMBER like ?;", [obj[1]]);
     agent = result[0][0];
+}
+
+exports.add = async (account) => {
+    var obj = Object.values(account);
+    console.log(account);
+    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?', ['9', obj[0], obj[1], obj[2], 'waiting', obj[3], obj[4], 1]);
+    //const result =  await db.connection.execute("insert into accounts set ?", [account]);
+    return result[0];
 }

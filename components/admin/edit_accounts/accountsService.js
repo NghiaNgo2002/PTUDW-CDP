@@ -17,6 +17,10 @@ exports.delete = (id) => {
     return accountsRepository.delete(id);
 };
 
-exports.save = (id) => {
-    return accountsRepository.save(id);
+exports.saveEdit = (id) => {
+    return accountsRepository.saveEdit(id);
+};
+
+exports.add = (account) => {
+    return accountsRepository.add(account);
 };
