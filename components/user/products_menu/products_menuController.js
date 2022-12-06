@@ -10,12 +10,15 @@ exports.products_menu = async (req, res) => {
   const { name: nameFilter } = req.query;
   let products = [];
   const { sort, ...withoutSort } = req.query;
-  if (sort) {
-    products = await products_menuService.filter(nameFilter);
-    products = await products_menuService.sort(sort);
-  } else if (nameFilter) {
+  if (nameFilter) {
     products = await products_menuService.filter(nameFilter);
   } else products = await products_menuService.getAll();
+
+if(sort=="low"){
+  products.sort((a,b)=> a.PRICE-b.PRICE);
+}else if(sort=="high"){
+  products.sort((a,b)=> b.PRICE-a.PRICE);
+}
 
   let products_menu_Com = await products_menuService.getCategory("Cơm");
   let products_menu_Mi = await products_menuService.getCategory("Mì");

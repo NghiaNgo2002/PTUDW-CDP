@@ -12,7 +12,3 @@ exports.getCategory = (category) => {
 exports.filter = (name) => {
   return products_menuRepository.filter(name);
 };
-
-exports.sort = (type) => {
-  return products_menuRepository.sort(type);
-};

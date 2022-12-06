@@ -6,7 +6,7 @@ const db = { connection: null };
   db.connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "chien401",
+    password: "admin",
     database: "netcafe",
   });
   console.log("Database connected!");

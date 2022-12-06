@@ -33,11 +33,11 @@ body {
 
 a {
   color: var(--color-primary);
-  text-decoration: none;
+  text-decoration: none!important;
 }
 
-a:hover {
-  color: #ec2727;
+a:hover h4 {
+  color: #ec2727!important;
   text-decoration: none;
 }
 
@@ -189,4 +189,8 @@ section {
   font-size: 24px;
   font-weight: 700;
   color: var(--color-primary);
+}
+
+p span{
+  color: #b6b6bf!important;
 }
