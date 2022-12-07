@@ -27,12 +27,12 @@ exports.saveEdit = async (id) => {
     console.log(isResetpass);
     if(obj[4]) {
         const password = '1234';
-        await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [obj[1], password, obj[2], obj[0]]);
+        await db.connection.execute("UPDATE accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [obj[1], password, obj[2], obj[0]]);
     }
     else{
-        await db.connection.execute("UPDATE netcafe.accounts SET PHONENUMBER = ?, BUDGET = ? WHERE ID = ?;", [obj[1], obj[2], obj[0]]);
+        await db.connection.execute("UPDATE accounts SET PHONENUMBER = ?, BUDGET = ? WHERE ID = ?;", [obj[1], obj[2], obj[0]]);
     }
-    const result = await db.connection.execute("SELECT * FROM netcafe.accounts where PHONENUMBER like ?;", [obj[1]]);
+    const result = await db.connection.execute("SELECT * FROM accounts where PHONENUMBER like ?;", [obj[1]]);
     agent = result[0][0];
 }
 
