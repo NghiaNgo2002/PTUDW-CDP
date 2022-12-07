@@ -15,8 +15,8 @@ exports.getCategory = async (category) => {
 
 exports.filter = async (name) => {
   const result = await db.connection.execute(
-    "select * from menu where name like ?",
-    [`%${name}%`]
+    "select * from menu where name like ? or category like ?",
+    [`%${name}%`, `%${name}%`]
   );
   return result[0];
 };
