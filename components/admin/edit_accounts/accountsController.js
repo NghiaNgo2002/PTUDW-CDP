@@ -1,16 +1,31 @@
 const globalVar = require("../../../routes/globalVar");
 const accounts = require("./accountsService");
+const qs = require("qs");
 exports.account = async (req, res) => {
   if (isLogin !== 1) {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
-  let list_accounts = await accounts.getAll();
+  const { name: nameFilter } = req.query;
+  let list_accounts = [];
+  const { sort, withoutSort } = req.query;
+  if (nameFilter) {
+    list_accounts = await accounts.filter(nameFilter);
+  } else list_accounts = await accounts.getAll();
+
+  if(sort=="name"){
+    list_accounts.sort((a,b)=> a.PHONENUMBER-b.PHONENUMBER);
+  }else if(sort=="date"){
+    list_accounts.sort((a,b)=> b.LEVEL-a.LEVEL);
+  }
+
   console.log(list_accounts);
   res.render("admin/edit_accounts/accounts", {
     list_accounts,
     agent,
-    layout: "admin_layout" });
+    layout: "admin_layout",
+    originalUrl: `${req.baseUrl}/products_menu?${qs.stringify(withoutSort)}`,
+  });
 };
 
 exports.details = async (req, res, next) => {

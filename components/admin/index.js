@@ -16,6 +16,7 @@ router.get("/register", register.register);
 
 router.get("/edit_accounts/add",edit_accounts.add);
 router.post('/edit_accounts/add', edit_accounts.saveAdd);
+//router.get("/edit_accounts/find",edit_accounts.add);
 //edit
 router.get("/edit_accounts/:id", edit_accounts.details)
 // del

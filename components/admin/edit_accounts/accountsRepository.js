@@ -6,7 +6,7 @@ exports.getAll = async () => {
 }
 
 exports.filter = async (name) => {
-    const result =  await db.connection.execute("select * from accounts where name like ?", [`%${name}%`]);
+    const result =  await db.connection.execute("select * from accounts where phonenumber like ?", [`%${name}%`]);
     return result[0];
 }
 
