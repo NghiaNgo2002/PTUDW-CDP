@@ -16,8 +16,9 @@ exports.getId = async (id) => {
 }
 
 
-exports.delete = async (id) => {
-    await db.connection.execute('delete * from accounts where id = ?', [id]);
+exports.delete = async (account) => {
+    var obj = Object.values(account);
+    await db.connection.execute('delete from accounts where id = ?', [obj[0]]);
 }
 
 exports.saveEdit = async (id) => {
@@ -50,6 +51,5 @@ exports.add = async (account, nextId) => {
 
 exports.setLockUnlock = async (id) => {
     var obj = Object.values(id);
-    //var val = Object.values(state);
     await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[4], obj[0]]);
 }

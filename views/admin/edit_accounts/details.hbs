@@ -7,21 +7,21 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="txtUserID" class="font-weight-bold">AccountID</label>
-                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{this.detail.ID}}" readonly>
+                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="txtUserName" class="font-weight-bold">User Name</label>
-                    <input type="text" class="form-control" id="txtUserName" name="PhoneNumber" value="{{this.detail.PHONENUMBER}}"
+                    <label for="txtUserPhonenumber" class="font-weight-bold">Phone number</label>
+                    <input type="text" class="form-control" id="txtPhonenumber" name="PhoneNumber" value="{{detail.PHONENUMBER}}"
                            autofocus>
                 </div>
                 <div class="form-group" class="font-weight-bold">
-                    <label for="txtEmail" class="font-weight-bold">User Email</label>
-                    <input type="text" class="form-control" id="txtEmail" name="Budget" value="{{this.detail.BUDGET}}"
+                    <label for="txtBudget" class="font-weight-bold">Budget</label>
+                    <input type="text" class="form-control" id="txtBudget" name="Budget" value="{{detail.BUDGET}}"
                     >
                 </div>
                 <div class="form-group">
-                    <label for="txtSubID2" class="font-weight-bold">Current Permission</label>
-                    <input type="text" class="form-control" id="txtSubID2" name="Current Rank" value="{{this.detail.LEVEL}}" readonly>
+                    <label for="txtLevel" class="font-weight-bold">Level</label>
+                    <input type="text" class="form-control" id="txtLevel" name="Level" value="{{detail.LEVEL}}" readonly>
                 </div>
                 <div class="form-check form-group">
                     <input name="isRePass" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
@@ -37,14 +37,13 @@
                     Back to List
                 </a>
 
-
-                {{#when detail.ACTIVE 'eq' 1}}
-                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/accounts/unlock">
+                {{#when detail.ACTIVE 'eq' 0}}
+                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/unlock">
                         <i class="fa fa-unlock" aria-hidden="true"></i>
                         Unlock
                     </button>
                 {{else}}
-                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/accounts/lock">
+                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/lock">
                         <i class="fas fa-user-lock    "></i>
                         Lock
                     </button>

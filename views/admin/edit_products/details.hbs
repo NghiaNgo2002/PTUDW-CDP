@@ -14,9 +14,20 @@
                     <input type="text" class="form-control" id="txtUserName" name="NAME" value="{{detail.NAME}}">
                 </div>
                 <div class="form-group" class="font-weight-bold">
-                    <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
-                    <input type="text" class="form-control" id="txtIMAGE" name="IMAGE" value="{{detail.IMAGE}}">
+                    <form action="/" method="POST" encType="multipart/form-data">
+                        <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
+                        <input type="file" name="sampleFile" accept="image/*" />
+                        <input type="submit" class="btn btn-primary">
+                    </form>
+                    <div class="card">
+                        {{#if this.profile_image}}
+                            <img class="card__image" src="{{this.profile_image}}" alt="User Profile">
+                        {{else}}
+                            <img class="card__image" src="/img/default.jpg" alt="User Profile">
+                        {{/if}}
+                    </div>
                 </div>
+
                 <div class="form-group" class="font-weight-bold">
                     <label for="txtPRICE" class="font-weight-bold">PRICE</label>
                     <input type="text" class="form-control" id="txtPRICE" name="PRICE" value="{{detail.PRICE}}">

@@ -22,8 +22,8 @@ router.post('/edit_products/add', edit_accounts.saveAdd);
 router.get("/edit_accounts/:id", edit_accounts.details);
 router.get("/edit_products/:id", edit_products.details);
 // del
-router.get("/edit_accounts/del",edit_accounts.delete);
-router.get("/edit_products/del",edit_products.delete);
+router.post("/edit_accounts/del",edit_accounts.delete);
+router.post("/edit_products/del",edit_products.delete);
 
 //update
 router.post("/edit_accounts/patch", edit_accounts.saveEdit);

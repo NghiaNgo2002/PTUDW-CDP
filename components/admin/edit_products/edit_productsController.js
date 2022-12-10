@@ -48,11 +48,9 @@ exports.delete = async (req, res, next) => {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
-  const { productId } = req.params;
-  await products.delete(productId);
-  res.render('admin/edit_products/details',{
-    agent,
-    layout: "admin_layout"});
+  const { id:id } = req.params;
+  await products.delete(id);
+  res.redirect("/admin/edit_products");
 };
 
 exports.saveEdit = async (req, res, next) => {
