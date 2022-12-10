@@ -22,9 +22,7 @@ exports.delete = async (id) => {
 
 exports.saveEdit = async (id) => {
     var obj = Object.values(id);
-    const isResetpass = {isRepass: id.isRepass};
-    console.log(obj);
-    console.log(isResetpass);
+
     if(obj[4]) {
         const password = '1234';
         await db.connection.execute("UPDATE accounts SET PHONENUMBER = ?, PASSWORD = ?, BUDGET = ? WHERE ID = ?;", [obj[1], password, obj[2], obj[0]]);
@@ -36,10 +34,22 @@ exports.saveEdit = async (id) => {
     agent = result[0][0];
 }
 
-exports.add = async (account) => {
+exports.nextId = async () => {
+    const result = await db.connection.execute("SELECT MAX(ID) + 1 FROM accounts");
+    var obj = Object.values(result);
+
+    return obj[0];
+}
+exports.add = async (account, nextId) => {
     var obj = Object.values(account);
-    console.log(account);
-    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?', ['9', obj[0], obj[1], obj[2], 'waiting', obj[3], obj[4], 1]);
+    var id = Object.values(nextId);
+    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?', [id[0], obj[0], obj[1], obj[2], 'waiting', obj[3], obj[4], 1]);
     //const result =  await db.connection.execute("insert into accounts set ?", [account]);
     return result[0];
+}
+
+exports.setLockUnlock = async (id) => {
+    var obj = Object.values(id);
+    //var val = Object.values(state);
+    await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[4], obj[0]]);
 }

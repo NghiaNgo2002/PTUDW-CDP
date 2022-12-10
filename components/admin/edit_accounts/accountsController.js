@@ -13,18 +13,32 @@ exports.account = async (req, res) => {
     list_accounts = await accounts.filter(nameFilter);
   } else list_accounts = await accounts.getAll();
 
+  for(let i =  1; i < list_accounts.length; i++)
+  {
+    var t = list_accounts[i]['CREATEDDATE'];
+    var t = t.toString();
+    var m = t.split(" ");
+    m[1] = m[1].toLowerCase();
+
+    var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    m[1] = months.indexOf(m[1]);
+    var new_date = m[2] + "-" + m[1] + "-" + m[3];
+    t = new_date;
+    list_accounts[i]['CREATEDDATE'] = t;
+  }
+  list_accounts[0]['CREATEDDATE'] = "";
+
   if(sort=="name"){
     list_accounts.sort((a,b)=> a.PHONENUMBER-b.PHONENUMBER);
   }else if(sort=="date"){
-    list_accounts.sort((a,b)=> b.LEVEL-a.LEVEL);
+    list_accounts.sort((a,b)=> a.CREATEDDATE - b.CREATEDDATE);
   }
 
-  console.log(list_accounts);
   res.render("admin/edit_accounts/accounts", {
     list_accounts,
     agent,
     layout: "admin_layout",
-    originalUrl: `${req.baseUrl}/products_menu?${qs.stringify(withoutSort)}`,
+    originalUrl: `${req.baseUrl}/edit_accounts?${qs.stringify(withoutSort)}`,
   });
 };
 
@@ -34,9 +48,9 @@ exports.details = async (req, res, next) => {
     res.redirect("/");
   }
   const { id:id } = req.params;
-  console.log(req.params);
+
   const detail = await accounts.getId(id);
-  console.log(detail.ACTIVE);
+
   res.render('admin/edit_accounts/details', {
     detail,
     agent,
@@ -68,7 +82,7 @@ exports.saveEdit = async (req, res, next) => {
   }
   //delete account.isRePass;
   await accounts.saveEdit(account);
-  console.log(req.body);
+
   res.redirect("/admin/edit_accounts");
 };
 
@@ -89,10 +103,33 @@ exports.saveAdd = async (req, res, next) => {
     res.redirect("/");
   }
   const account = req.body;
-  console.log(account);
-  await accounts.add(account);
+
+  const nextId = await accounts.nextId();
+  await accounts.add(account, nextId);
   res.render('admin/edit_accounts', {
     agent,
     layout: "admin_layout"
   });
+}
+
+exports.setLock = async (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
+  const account = req.body;
+  account['ACTIVE'] = 0;
+  await accounts.setLock(account);
+  res.redirect('/admin/edit_accounts');
+}
+
+exports.setUnLock = async (req, res, next) => {
+  if (isLogin !== 1) {
+    if (isLogin === 2) res.redirect("/user");
+    res.redirect("/");
+  }
+  const account = req.body;
+  account['ACTIVE'] = 1;
+  await accounts.setUnLock(account);
+  res.redirect('/admin/edit_accounts');
 }

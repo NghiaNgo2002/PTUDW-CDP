@@ -24,3 +24,15 @@ exports.saveEdit = (id) => {
 exports.add = (account) => {
     return accountsRepository.add(account);
 };
+
+exports.nextId = () => {
+    return accountsRepository.nextId();
+}
+
+exports.setLock = (id) => {
+    return accountsRepository.setLockUnlock(id);
+}
+
+exports.setUnLock = (id) => {
+    return accountsRepository.setLockUnlock(id);
+}
