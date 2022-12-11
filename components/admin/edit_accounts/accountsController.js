@@ -85,12 +85,14 @@ exports.saveEdit = async (req, res, next) => {
   res.redirect("/admin/edit_accounts");
 };
 
-exports.add = (req, res, next) => {
+exports.add = async (req, res, next) => {
   if (isLogin !== 1) {
     if (isLogin === 2) res.redirect("/user");
     res.redirect("/");
   }
+  const nextId = await accounts.nextId();
   res.render('admin/edit_accounts/add', {
+    nextId,
     agent,
     layout: "admin_layout"
   });
@@ -102,13 +104,8 @@ exports.saveAdd = async (req, res, next) => {
     res.redirect("/");
   }
   const account = req.body;
-
-  const nextId = await accounts.nextId();
-  await accounts.add(account, nextId);
-  res.render('admin/edit_accounts', {
-    agent,
-    layout: "admin_layout"
-  });
+  await accounts.add(account);
+  res.redirect('/admin/edit_accounts');
 }
 
 exports.setLock = async (req, res, next) => {

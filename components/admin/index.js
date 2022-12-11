@@ -14,6 +14,7 @@ router.get("/profile", profile.profile);
 router.get("/statistic", statistic.statistic);
 router.get("/register", register.register);
 
+//add
 router.get("/edit_accounts/add",edit_accounts.add);
 router.post('/edit_accounts/add', edit_accounts.saveAdd);
 router.get("/edit_products/add",edit_accounts.add);
@@ -31,9 +32,6 @@ router.post("/edit_products/patch", edit_products.saveEdit);
 //lock and unlock
 router.post("/edit_accounts/lock", edit_accounts.setLock);
 router.post("/edit_accounts/unlock", edit_accounts.setUnLock);
-
-//product
-
 
 
 module.exports = router;

@@ -36,16 +36,21 @@ exports.saveEdit = async (id) => {
 }
 
 exports.nextId = async () => {
-    const result = await db.connection.execute("SELECT MAX(ID) + 1 FROM accounts");
+    let maxId = "MAX(ID) + 1";
+    const result = await db.connection.execute("SELECT ? FROM accounts", [maxId]);
     var obj = Object.values(result);
-
-    return obj[0];
+    var id = obj[0].length + 1;
+    return id;
 }
-exports.add = async (account, nextId) => {
+exports.add = async (account) => {
     var obj = Object.values(account);
-    var id = Object.values(nextId);
-    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?', [id[0], obj[0], obj[1], obj[2], 'waiting', obj[3], obj[4], 1]);
-    //const result =  await db.connection.execute("insert into accounts set ?", [account]);
+    var tmp = obj[4].split("-");
+    console.log(tmp);
+    obj[4] = tmp[2] + "-" + tmp[1] + "-" + tmp[0];
+
+    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, CREATEDDATE = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?',
+                                                                            [obj[0], obj[1], obj[2], obj[3], obj[4], obj[5], 'null', obj[6], 1]);
+
     return result[0];
 }
 
