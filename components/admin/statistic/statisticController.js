@@ -1,9 +1,10 @@
 const globalVar = require("../../../routes/globalVar");
 
 exports.statistic = (req, res) => {
-  if (isLogin !== 1) {
-    if (isLogin === 2) res.redirect("/user");
-    res.redirect("/");
+  if(Object.values(agent).length === 0){
+      res.redirect("/");
+  }else if(Object.values(agent)[0] !== 1){
+      res.redirect("/user");
   }
   if (req.query.year_month) {
     var start = req.query.year_month + "-01";

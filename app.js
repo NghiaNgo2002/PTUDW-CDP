@@ -3,11 +3,14 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const session = require('express-session');
 
 const indexRouter = require("./routes/index");
+const authRouter = require("./components/_auth/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
 const globalVar = require("./routes/globalVar");
+const passport = require("./components/_auth/passport/index");
 const hbs = require("express-handlebars");
 const app = express();
 
@@ -39,14 +42,26 @@ app.engine('.hbs',
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
+app.use(session({
+    secret: 'very secret keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.authenticate('session'));
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(function(req, res, next){
+    res.locals.user = req.user;
+    next();
+});
 
 app.use("/", indexRouter);
+app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
 app.use("/user", usersRouter);
 

@@ -9,10 +9,11 @@ const orders_history = require("./orders_history/orders_historyController");
 const products = require("./products/productsController");
 const products_menu = require("./products_menu/products_menuController");
 
-router.get("/", profile.profile);
+router.get("/", profile.profileRedirect);
 router.get("/cart", cart.cart);
 router.get("/contact", contact.contact);
 router.get("/profile", profile.profile);
+router.post("/profile", profile.editProfile);
 router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
 router.get("/products/:productId", products.details);

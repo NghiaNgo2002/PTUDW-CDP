@@ -6,16 +6,23 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "ajv": "^8.11.2",
+    "ajv-formats": "^2.1.1",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-handlebars": "^6.0.6",
     "express-handlebars-sections": "^1.0.1",
+    "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
+    "moment": "^2.29.4",
     "morgan": "~1.9.1",
     "mysql2": "^2.3.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "qs": "^6.11.0"
   },
   "devDependencies": {

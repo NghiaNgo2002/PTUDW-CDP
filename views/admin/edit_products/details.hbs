@@ -1,0 +1,62 @@
+<main id="main" class="main">
+    <form method="POST">
+        <div class="card">
+            <h5 class="card-header">
+                Accounts Editor
+            </h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="txtUserID" class="font-weight-bold">AccountID</label>
+                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="txtUserName" class="font-weight-bold">Name</label>
+                    <input type="text" class="form-control" id="txtUserName" name="NAME" value="{{detail.NAME}}">
+                </div>
+                <div class="form-group" class="font-weight-bold">
+                    <form action="/" method="POST" encType="multipart/form-data">
+                        <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
+                        <input type="file" name="sampleFile" accept="image/*" />
+                        <input type="submit" class="btn btn-primary">
+                    </form>
+                    <div class="card">
+                        {{#if this.profile_image}}
+                            <img class="card__image" src="{{this.profile_image}}" alt="User Profile">
+                        {{else}}
+                            <img class="card__image" src="/img/default.jpg" alt="User Profile">
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="form-group" class="font-weight-bold">
+                    <label for="txtPRICE" class="font-weight-bold">PRICE</label>
+                    <input type="text" class="form-control" id="txtPRICE" name="PRICE" value="{{detail.PRICE}}">
+                </div>
+                <div class="form-group">
+                    <label for="CategorySelect">Category</label>
+                    <select name="Category" id="CategorySelect" class="form-control">
+                        <option value="1">Cơm</option>
+                        <option value="2">Mì</option>
+                        <option value="3">Nước</option>
+                        <option value="4">Khác</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="card-footer text-muted">
+                <a class="btn btn-outline-secondary" href="/admin/edit_products" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Back to List
+                </a>
+
+                <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_products/del">
+                    <i class="fas fa-user-alt-slash    "></i>
+                    Delete
+                </button>
+                <button type="submit" class="btn btn-dark" formaction="/admin/edit_products/patch">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</main>

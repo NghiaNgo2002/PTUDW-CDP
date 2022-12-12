@@ -3,9 +3,10 @@ const products_menuService = require("./products_menuService");
 const qs = require("qs");
 
 exports.products_menu = async (req, res) => {
-  if (isLogin !== 2) {
-    if (isLogin === 1) res.redirect("/admin");
-    res.redirect("/");
+  if(Object.values(agent).length === 0){
+     res.redirect("/");
+  }else if(Object.values(agent)[0] === 1){
+     res.redirect("/admin");
   }
   const { name: nameFilter } = req.query;
   let products = [];

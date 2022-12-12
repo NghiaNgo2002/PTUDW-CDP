@@ -5,10 +5,10 @@ const db = { connection: null };
 
 (async () => {
   db.connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "chien401",
-    database: "netcafe",
+    host: "sql.freedb.tech",
+    user: "freedb_ababa",
+    password: "wA8&94c!m7eNGa?",
+    database: "freedb_NetCafe",
   });
   console.log("Database connected!");
 })();

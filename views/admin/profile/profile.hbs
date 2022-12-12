@@ -55,18 +55,32 @@
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
                     <div class="col-lg-9 col-md-8">{{agent.FULLNAME}}</div>
                   </div>
-
+                  
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
                     <div class="col-lg-9 col-md-8">{{agent.PHONENUMBER}}</div>
                   </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">E-mail</div>
+                    <div class="col-lg-9 col-md-8">{{agent.EMAIL}}</div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Level</div>
+                    <div class="col-lg-9 col-md-8">{{agent.LEVEL}}</div>
+                  </div>
 
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Budget</div>
+                    <div class="col-lg-9 col-md-8">{{agent.BUDGET}}</div>
+                  </div>
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form method = "get">
+                  <form method = "post">
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
@@ -92,6 +106,19 @@
                       </div>
                     </div>
 
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">E-mail</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="email" type="text" class="form-control" id="Email" value="{{agent.EMAIL}}">
+                      </div>
+                    </div>
+
+                    {{#if error}}
+                        <div style = "color:red">
+                            {{error}}
+                        </div>
+                    {{/if}}
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
@@ -101,7 +128,7 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
+                  <form method = "post">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
@@ -123,6 +150,12 @@
                         <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                       </div>
                     </div>
+                    
+                    {{#if error}}
+                        <div style = "color:red">
+                            {{error}}
+                        </div>
+                    {{/if}}
 
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Change Password</button>

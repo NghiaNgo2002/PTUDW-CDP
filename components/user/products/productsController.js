@@ -4,9 +4,10 @@ const relatedProductService= require("../products_menu/products_menuService");
 
 
 exports.details = async (req, res, next) => {
-  if (isLogin !== 2) {
-    if (isLogin === 1) res.redirect("/admin");
-    res.redirect("/");
+  if(Object.values(agent).length === 0){
+      res.redirect("/");
+  }else if(Object.values(agent)[0] === 1){
+      res.redirect("/admin");
   }
   const { productId } = req.params;
   const product = await productsService.get(productId);
