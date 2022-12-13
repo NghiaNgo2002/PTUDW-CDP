@@ -32,7 +32,7 @@ exports.saveEdit = async (id) => {
         await db.connection.execute("UPDATE accounts SET PHONENUMBER = ?, BUDGET = ? WHERE ID = ?;", [obj[1], obj[2], obj[0]]);
     }
     const result = await db.connection.execute("SELECT * FROM accounts where PHONENUMBER like ?;", [obj[1]]);
-    agent = result[0][0];
+    return result[0][0];
 }
 
 exports.nextId = async () => {

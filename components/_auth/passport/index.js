@@ -12,14 +12,14 @@ passport.use(new LocalStrategy({ usernameField: 'phonenumber'}, async function v
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
     cb(null, { 
-        id: Object.values(user)[0],
-        phonenumber: Object.values(user)[1],
-        fullname: Object.values(user)[3],
-        email: Object.values(user)[4],
-        createddate: Object.values(user)[5],
-        level: Object.values(user)[6],
-        image: Object.values(user)[7],
-        budget: Object.values(user)[9]
+        ID: Object.values(user)[0],
+        PHONENUMBER: Object.values(user)[1],
+        FULLNAME: Object.values(user)[3],
+        EMAIL: Object.values(user)[4],
+        CREATEDDATE: Object.values(user)[5],
+        LEVEL: Object.values(user)[6],
+        IMAGE: Object.values(user)[7],
+        BUDGET: Object.values(user)[9]
     });
   });
 });

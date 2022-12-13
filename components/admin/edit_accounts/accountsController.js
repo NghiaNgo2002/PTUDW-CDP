@@ -2,9 +2,9 @@ const globalVar = require("../../../routes/globalVar");
 const accounts = require("./accountsService");
 const qs = require("qs");
 exports.account = async (req, res) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const { name: nameFilter } = req.query;
@@ -37,16 +37,15 @@ exports.account = async (req, res) => {
 
   res.render("admin/edit_accounts/accounts", {
     list_accounts,
-    agent,
     layout: "admin_layout",
     originalUrl: `${req.baseUrl}/edit_accounts?${qs.stringify(withoutSort)}`,
   });
 };
 
 exports.details = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const { id:id } = req.params;
@@ -55,14 +54,13 @@ exports.details = async (req, res, next) => {
   
   res.render('admin/edit_accounts/details', {
     detail,
-    agent,
     layout: "admin_layout"});
 };
 
 exports.delete = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const account = req.body;
@@ -72,9 +70,9 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.saveEdit = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const account = req.body;
@@ -90,23 +88,22 @@ exports.saveEdit = async (req, res, next) => {
 };
 
 exports.add = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const nextId = await accounts.nextId();
   res.render('admin/edit_accounts/add', {
     nextId,
-    agent,
     layout: "admin_layout"
   });
 }
 
 exports.saveAdd = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const account = req.body;
@@ -115,9 +112,9 @@ exports.saveAdd = async (req, res, next) => {
 }
 
 exports.setLock = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const account = req.body;
@@ -127,9 +124,9 @@ exports.setLock = async (req, res, next) => {
 }
 
 exports.setUnLock = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const account = req.body;

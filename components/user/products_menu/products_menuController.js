@@ -3,10 +3,10 @@ const products_menuService = require("./products_menuService");
 const qs = require("qs");
 
 exports.products_menu = async (req, res) => {
-  if(Object.values(agent).length === 0){
-     res.redirect("/");
-  }else if(Object.values(agent)[0] === 1){
-     res.redirect("/admin");
+  if(!req.user){
+      res.redirect("/");
+  }else if(Object.values(req.user)[0] === 1){
+      res.redirect("/admin");
   }
   const { name: nameFilter } = req.query;
   let products = [];
@@ -32,7 +32,6 @@ if(sort=="low"){
     products_menu_Mi,
     products_menu_Nuoc,
     products_menu_Khac,
-    agent,
     layout: "user_layout",
     originalUrl: `${req.baseUrl}/products_menu?${qs.stringify(withoutSort)}`,
   });

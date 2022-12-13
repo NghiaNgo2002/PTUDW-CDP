@@ -16,7 +16,6 @@ exports.checkUserCredential = async (phonenumber, password) => {
     const user = await authorizeRepository.getUserByPhonenumber(phonenumber);
     if(!user) return null;
     if(await bcrypt.compare(password,Object.values(user)[2]))
-        agent = user;
         return user;
     return null;
 }

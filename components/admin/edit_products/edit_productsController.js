@@ -2,9 +2,9 @@ const globalVar = require("../../../routes/globalVar");
 const products = require("./edit_productsService");
 const qs = require("qs");
 exports.product = async (req, res) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const { name: nameFilter } = req.query;
@@ -22,16 +22,15 @@ exports.product = async (req, res) => {
 
   res.render("admin/edit_products/products", {
     list_products,
-    agent,
     layout: "admin_layout",
     originalUrl: `${req.baseUrl}/edit_products?${qs.stringify(withoutSort)}`,
   });
 };
 
 exports.details = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const { id:id } = req.params;
@@ -40,14 +39,13 @@ exports.details = async (req, res, next) => {
   console.log(detail);
   res.render('admin/edit_products/details', {
     detail,
-    agent,
     layout: "admin_layout"});
 };
 
 exports.delete = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const { id:id } = req.params;
@@ -56,9 +54,9 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.saveEdit = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const product = req.body;
@@ -69,21 +67,20 @@ exports.saveEdit = async (req, res, next) => {
 };
 
 exports.add = (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   res.render('admin/edit_products/add', {
-    agent,
     layout: "admin_layout"
   });
 }
 
 exports.saveAdd = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   const product = req.body;
@@ -91,7 +88,6 @@ exports.saveAdd = async (req, res, next) => {
   const nextId = await products.nextId();
   await products.add(product, nextId);
   res.render('admin/edit_products', {
-    agent,
     layout: "admin_layout"
   });
 }

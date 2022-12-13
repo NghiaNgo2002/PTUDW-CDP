@@ -23,7 +23,7 @@ exports.delete = async (id) => {
 exports.saveEdit = async (id) => {
     var obj = Object.values(id);
     const result = await db.connection.execute("UPDATE menu SET NAME = ?, IMAGE = ?, PRICE = ? where id = ?;", [obj[1],obj[2],obj[3],obj[0]]);
-    agent = result[0][0];
+    return result[0][0];
 }
 
 exports.nextId = async () => {

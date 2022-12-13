@@ -1,9 +1,9 @@
 const globalVar = require("../../../routes/globalVar");
 
 exports.statistic = (req, res) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] !== 1){
+  }else if(Object.values(req.user)[0] !== 1){
       res.redirect("/user");
   }
   if (req.query.year_month) {
@@ -17,5 +17,5 @@ exports.statistic = (req, res) => {
     }
 
   }
-  res.render("admin/statistic/statistic", {agent, layout: "admin_layout" });
+  res.render("admin/statistic/statistic", { layout: "admin_layout" });
 };

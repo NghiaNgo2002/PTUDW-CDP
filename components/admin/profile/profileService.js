@@ -7,7 +7,7 @@ exports.editInfo = async (fullname, phonenumber, email, current_phonenumber, cur
         throw new Error('Phone number is exists!');
     if(email !== current_email && await authorizeRepository.emailExists(email))
         throw new Error('Email is exists!');
-    await profileRepository.editInfo(fullname, phonenumber, email);
+    return await profileRepository.editInfo(fullname, phonenumber, email, current_phonenumber);
 }
 
 exports.changePassword = async (phonenumber, password, newpassword) =>{
@@ -16,6 +16,6 @@ exports.changePassword = async (phonenumber, password, newpassword) =>{
     if(await bcrypt.compare(password,Object.values(user)[2])){
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(newpassword, salt);
-        await profileRepository.changePassword(hash);
+        return await profileRepository.changePassword(hash, phonenumber);
     }else throw new Error('Current password is not correct!');
 }

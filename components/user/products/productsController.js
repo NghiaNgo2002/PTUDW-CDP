@@ -4,9 +4,9 @@ const relatedProductService= require("../products_menu/products_menuService");
 
 
 exports.details = async (req, res, next) => {
-  if(Object.values(agent).length === 0){
+  if(!req.user){
       res.redirect("/");
-  }else if(Object.values(agent)[0] === 1){
+  }else if(Object.values(req.user)[0] === 1){
       res.redirect("/admin");
   }
   const { productId } = req.params;
@@ -19,5 +19,5 @@ exports.details = async (req, res, next) => {
       relatedProducts.splice(i, 1);
     }
   }
-  res.render("user/products/details", { product, relatedProducts, originalUrl: `${req.baseUrl}`,agent, layout: "user_layout" });
+  res.render("user/products/details", { product, relatedProducts, originalUrl: `${req.baseUrl}`, layout: "user_layout" });
 };
