@@ -9,8 +9,8 @@ const ajv = new Ajv();
 addFormats(ajv);
 
 exports.showLoginForm = (req, res) =>{
-    if(Object.values(agent).length !== 0){
-        if(Object.values(agent)[0] === 1){
+    if(req.user){
+        if(Object.values(req.user)[0] === 1){
             res.redirect("/admin");
         }else res.redirect("/user");
     }
@@ -18,8 +18,8 @@ exports.showLoginForm = (req, res) =>{
 }
 
 exports.showRegisterForm = (req, res) =>{
-    if(Object.values(agent).length !== 0){
-        if(Object.values(agent)[0] === 1){
+    if(req.user){
+        if(Object.values(req.user)[0] === 1){
             res.redirect("/admin");
         }else res.redirect("/user");
     }
@@ -56,7 +56,6 @@ exports.signout = (req, res) => {
         if(err){
             return next(err);
         }
-        agent = {}
         res.redirect('/');
     })
 }
