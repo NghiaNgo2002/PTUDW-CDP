@@ -1,6 +1,6 @@
 const globalVar = require("../../../routes/globalVar");
-
-exports.statistic = (req, res) => {
+const statistic = require("./statisticService")
+exports.statistic = async (req, res) => {
   if(!req.user){
       res.redirect("/");
   }else if(Object.values(req.user)[0] !== 1){
@@ -15,7 +15,19 @@ exports.statistic = (req, res) => {
     for (var i = 1; i < 32; i++) {
       turnover.push({day: "Day " + i, turnover: 0})
     }
-
   }
-  res.render("admin/statistic/statistic", { layout: "admin_layout" });
+  var arr = []
+  let result = await statistic.getPrice();
+
+  console.log(result);
+  console.log(result["PRICE"]);
+
+  for (var i = 0; i < result.length; i++) {
+    arr.push(result.price[i]);
+  }
+  console.log(arr);
+  console.log("CONTROLLERR!!!");
+  res.render("admin/statistic/statistic", {
+    arr,
+    layout: "admin_layout" });
 };

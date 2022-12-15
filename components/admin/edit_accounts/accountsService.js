@@ -1,8 +1,8 @@
 const { connection } = require("../../../db");
 const accountsRepository = require("./accountsRepository");
 
-exports.getAll = (category) => {
-    return accountsRepository.getAll(category);
+exports.getAll = () => {
+    return accountsRepository.getAll();
 };
 
 exports.filter = (name) => {

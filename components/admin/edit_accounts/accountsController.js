@@ -1,6 +1,7 @@
 const globalVar = require("../../../routes/globalVar");
 const accounts = require("./accountsService");
 const qs = require("qs");
+const bcrypt = require('bcryptjs');
 exports.account = async (req, res) => {
   if(!req.user){
       res.redirect("/");
@@ -76,12 +77,8 @@ exports.saveEdit = async (req, res, next) => {
       res.redirect("/user");
   }
   const account = req.body;
+  console.log(account);
 
-
-  if (account['isRePass'] == 'true') {
-    account['password'] = '1234';
-  }
-  //delete account.isRePass;
   await accounts.saveEdit(account);
   
   res.redirect("/admin/edit_accounts");
@@ -107,6 +104,12 @@ exports.saveAdd = async (req, res, next) => {
       res.redirect("/user");
   }
   const account = req.body;
+  console.log(account);
+  console.log(account['Password']);
+  var password = account['Password'];
+  const salt = await bcrypt.genSalt(10);
+  var tmp = await bcrypt.hash(password, salt);
+  account['Password'] = tmp;
   await accounts.add(account);
   res.redirect('/admin/edit_accounts');
 }

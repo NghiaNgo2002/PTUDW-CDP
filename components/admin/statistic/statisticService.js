@@ -1,13 +1,17 @@
-const accountsRepository = require("./accountsRepository");
+const statisticRepository = require("./statisticRepository");
 
-exports.getAll = (category) => {
-    return accountsRepository.getAll(category);
+exports.getAll = () => {
+    return statisticRepository.getAll();
 };
 
 exports.filter = (name) => {
-    return accountsRepository.filter(name);
+    return statisticRepository.filter(name);
 };
 
 exports.getId = (id) => {
-    return accountsRepository.getId(id);
+    return statisticRepository.getId(id);
+};
+
+exports.getPrice = () => {
+    return statisticRepository.getPrice();
 };
