@@ -1,3 +1,4 @@
+
 <main id="main" class="main">
     <div class="search-bar">
         <form class="search-form d-flex align-items-center" method="GET" action="">
@@ -31,76 +32,58 @@
     <div class="p-2 bg-muted">
         <div class="card h-100 mb-100 shadow">
             <h5 class="card-header bg-white text-light d-flex justify-content-between">
-                Student Accounts
-                {{! <a class="btn btn-outline-dark" href="/admin/categories/add" role="button">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              Add Category
-            </a> }}
+                Accounts
             </h5>
-            {{#if this.sempty}}
-                <div class="card-body">
-                    <p class="card-text">
-                        Không có dữ liệu.
-                    </p>
-                </div>
-            {{else}}
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            ID
+                        </th>
+                        <th scope="col">
+                            Phone number
+                        </th>
+                        <th scope="col">
+                            Created date
+                        </th>
+                        <th scope="col">
+                            Status
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each list_accounts}}
                         <tr>
-                            <th scope="col">
-                                ID
+                            <th scope="row">
+                                {{ID}}
                             </th>
-                            <th scope="col">
-                                Phone number
-                            </th>
-                            <th scope="col">
-                                Created date
-                            </th>
-                            <th scope="col">
-                                Status
-                            </th>
-                            <th scope="col"></th>
+                            <td>
+                                {{PHONENUMBER}}
+                            </td>
+                            <td>
+                                {{CREATEDDATE}}
+                            </td>
+                            <td>
+                                {{#when ACTIVE 'eq' 1}}
+                                    <i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>
+                                {{else}}
+                                    <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
+                                {{/when}}
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-dark" href="/admin/edit_accounts/{{ID}}" role="button" title="Edit Accounts">
+                                   <i class="fas fa-user-cog"></i>
+                                </a>
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {{#each list_accounts}}
-                            <tr>
-                                <th scope="row">
-                                    {{ID}}
-                                </th>
-                                <td>
-                                    {{PHONENUMBER}}
-                                </td>
-                                <td>
-                                    {{CREATEDDATE}}
-                                </td>
-                                <td>
-                                    {{#when ACTIVE 'eq' 1}}
-                                        <i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>
-                                    {{else}}
-                                        <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
-                                    {{/when}}
-                                </td>
-                                <td class="text-right">
-                                    <a
-                                            class="btn btn-sm btn-dark"
-                                            href="/admin/edit_accounts/{{ID}}"
-                                            role="button"
-                                            title="Edit Accounts"
-                                    >
-                                        <i class="fas fa-user-cog    "></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            {{/if}}
-            {{! <div class="card-footer text-muted">
-          Footer
-        </div> }}
+                    {{/each}}
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
         </div>
     </div>
+
 </main>

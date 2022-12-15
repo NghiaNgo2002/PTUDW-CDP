@@ -26,7 +26,7 @@ exports.saveEdit = async (id) => {
     var obj = Object.values(id);
     
     if(obj[6]) {
-        var password = '1234';
+        var password = '123456';
         const salt = await bcrypt.genSalt(10);
         password = await bcrypt.hash(password, salt);
         await db.connection.execute("UPDATE accounts SET PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, EMAIL = ?, BUDGET = ? WHERE ID = ?;", [obj[1], password, obj[2], obj[3], obj[4], obj[0]]);
