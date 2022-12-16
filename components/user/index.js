@@ -14,6 +14,7 @@ router.get("/cart", cart.cart);
 router.get("/contact", contact.contact);
 router.get("/profile", profile.profile);
 router.post("/profile", profile.editProfile);
+router.get('/signout', profile.signout);
 router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
 router.get("/products/:productId", products.details);

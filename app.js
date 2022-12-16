@@ -9,7 +9,9 @@ const indexRouter = require("./routes/index");
 const authRouter = require("./components/_auth/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
-const globalVar = require("./routes/globalVar");
+const user_auth = require("./middleware/user");
+const admin_auth = require("./middleware/admin");
+const auth_auth = require("./middleware/auth");
 const passport = require("./components/_auth/passport/index");
 const hbs = require("express-handlebars");
 const app = express();
@@ -47,6 +49,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+
 app.use(passport.authenticate('session'));
 
 app.use(logger("dev"));
@@ -61,11 +64,9 @@ app.use(function(req, res, next){
 });
 
 app.use("/", indexRouter);
-app.use("/auth", authRouter);
-app.use("/admin", adminRouter);
-app.use("/user", usersRouter);
-
-//app.use("/", usersRouter);
+app.use("/auth", auth_auth, authRouter);
+app.use("/user", user_auth, usersRouter);
+app.use("/admin", admin_auth, adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

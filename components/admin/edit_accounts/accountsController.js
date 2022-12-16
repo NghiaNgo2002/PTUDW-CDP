@@ -1,13 +1,7 @@
-const globalVar = require("../../../routes/globalVar");
 const accounts = require("./accountsService");
 const qs = require("qs");
 const bcrypt = require('bcryptjs');
 exports.account = async (req, res) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const { name: nameFilter } = req.query;
   let list_accounts = [];
   const { sort, withoutSort } = req.query;
@@ -44,11 +38,6 @@ exports.account = async (req, res) => {
 };
 
 exports.details = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const { id:id } = req.params;
   
   const detail = await accounts.getId(id);
@@ -59,11 +48,6 @@ exports.details = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const account = req.body;
 
   await accounts.delete(account);
@@ -71,11 +55,6 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.saveEdit = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const account = req.body;
   console.log(account);
 
@@ -85,11 +64,6 @@ exports.saveEdit = async (req, res, next) => {
 };
 
 exports.add = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const nextId = await accounts.nextId();
   res.render('admin/edit_accounts/add', {
     nextId,
@@ -98,11 +72,6 @@ exports.add = async (req, res, next) => {
 }
 
 exports.saveAdd = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const account = req.body;
   console.log(account);
   console.log(account['Password']);
@@ -115,11 +84,6 @@ exports.saveAdd = async (req, res, next) => {
 }
 
 exports.setLock = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const account = req.body;
   account['ACTIVE'] = 0;
   await accounts.setLock(account);
@@ -127,11 +91,6 @@ exports.setLock = async (req, res, next) => {
 }
 
 exports.setUnLock = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const account = req.body;
   account['ACTIVE'] = 1;
   await accounts.setUnLock(account);

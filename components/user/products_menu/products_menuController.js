@@ -1,13 +1,7 @@
-const globalVar = require("../../../routes/globalVar");
 const products_menuService = require("./products_menuService");
 const qs = require("qs");
 
 exports.products_menu = async (req, res) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] === 1){
-      res.redirect("/admin");
-  }
   const { name: nameFilter } = req.query;
   let products = [];
   const { sort, ...withoutSort } = req.query;

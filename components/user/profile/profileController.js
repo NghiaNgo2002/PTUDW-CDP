@@ -1,4 +1,3 @@
-const globalVar = require("../../../routes/globalVar");
 const profileService = require('./profileService');
 const authorizeRepository = require('../../_auth/authorizeRepository');
 
@@ -14,12 +13,6 @@ exports.profileRedirect = (req, res) => {
 }
 
 exports.profile = async (req, res) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] === 1){
-      res.redirect("/admin");
-  }
-  
   res.render("user/profile/profile", { layout: "user_layout" });
 };
 
@@ -67,4 +60,13 @@ exports.editProfile = async (req, res) => {
             return;
         }
     }
+}
+
+exports.signout = (req, res) => {
+    req.logout(function (err){
+        if(err){
+            return next(err);
+        }
+        res.redirect('/');
+    })
 }

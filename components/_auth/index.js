@@ -13,6 +13,4 @@ router.post('/', passport.authenticate('local',{
 router.get('/register', authorizeController.showRegisterForm);
 router.post('/register', authorizeController.register);
 
-router.get('/signout', authorizeController.signout);
-
 module.exports = router;

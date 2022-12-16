@@ -12,6 +12,7 @@ router.get("/edit_accounts", edit_accounts.account);
 router.get("/edit_products", edit_products.product);
 router.get("/profile", profile.profile);
 router.post("/profile", profile.editProfile);
+router.get('/signout', profile.signout);
 router.get("/statistic", statistic.statistic);
 router.get("/register", register.register);
 

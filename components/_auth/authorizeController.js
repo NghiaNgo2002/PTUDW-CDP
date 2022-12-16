@@ -1,4 +1,3 @@
-const globalVar = require('../../routes/globalVar');
 const authorizeService = require('./authorizeService');
 
 const Ajv = require('ajv');
@@ -9,20 +8,10 @@ const ajv = new Ajv();
 addFormats(ajv);
 
 exports.showLoginForm = (req, res) =>{
-    if(req.user){
-        if(Object.values(req.user)[0] === 1){
-            res.redirect("/admin");
-        }else res.redirect("/user");
-    }
     res.render('_auth/login', { title: 'Express', layout: false});
 }
 
 exports.showRegisterForm = (req, res) =>{
-    if(req.user){
-        if(Object.values(req.user)[0] === 1){
-            res.redirect("/admin");
-        }else res.redirect("/user");
-    }
     res.render('_auth/register', { title: 'Express', layout: false});
 }
 
@@ -49,13 +38,4 @@ exports.register = async (req, res) => {
         return;
     }
     res.redirect('/');
-}
-
-exports.signout = (req, res) => {
-    req.logout(function (err){
-        if(err){
-            return next(err);
-        }
-        res.redirect('/');
-    })
 }

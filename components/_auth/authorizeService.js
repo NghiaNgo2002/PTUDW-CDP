@@ -1,5 +1,4 @@
 const authorizeRepository = require('./authorizeRepository');
-const global = require('../../routes/globalVar');
 const bcrypt = require('bcryptjs');
 
 exports.register = async (fullname, phonenumber, email, password)=>{

@@ -1,12 +1,6 @@
-const globalVar = require("../../../routes/globalVar");
 const products = require("./edit_productsService");
 const qs = require("qs");
 exports.product = async (req, res) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const { name: nameFilter } = req.query;
   let list_products = [];
   const { sort, withoutSort } = req.query;
@@ -28,11 +22,6 @@ exports.product = async (req, res) => {
 };
 
 exports.details = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const { id:id } = req.params;
 
   const detail = await products.getId(id);
@@ -43,22 +32,12 @@ exports.details = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const { id:id } = req.params;
   await products.delete(id);
   res.redirect("/admin/edit_products");
 };
 
 exports.saveEdit = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const product = req.body;
 
   await products.saveEdit(product);
@@ -67,22 +46,12 @@ exports.saveEdit = async (req, res, next) => {
 };
 
 exports.add = (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   res.render('admin/edit_products/add', {
     layout: "admin_layout"
   });
 }
 
 exports.saveAdd = async (req, res, next) => {
-  if(!req.user){
-      res.redirect("/");
-  }else if(Object.values(req.user)[0] !== 1){
-      res.redirect("/user");
-  }
   const product = req.body;
 
   const nextId = await products.nextId();
