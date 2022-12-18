@@ -35,4 +35,7 @@ router.post("/edit_products/patch", edit_products.saveEdit);
 router.post("/edit_accounts/lock", edit_accounts.setLock);
 router.post("/edit_accounts/unlock", edit_accounts.setUnLock);
 
+//API
+router.get("/api/edit_products/category", edit_products.getCategory);
+router.get("/api/edit_products", edit_products.paginator);
 module.exports = router;

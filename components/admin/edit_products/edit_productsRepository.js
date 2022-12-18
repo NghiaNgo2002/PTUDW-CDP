@@ -39,3 +39,15 @@ exports.add = async (account, nextId) => {
     //const result =  await db.connection.execute("insert into menu set ?", [account]);
     return result[0];
 }
+
+
+exports.getAllCategory = async () => {
+    const result = await db.connection.execute('select distinct category from menu ');
+    return result[0];
+}
+
+exports.getCategory = async (category) => {
+    const result = await db.connection.execute('select * from menu where category = ?', [category]);
+    return result[0];
+}
+

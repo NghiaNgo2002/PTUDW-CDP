@@ -37,16 +37,26 @@
               Add Category
             </a> }}
             </h5>
-            {{#if isempty}}
-                <div class="card-body">
-                    <p class="card-text">
-                        Không có dữ liệu.
-                    </p>
+            <form>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="name_sorting" name="name_sorting">
+                    <label class="custom-control-label" for="name_sorting">Name</label>
                 </div>
-            {{else}}
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
+                <input type="checkbox" id="desc_sorting" name="desc_sorting" disabled>
+                <label for="defaultCheck">Desc</label>
+                <br>
+            </form>
+            <button id="sortingbtn" class="btn btn-primary" disabled>Sort Now</button>
+            <hr>
+            <div class="form-group">
+                <label for="slected_form"><h5>Filtering with Category:</h5></label>
+                <select class="form-control" id="selected_form">
+                </select>
+            </div>
+
+            <div class="card-body">
+                <table id="productsTable" class="table table-hover">
+                    <thead>
                         <tr>
                             <th scope="col">
                                 ID
@@ -60,38 +70,36 @@
                             <th scope="col"></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {{#each list_products}}
-                            <tr>
-                                <th scope="row">
-                                    {{ID}}
-                                </th>
-                                <td>
-                                    {{NAME}}
-                                </td>
-                                <td>
-                                    {{PRICE}}
-                                </td>
+                    <tbody>
 
-                                <td class="text-right">
-                                    <a
-                                            class="btn btn-sm btn-dark"
-                                            href="/admin/edit_products/{{ID}}"
-                                            role="button"
-                                            title="Edit products"
-                                    >
-                                        <i class="fas fa-user-cog    "></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            {{/if}}
+                    </tbody>
+                </table>
+                <ul class="pagination justify-content-center" style="margin:20px 0">
+                </ul>
+            </div>
+
             {{! <div class="card-footer text-muted">
           Footer
         </div> }}
         </div>
     </div>
 </main>
+
+<!--<tr>-->
+<!--    <th scope="row">-->
+<!--        -->
+<!--    </th>-->
+<!--    <td>-->
+<!--        NAME}}-->
+<!--    </td>-->
+<!--    <td>-->
+<!--        PRICE}}-->
+<!--    </td>-->
+
+<!--    <td class="text-right">-->
+<!--        <a class="btn btn-sm btn-dark" href="/admin/edit_products/ID}}"-->
+<!--           role="button" title="Edit products">-->
+<!--            <i class="fas fa-user-cog    "></i>-->
+<!--        </a>-->
+<!--    </td>-->
+<!--</tr>-->

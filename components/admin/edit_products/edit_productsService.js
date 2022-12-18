@@ -1,7 +1,7 @@
 const productsRepository = require("./edit_productsRepository");
 
-exports.getAll = (category) => {
-    return productsRepository.getAll(category);
+exports.getAll = () => {
+    return productsRepository.getAll();
 };
 
 exports.filter = (name) => {
@@ -26,4 +26,13 @@ exports.add = (account) => {
 
 exports.nextId = () => {
     return productsRepository.nextId();
+}
+
+
+exports.getAllCategory = () => {
+    return productsRepository.getAllCategory();
+}
+
+exports.getCategory = (category) => {
+    return productsRepository.getCategory(category);
 }
