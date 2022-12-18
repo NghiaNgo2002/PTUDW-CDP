@@ -102,27 +102,8 @@
             <p>Menu</p>
             <h3>Tìm kiếm</h3>
           </div>
-          <div class="row gy-5">
-            {{#each products}}
-              <div class="col-lg-4 menu-item">
-                <a href="products/{{ID}}">
-                  <div>
-                    <img
-                      src="/assets_menu/img/menu/{{IMAGE}}"
-                      class="menu-img img-fluid"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h4>{{NAME}}</h4>
-                    <p class="price">
-                      {{PRICE}}
-                      VNĐ
-                    </p>
-                  </div>
-                </a>
-              </div><!-- Menu Item -->
-            {{/each}}
+          <div class="row gy-5" id="TimKiem">
+            
           </div>
         </div><!-- End Starter Menu Content -->
 
@@ -262,7 +243,17 @@
         </div><!-- End Dinner Menu Content -->
 
       </div>
+{{!-- <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav> --}}
 
+     <ul id="pagination-demo" class="pagination-sm"></ul>
     </div>
   </section><!-- End Menu Section -->
 </main>

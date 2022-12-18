@@ -8,16 +8,18 @@ const faq = require("./faq/faqController");
 const orders_history = require("./orders_history/orders_historyController");
 const products = require("./products/productsController");
 const products_menu = require("./products_menu/products_menuController");
+const menu_api = require("./products_menu/menu_api/menu_api");
 
 router.get("/", profile.profileRedirect);
 router.get("/cart", cart.cart);
 router.get("/contact", contact.contact);
 router.get("/profile", profile.profile);
 router.post("/profile", profile.editProfile);
-router.get('/signout', profile.signout);
+router.get("/signout", profile.signout);
 router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
 router.get("/products/:productId", products.details);
 router.get("/products_menu", products_menu.products_menu);
+router.get("/api/products_menu", menu_api.getProductPage);
 
 module.exports = router;

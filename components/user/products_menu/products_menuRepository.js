@@ -5,6 +5,11 @@ exports.getAll = async () => {
   return result[0];
 };
 
+exports.getLimit = async (products, first, last) => {
+  first = first < last ? first : last;
+  return products.slice(first, last + 1);
+};
+
 exports.getCategory = async (category) => {
   const result = await db.connection.execute(
     "SELECT * FROM menu where CATEGORY like ?",

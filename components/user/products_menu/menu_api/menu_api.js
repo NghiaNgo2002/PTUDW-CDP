@@ -1,11 +1,12 @@
-const products_menuService = require("./products_menuService");
+const products_menuService = require("../products_menuService");
 const qs = require("qs");
 const Paginator = require("paginator");
 
-exports.products_menu = async (req, res) => {
+exports.getProductPage = async (req, res) => {
   // Arguments are `per_page` and `length`. `per_page` changes the number of
   // results per page, `length` changes the number of links displayed.
   let paginator = new Paginator(3, 3);
+
   //name filter
   const { name: nameFilter } = req.query;
   let products = [];
@@ -31,20 +32,8 @@ exports.products_menu = async (req, res) => {
     pagination_info.first_result,
     pagination_info.last_result
   );
-
-  let products_menu_Com = await products_menuService.getCategory("Cơm");
-  let products_menu_Mi = await products_menuService.getCategory("Mì");
-  let products_menu_Nuoc = await products_menuService.getCategory("Nước");
-  let products_menu_Khac = await products_menuService.getCategory("Khác");
-
-  res.render("user/products_menu/menu", {
-    pagination_info,
-    products,
-    products_menu_Com,
-    products_menu_Mi,
-    products_menu_Nuoc,
-    products_menu_Khac,
-    layout: "user_layout",
-    originalUrl: `${req.baseUrl}/products_menu?${qs.stringify(withoutSort)}`,
+  return res.status(200).json({
+    products: products,
+    pagination_info: pagination_info,
   });
 };

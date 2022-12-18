@@ -1,8 +1,12 @@
 const { connection } = require("../../../db");
 const products_menuRepository = require("./products_menuRepository");
 
-exports.getAll = (category) => {
+exports.getAll = () => {
   return products_menuRepository.getAll();
+};
+
+exports.getLimit = (products, first, last) => {
+  return products_menuRepository.getLimit(products, first, last);
 };
 
 exports.getCategory = (category) => {
