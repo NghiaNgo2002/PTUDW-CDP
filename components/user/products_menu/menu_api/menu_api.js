@@ -26,7 +26,7 @@ exports.getProductPage = async (req, res) => {
   const { page: curPage } = req.query;
 
   let pagination_info = paginator.build(Object.keys(products).length, curPage);
-
+  console.log(pagination_info);
   products = await products_menuService.getLimit(
     products,
     pagination_info.first_result,

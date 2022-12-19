@@ -66,7 +66,7 @@ exports.paginator = async (req, res) => {
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.size);
     let name = (req.query.namesorting === 'true');
-    let price = (req.query.price === 'true');
+    let price = (req.query.pricesorting === 'true');
     let category = req.query.category ? req.query.category : -1;
     let desc = (req.query.desc === 'true');
 
@@ -76,30 +76,30 @@ exports.paginator = async (req, res) => {
 
     var result = [];
     var arr = [];
+
     // NOT Filtering with salary
     if(category < 0 || category == 'All'){
+      result = await products.getAll();
+      for(var i in result)
+        arr.push(result[i]);
       // not sorting with age
-      if(name == false) {
-        result = await products.getAll();
-
-        for(var i in result)
-          arr.push(result[i]);
-        arr.sort(function(a, b){return a - b});
-      } else {
+      if(name == true) {
         if(desc == false) { // sorting with name and ascending
-          result = await products.getAll();
-
-          for(var i in result)
-            arr.push(result[i]);
-          console.log(arr);
-          arr.sort(function(a, b){return a - b});
-          console.log(arr);
+          arr.sort((a,b)=> a.NAME-b.NAME);
         } else { // sorting with name and descending
-          result = await products.getAll();
-          for(var i in result)
-            arr.push(result[i]);
-          arr.sort(function(a, b){return b - a});
+          console.log(result);
+          console.log("REVERSEEEEEEEEEEEEE");
+          arr.sort((a,b)=> b.NAME-a.NAME);
+          console.log(result);
         }
+      }else if(price == true){
+        if(desc == false) { // sorting with price and ascending
+          arr.sort((a,b)=> a.PRICE-b.PRICE);
+        } else { // sorting with name and descending
+          arr.sort((a,b)=> b.PRICE-a.PRICE);
+        }
+      } else {
+        arr.sort(function(a, b){return a - b});
       }
     } else { // Filtering with category
       // not sorting with age
@@ -113,11 +113,13 @@ exports.paginator = async (req, res) => {
           result = await products.getCategory(category);
           for(var i in result)
             arr.push(result[i]);
+          arr.sort((a,b)=> a.NAME-b.NAME);
         } else { // sorting with age and descending
 
           result = await products.getCategory(category);
           for(var i in result)
             arr.push(result[i]);
+          arr.sort((a,b)=> b.NAME-a.NAME);
         }
       }
     }
@@ -136,7 +138,6 @@ exports.paginator = async (req, res) => {
       "products": temp
     };
     res.send(response);
-    console.log("REsponsedddddd");
   }catch(error) {
     res.status(500).send({
       message: "Error -> Can NOT complete a paging request!",
@@ -147,6 +148,22 @@ exports.paginator = async (req, res) => {
 
 exports.getCategory = async (req, res) => {
   try {
+    const result = await products.getAllCategory();
+    var category = [];
+    for(var i in result)
+      category.push([result[i]['category']]);
+    res.send(category);
+  } catch(error) {
+    res.status(500).send({
+      message: "Error -> Can NOT get all customer's salaries",
+      error: error.message
+    });
+  }
+}
+
+exports.getSearch = async (req, res) => {
+  try {
+
     const result = await products.getAllCategory();
     var category = [];
     for(var i in result)
