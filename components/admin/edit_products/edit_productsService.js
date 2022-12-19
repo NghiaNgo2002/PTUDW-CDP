@@ -36,3 +36,7 @@ exports.getAllCategory = () => {
 exports.getCategory = (category) => {
     return productsRepository.getCategory(category);
 }
+
+exports.getSearch = (category) => {
+    return productsRepository.getSearch(category);
+}
