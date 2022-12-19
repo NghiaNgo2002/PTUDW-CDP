@@ -8,7 +8,11 @@ const ajv = new Ajv();
 addFormats(ajv);
 
 exports.showLoginForm = (req, res) =>{
-    res.render('_auth/login', { title: 'Express', layout: false});
+    var {error : error} = req.query;
+    if(error === "1"){
+        error = "Invalid username or password!";
+    }
+    res.render('_auth/login', { title: 'Express', layout: false, error: error});
 }
 
 exports.showRegisterForm = (req, res) =>{

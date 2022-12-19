@@ -9,6 +9,7 @@ const indexRouter = require("./routes/index");
 const authRouter = require("./components/_auth/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
+const apiRouter = require("./components/_auth/api/index");
 const user_auth = require("./middleware/user");
 const admin_auth = require("./middleware/admin");
 const auth_auth = require("./middleware/auth");
@@ -64,6 +65,7 @@ app.use(function(req, res, next){
 });
 
 app.use("/", indexRouter);
+app.use("/api", apiRouter);
 app.use("/auth", auth_auth, authRouter);
 app.use("/user", user_auth, usersRouter);
 app.use("/admin", admin_auth, adminRouter);
