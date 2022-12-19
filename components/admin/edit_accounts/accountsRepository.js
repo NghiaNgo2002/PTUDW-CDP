@@ -57,5 +57,5 @@ exports.add = async (account) => {
 
 exports.setLockUnlock = async (id) => {
     var obj = Object.values(id);
-    await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[4], obj[0]]);
+    await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[6], obj[0]]);
 }

@@ -1,7 +1,8 @@
 $(document).ready(function(){
-    function fetchproducts(page, size, category, namesorting, pricesorting, desc){
+    function fetchproducts(page, size, search, category, namesorting, pricesorting, desc){
         let pageNumber = (typeof page !== 'undefined') ?  page : 0;
         let sizeNumber = (typeof size !== 'undefined') ?  size : 5;
+        let searched = (typeof search !== 'undefined') ? search : null;
         let selectedcategory = (typeof category !== 'undefined') ?  category : -1;
         let nameSorted = (typeof namesorting !== 'undefined') ?  namesorting: false;
         let priceSorted = (typeof pricesorting !== 'undefined') ?  pricesorting: false;
@@ -16,6 +17,7 @@ $(document).ready(function(){
             data: {
                 page: pageNumber,
                 size: sizeNumber,
+                search: searched,
                 category: selectedcategory,
                 namesorting: nameSorted,
                 pricesorting: priceSorted,
@@ -51,13 +53,41 @@ $(document).ready(function(){
             }
         });
     }
+    /**
+     * Search
+     */
+    $("#search").keyup(function (){
+        let category = '-1';
 
+        let search = this.value;
+
+        let namesorting = false;
+        let pricesorting = false;
+        let desc = false;
+
+        category = $("#selected_form").value;
+
+        if($("#name_sorting"). prop("checked") == true){
+            namesorting = true;
+        }
+
+        if($("#price_sorting"). prop("checked") == true){
+            pricesorting = true;
+        }
+
+        if($("#desc_sorting"). prop("checked") == true){
+            desc = true;
+        }
+
+        // re-fetch customer list again
+        fetchproducts(0, 5, search, category, namesorting, pricesorting, desc);
+    })
     /**
      * Select a category for pagination & filtering
      */
     $("select").change(function() {
         let category = '-1';
-
+        let search = null;
 
         category = this.value;
 
@@ -79,7 +109,7 @@ $(document).ready(function(){
         }
 
         // re-fetch customer list again
-        fetchproducts(0, 5, category, namesorting, pricesorting, desc);
+        fetchproducts(0, 5, search, category, namesorting, pricesorting, desc);
     });
 
     /**
