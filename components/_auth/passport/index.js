@@ -19,7 +19,8 @@ passport.serializeUser(function(user, cb) {
         CREATEDDATE: Object.values(user)[5],
         LEVEL: Object.values(user)[6],
         IMAGE: Object.values(user)[7],
-        BUDGET: Object.values(user)[9]
+        BUDGET: Object.values(user)[8],
+        ACTIVE: Object.values(user)[9]
     });
   });
 });

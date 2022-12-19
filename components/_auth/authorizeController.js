@@ -11,6 +11,8 @@ exports.showLoginForm = (req, res) =>{
     var {error : error} = req.query;
     if(error === "1"){
         error = "Invalid username or password!";
+    }else if(error === "2"){
+        error = "Your account was banned!";
     }
     res.render('_auth/login', { title: 'Express', layout: false, error: error});
 }
