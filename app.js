@@ -16,7 +16,7 @@ const auth_auth = require("./middleware/auth");
 const passport = require("./components/_auth/passport/index");
 const hbs = require("express-handlebars");
 const app = express();
-
+var blocks = {};
 // view engine setup
 app.engine('.hbs',
     hbs.engine({
@@ -38,7 +38,21 @@ app.engine('.hbs',
 
               if (result) return options.fn(this);
               else  return options.inverse(this);
+            },
+            extend: function(name, context) {
+              var block = blocks[name];
+              if (!block) {
+                    block = blocks[name] = [];
+                }
+              block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+            },
+            block: function(name) {
+                  var val = (blocks[name] || []).join('\n');
+                  // clear the block
+                  blocks[name] = [];
+                  return val;
             }
+
         }
     }
 ));

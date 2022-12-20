@@ -1,6 +1,7 @@
 const accounts = require("./accountsService");
 const qs = require("qs");
 const bcrypt = require('bcryptjs');
+
 exports.account = async (req, res) => {
   const { name: nameFilter } = req.query;
   let list_accounts = [];
@@ -96,3 +97,115 @@ exports.setUnLock = async (req, res, next) => {
   await accounts.setUnLock(account);
   res.redirect('/admin/edit_accounts');
 }
+
+exports.paginator = async (req, res) => {
+  try{
+    let page = parseInt(req.query.page);
+    let limit = parseInt(req.query.size);
+    let search = req.query.search ? req.query.search : -1;
+    let phone = (req.query.phonesorting === 'true');
+    let date = (req.query.datesorting === 'true');
+    let category = req.query.category ? req.query.category : -1;
+    let desc = (req.query.desc === 'true');
+
+    const offset = page ? page * limit : 0;
+    console.log(category);
+    console.log("offset = " + offset);
+
+    var result = [];
+    var arr = [];
+
+    if(search != -1){
+      result = await accounts.getSearch(search);
+      for (var i in result)
+        arr.push(result[i]);
+    }else {
+      // NOT Filtering with salary
+      if (category < 0 || category == 'All') {
+        // not sorting with name
+        if (phone == true) {
+          if (desc == false) { // sorting with name and ascending
+            let sort = 'asc';
+            result = await accounts.getNameSorted(sort);
+            for (var i in result)
+              arr.push(result[i]);
+          } else { // sorting with name and descending
+            let sort = 'desc';
+            result = await accounts.getNameSorted(sort);
+            for (var i in result)
+              arr.push(result[i]);
+          }
+        } else if (date == true) {
+          result = await accounts.getAll();
+          for (var i in result)
+            arr.push(result[i]);
+          if (desc == false) { // sorting with price and ascending
+            arr.sort((a, b) => a.DATE - b.DATE);
+          } else { // sorting with name and descending
+            arr.sort((a, b) => b.DATE - a.DATE);
+          }
+        } else {
+          result = await accounts.getAll();
+          for (var i in result)
+            arr.push(result[i]);
+        }
+      } else { // Filtering with category
+        // not sorting with age
+        if (phone == false) {
+          result = await accounts.getAllActive(category);
+          for (var i in result)
+            arr.push(result[i]);
+        } else {
+          if (desc == false) { // sorting with age and ascending
+
+            result = await accounts.getAllActive(category);
+            for (var i in result)
+              arr.push(result[i]);
+
+          } else { // sorting with name and descending
+
+            result = await accounts.getAllActive(category);
+            for (var i in result)
+              arr.push(result[i]);
+          }
+        }
+      }
+    }
+
+    if(offset + limit >= result.length){
+      var temp = arr.slice(offset, result.length);
+    }
+    else{
+      var temp = arr.slice(offset, offset + limit);
+    }
+    const totalPages = Math.ceil(result.length / limit);
+    const response = {
+      "totalPages": totalPages,
+      "pageNumber": page,
+      "pageSize": result.length,
+      "accounts": temp
+    };
+    res.send(response);
+  }catch(error) {
+    res.status(500).send({
+      message: "Error -> Can NOT complete a paging request!",
+      error: error.message,
+    });
+  }
+}
+
+exports.getActive = async (req, res) => {
+  try {
+    const result = await accounts.getAllActive();
+    var category = [];
+    for(var i in result)
+      category.push([result[i]['ACTIVE']]);
+    res.send(category);
+  } catch(error) {
+    res.status(500).send({
+      message: "Error -> Can NOT get all customer's salaries",
+      error: error.message
+    });
+  }
+}
+

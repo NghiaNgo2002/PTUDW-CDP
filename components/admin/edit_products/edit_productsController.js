@@ -62,7 +62,6 @@ exports.saveAdd = async (req, res, next) => {
 
 exports.paginator = async (req, res) => {
   try{
-    console.log(req.query.category);
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.size);
     let search = req.query.search ? req.query.search : -1;
@@ -114,14 +113,9 @@ exports.paginator = async (req, res) => {
 
         }
       } else { // Filtering with category
-        // not sorting with age
-        if (name == false) {
-          result = await products.getCategory(category);
-          for (var i in result)
-            arr.push(result[i]);
-        } else {
-          if (desc == false) { // sorting with age and ascending
-
+        // not sorting with name
+        if (name == true) {
+          if (desc == false) { // sorting with name and ascending
             result = await products.getCategory(category);
             for (var i in result)
               arr.push(result[i]);
@@ -132,6 +126,20 @@ exports.paginator = async (req, res) => {
             for (var i in result)
               arr.push(result[i]);
           }
+        } else if(price == true){
+          result = await products.getCategory(category);
+          for (var i in result)
+            arr.push(result[i]);
+          if (desc == false) { // sorting with price and ascending
+            arr.sort((a, b) => a.PRICE - b.PRICE);
+          } else { // sorting with name and descending
+            arr.sort((a, b) => b.PRICE - a.PRICE);
+          }
+        }
+        else {
+          result = await products.getCategory(category);
+          for (var i in result)
+            arr.push(result[i]);
         }
       }
     }
@@ -140,7 +148,7 @@ exports.paginator = async (req, res) => {
       var temp = arr.slice(offset, result.length);
     }
     else{
-      var temp = arr.slice(offset, limit);
+      var temp = arr.slice(offset, offset + limit);
     }
 
     const totalPages = Math.ceil(result.length / limit);
@@ -161,22 +169,6 @@ exports.paginator = async (req, res) => {
 
 exports.getCategory = async (req, res) => {
   try {
-    const result = await products.getAllCategory();
-    var category = [];
-    for(var i in result)
-      category.push([result[i]['category']]);
-    res.send(category);
-  } catch(error) {
-    res.status(500).send({
-      message: "Error -> Can NOT get all customer's salaries",
-      error: error.message
-    });
-  }
-}
-
-exports.getSearch = async (req, res) => {
-  try {
-
     const result = await products.getAllCategory();
     var category = [];
     for(var i in result)

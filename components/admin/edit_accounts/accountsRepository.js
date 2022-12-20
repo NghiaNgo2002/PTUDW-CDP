@@ -59,3 +59,24 @@ exports.setLockUnlock = async (id) => {
     var obj = Object.values(id);
     await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[6], obj[0]]);
 }
+
+exports.getAllActive = async () => {
+    const result = await db.connection.execute("select distinct ACTIVE from accounts");
+    return result[0];
+}
+
+exports.getSearch = async (search) => {
+    const result = await db.connection.execute("select * from accounts  where PHONENUMBER like ?", [`%${search}%`]);
+    return result[0];
+}
+
+exports.getNameAsc = async () => {
+    const result = await db.connection.execute("select * from accounts ORDER BY name ASC");
+    return result[0];
+}
+
+exports.getNameDesc = async () => {
+    const result = await db.connection.execute("select * from menu ORDER BY name DESC");
+    console.log(result[0]);
+    return result[0];
+}

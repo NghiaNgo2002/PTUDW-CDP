@@ -1,6 +1,7 @@
 const { connection } = require("../../../db");
 const accountsRepository = require("./accountsRepository");
 
+
 exports.getAll = () => {
     return accountsRepository.getAll();
 };
@@ -36,3 +37,17 @@ exports.setLock = (id) => {
 exports.setUnLock = (id) => {
     return accountsRepository.setLockUnlock(id);
 }
+
+exports.getSearch = (search) => {
+    return accountsRepository.getSearch(search);
+}
+
+exports.getNameSorted = (sort) => {
+    if(sort == 'asc')
+        return accountsRepository.getNameAsc();
+    return accountsRepository.getNameDesc();
+}
+
+exports.getAllActive = () => {
+    return accountsRepository.getAllActive();
+};

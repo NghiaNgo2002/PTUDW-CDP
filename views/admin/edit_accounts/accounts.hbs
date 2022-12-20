@@ -1,26 +1,5 @@
 
 <main id="main" class="main">
-    <div class="search-bar">
-        <form class="search-form d-flex align-items-center" method="GET" action="">
-            <input
-                    type="text"
-                    name="name"
-                    placeholder="Search"
-                    title="Enter search keyword"
-            />
-            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-        </form>
-    </div><!-- End Search Bar -->
-    <div class="dropdown ml-4">
-        <button class="btn border dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort by
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId" style="">
-            <a class="dropdown-item" href="{{originalUrl}}&sort=name">Name </a>
-            <a class="dropdown-item" href="{{originalUrl}}&sort=date">Date</a>
-        </div>
-    </div>
-
     <div class="d-flex flex-row bd-highlight mt-3 mr-2 justify-content-between">
         <h5 class="ml-3">ACCOUNT MANAGEMENT BOARD</h5>
         <a class="btn btn-dark" href="/admin/edit_accounts/add" role="button">
@@ -34,8 +13,44 @@
             <h5 class="card-header bg-white text-light d-flex justify-content-between">
                 Accounts
             </h5>
+
+            <br>
+            <form>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="phone_sorting" name="sorting">
+                    <label class="custom-control-label" for="phone_sorting">Phone number</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="date_sorting" name="sorting">
+                    <label class="custom-control-label" for="date_sorting">Created Date</label>
+                </div>
+                <input type="checkbox" id="desc_sorting" name="desc_sorting" disabled>
+                <label for="defaultCheck">Desc</label>
+                <br>
+            </form>
+            <div class="row">
+                <div class ="col-6">
+                    <button id="sortingbtn" class="btn btn-primary" disabled>Sort Now</button>
+                </div>
+                <div class="search-bar col-6">
+
+                    <input
+                            id="search"
+                            type="text"
+                            name="name"
+                            placeholder="Search"
+                            title="Enter search keyword"
+                    />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="selected_form"><h5>Filtering with Ban or Unban:</h5></label>
+                <select class="form-control" id="selected_form">
+                </select>
+            </div>
             <div class="card-body">
-                <table id="example" class="display">
+                <table id="accountsTable" class="table table-hover">
                     <thead>
                     <tr>
                         <th scope="col">
@@ -54,36 +69,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each list_accounts}}
-                        <tr>
-                            <th scope="row">
-                                {{ID}}
-                            </th>
-                            <td>
-                                {{PHONENUMBER}}
-                            </td>
-                            <td>
-                                {{CREATEDDATE}}
-                            </td>
-                            <td>
-                                {{#when ACTIVE 'eq' 1}}
-                                    <i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>
-                                {{else}}
-                                    <i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>
-                                {{/when}}
-                            </td>
-                            <td class="text-right">
-                                <a class="btn btn-sm btn-dark" href="/admin/edit_accounts/{{ID}}" role="button" title="Edit Accounts">
-                                   <i class="fas fa-user-cog"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    {{/each}}
+
                     </tbody>
                     <tfoot></tfoot>
                 </table>
+                <ul class="pagination justify-content-center" style="margin:20px 0">
             </div>
         </div>
     </div>
 
 </main>
+
+{{#extend "scripts"}}
+    <script type="text/javascript" src="/assets_editaccounts/js/editaccounts-ajax.js"></script>
+{{/extend}}

@@ -1,11 +1,11 @@
 $(document).ready(function(){
-    function fetchproducts(page, size, search, category, namesorting, pricesorting, desc){
+    function fetchaccounts(page, size, search, category, phonesorting, datesorting, desc){
         let pageNumber = (typeof page !== 'undefined') ?  page : 0;
         let sizeNumber = (typeof size !== 'undefined') ?  size : 5;
         let searched = (typeof search !== 'undefined') ? search : -1;
         let selectedcategory = (typeof category !== 'undefined') ?  category : -1;
-        let nameSorted = (typeof namesorting !== 'undefined') ?  namesorting: false;
-        let priceSorted = (typeof pricesorting !== 'undefined') ?  pricesorting: false;
+        let phoneSorted = (typeof phonesorting !== 'undefined') ?  phonesorting: false;
+        let dateSorted = (typeof datesorting !== 'undefined') ?  datesorting: false;
         let descDirection = (typeof desc !== 'undefined') ?  desc: false;
 
         /**
@@ -13,32 +13,43 @@ $(document).ready(function(){
          */
         $.ajax({
             type : "GET",
-            url : "/admin/api/edit_products",
+            url : "/admin/api/edit_accounts",
             data: {
                 page: pageNumber,
                 size: sizeNumber,
                 search: searched,
                 category: selectedcategory,
-                namesorting: nameSorted,
-                pricesorting: priceSorted,
+                phonesorting: phoneSorted,
+                datesorting: dateSorted,
                 desc: descDirection
             },
             success: function(response){
-                $('#productsTable tbody').empty();
-                $.each(response.products, (i, product) => {
-                    let tr_id = 'tr_' + product.id;
-                    let productRow = '<tr>' +
-                        '<td>' + product.ID + '</td>' +
-                        '<td>' + product.NAME + '</td>' +
-                        '<td>' + product.PRICE + '</td>' +
-                        '<td class="text-right">' + '<a class="btn btn-sm btn-dark" href="/admin/edit_products/' + product.ID +
-                        '" role="button" title="Edit products">' +
+                $('#accountsTable tbody').empty();
+                $.each(response.accounts, (i, account) => {
+                    let check = null;
+                    console.log(account);
+                    if(account.ACTIVE == 1)
+                    {
+                        check = '<i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>';
+                    }
+                    else check = '<i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>';
+
+                    let tmp = account.CREATEDDATE.split("-");
+                    let date = [2] + "-" + tmp[1] + "-" + tmp[0];
+                    console.log(date);
+                    let tr_id = 'tr_' + account.id;
+                    let accountRow = '<tr>' +
+                        '<td>' + account.ID + '</td>' +
+                        '<td>' + account.PHONENUMBER + '</td>' +
+                        '<td>' + date + '</td>' +
+                        '<td>' + check + '</td>' +
+                        '<td class="text-right">' + '<a class="btn btn-sm btn-dark" href="/admin/edit_accounts/' + account.ID +
+                        '" role="button" title="Edit Accounts">' +
                         ' <i class="fas fa-user-cog"></i>' +
                         '</a>' + '</td>' +
                         '</tr>';
-                    $('#productsTable tbody').append(productRow);
+                    $('#accountsTable tbody').append(accountRow);
                 });
-
 
 
                 if ($('ul.pagination li').length - 4 != response.totalPages){
@@ -53,6 +64,7 @@ $(document).ready(function(){
             }
         });
     }
+
     /**
      * Search
      */
@@ -61,18 +73,18 @@ $(document).ready(function(){
 
         let search = this.value;
 
-        let namesorting = false;
-        let pricesorting = false;
+        let phonesorting = false;
+        let datesorting = false;
         let desc = false;
 
         category = $("#selected_form").value;
 
-        if($("#name_sorting"). prop("checked") == true){
-            namesorting = true;
+        if($("#phone_sorting"). prop("checked") == true){
+            phonesorting = true;
         }
 
-        if($("#price_sorting"). prop("checked") == true){
-            pricesorting = true;
+        if($("#date_sorting"). prop("checked") == true){
+            datesorting = true;
         }
 
         if($("#desc_sorting"). prop("checked") == true){
@@ -80,7 +92,7 @@ $(document).ready(function(){
         }
 
         // re-fetch customer list again
-        fetchproducts(0, 5, search, category, namesorting, pricesorting, desc);
+        fetchaccounts(0, 5, search, category, phonesorting, datesorting, desc);
     });
     /**
      * Select a category for pagination & filtering
@@ -92,16 +104,16 @@ $(document).ready(function(){
         search = this.value;
 
 
-        let namesorting = false;
-        let pricesorting = false;
+        let phonesorting = false;
+        let datesorting = false;
         let desc = false;
 
-        if($("#name_sorting"). prop("checked") == true){
-            namesorting = true;
+        if($("#phone_sorting"). prop("checked") == true){
+            phonesorting = true;
         }
 
-        if($("#price_sorting"). prop("checked") == true){
-            pricesorting = true;
+        if($("#date_sorting"). prop("checked") == true){
+            datesorting = true;
         }
 
         if($("#desc_sorting"). prop("checked") == true){
@@ -109,7 +121,7 @@ $(document).ready(function(){
         }
 
         // re-fetch customer list again
-        fetchproducts(0, 5, search, category, namesorting, pricesorting, desc);
+        fetchaccounts(0, 5, search, category, phonesorting, datesorting, desc);
     });
 
     /**
@@ -118,13 +130,17 @@ $(document).ready(function(){
     function getListCategory(){
         $.ajax({
             type : "GET",
-            url : "/admin/api/edit_products/category",
+            url : "/admin/api/edit_accounts/active",
             success: function(response){
                 $("#selected_form").empty();
                 $('#selected_form').append("<option>All</option>");
-                $.each(response.sort().reverse(), (i, category) => {
+                $.each(response.sort().reverse(), (i, ban) => {
                     // <option>All</option>
-                    let optionElement = "<option>" + category + "</option>";
+                    let tmp = null
+                    if(ban == 1)
+                        tmp = "Ban"
+                    else tmp = "Not Ban"
+                    let optionElement = "<option>" + tmp + "</option>";
                     $('#selected_form').append(optionElement);
                 });
             },
@@ -136,9 +152,9 @@ $(document).ready(function(){
     }
 
     /**
-     * name_sorting checkbox is changed
+     * phone_sorting checkbox is changed
      */
-    $('#name_sorting').on('change', function() {
+    $('#phone_sorting').on('change', function() {
         if(this.checked){
             $("#desc_sorting").removeAttr("disabled");
             $("#sortingbtn").removeAttr("disabled");
@@ -149,7 +165,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#price_sorting').on('change', function() {
+    $('#date_sorting').on('change', function() {
         if(this.checked){
             $("#desc_sorting").removeAttr("disabled");
             $("#sortingbtn").removeAttr("disabled");
@@ -163,20 +179,20 @@ $(document).ready(function(){
      * Click on sorting Button
      */
     $(document).on("click", "#sortingbtn", function() {
-        let namesorting = false;
-        let pricesorting = false;
+        let phonesorting = false;
+        let datesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
         let search = $("#search").value;
         //get value of check boxes
 
-        /* namesorting checkbox */
-        if($("#name_sorting"). prop("checked") == true){
-            namesorting = true;
+        /* phonesorting checkbox */
+        if($("#phone_sorting"). prop("checked") == true){
+            phonesorting = true;
         }
 
-        if($("#price_sorting"). prop("checked") == true){
-            pricesorting = true;
+        if($("#date_sorting"). prop("checked") == true){
+            datesorting = true;
         }
 
         /* desc checkbox */
@@ -186,13 +202,13 @@ $(document).ready(function(){
 
         // get the active index of pagination bar
         let selectedPageIndex = parseInt($("ul.pagination li.active").text()) - 1;
-        console.log(selectedPageIndex);
-        // just fetch again products from SpringBoot RestAPIs when sorting checkbox is checked
-        if(namesorting){
-            fetchproducts(selectedPageIndex, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
+
+        // just fetch again accounts from SpringBoot RestAPIs when sorting checkbox is checked
+        if(phonesorting){
+            fetchaccounts(selectedPageIndex, 5, search, selectedCategory, phonesorting, datesorting, desc); // get next page value
         }
-        if(pricesorting){
-            fetchproducts(selectedPageIndex, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
+        if(datesorting){
+            fetchaccounts(selectedPageIndex, 5, search, selectedCategory, phonesorting, datesorting, desc); // get next page value
         }
     });
 
@@ -235,11 +251,11 @@ $(document).ready(function(){
 
     /**
      *
-     * Fetching the products from SpringBoot RestAPI at the initial time
+     * Fetching the accounts from SpringBoot RestAPI at the initial time
      */
     (function(){
         // get first-page at initial time
-        fetchproducts(0);
+        fetchaccounts(0);
 
         // get the distinct values of customer's salaries
         getListCategory();
@@ -250,16 +266,16 @@ $(document).ready(function(){
      * 		having any click on pagination bar for pagination filtering and sorting
      */
     $(document).on("click", "ul.pagination li a", function() {
-        let namesorting = false;
-        let pricesorting = false;
+        let phonesorting = false;
+        let datesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
         let search = $("#search").value;
-        if($("#name_sorting"). prop("checked") == true){
-            namesorting = true;
+        if($("#phone_sorting"). prop("checked") == true){
+            phonesorting = true;
         }
-        if($("#price_sorting"). prop("checked") == true){
-            pricesorting = true;
+        if($("#date_sorting"). prop("checked") == true){
+            datesorting = true;
         }
 
         if($("#desc_sorting"). prop("checked") == true){
@@ -274,7 +290,7 @@ $(document).ready(function(){
             let totalPages = $("ul.pagination li").length - 4; // -2 beacause 1 for Previous and 1 for Next
             if(activeValue < totalPages){
                 let currentActive = $("li.active");
-                fetchproducts(activeValue, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
+                fetchaccounts(activeValue, 5, search, selectedCategory, phonesorting, datesorting, desc); // get next page value
                 // remove .active class for the old li tag
                 $("li.active").removeClass("active");
                 // add .active to next-pagination li
@@ -284,25 +300,25 @@ $(document).ready(function(){
             let activeValue = parseInt($("ul.pagination li.active").text());
             if(activeValue > 1){
                 // get the previous page
-                fetchproducts(activeValue-2, 5, search, selectedCategory, namesorting, pricesorting, desc);
+                fetchaccounts(activeValue-2, 5, search, selectedCategory, phonesorting, datesorting, desc);
                 let currentActive = $("li.active");
                 currentActive.removeClass("active");
                 // add .active to previous-pagination li
                 currentActive.prev().addClass("active");
             }
         } else if(val.toUpperCase()==="FIRST") {
-            fetchproducts(0, 5, search,  selectedCategory, namesorting, pricesorting, desc);
+            fetchaccounts(0, 5, search,  selectedCategory, phonesorting, datesorting, desc);
             $("li.active").removeClass("active");
 
             $(".carousel-inner .carousel-item:first-child").addClass("active");
         } else if(val.toUpperCase()==="LAST") {
             let page = $("ul.pagination li").length -4;
-            fetchproducts(page -1, 5, search,  selectedCategory, namesorting, pricesorting, desc);
+            fetchaccounts(page -1, 5, search,  selectedCategory, phonesorting, datesorting, desc);
             $("li.active").removeClass("active");
             $(".carousel-inner .carousel-item:last-child").addClass("active");
         }
         else {
-            fetchproducts(parseInt(val) - 1, 5, search,  selectedCategory, namesorting, pricesorting, desc);
+            fetchaccounts(parseInt(val) - 1, 5, search,  selectedCategory, phonesorting, datesorting, desc);
             // add focus to the li tag
             $("li.active").removeClass("active");
             $(this).parent().addClass("active");

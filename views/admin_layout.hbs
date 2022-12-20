@@ -376,36 +376,7 @@
     <!-- Template Main JS File -->
     <script src="/assets_niceadmin/js/main.js"></script>
     <script src="/assets_editaccounts/js/main.js"></script>
-    <!-- Pagination -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css"
-            integrity="sha512-1k7mWiTNoyx2XtmI96o+hdjP8nn0f3Z2N4oF/9ZZRgijyV4omsKOXEnqL1gKQNPy2MTSP9rIEWGcH/CInulptA=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
-
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
-            integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    ></script>
-    <script type="text/javascript" class="init">
-        $(document).ready(function () {
-            $('#example').DataTable({
-                pagingType: 'full_numbers',
-            });
-        });
-    </script>
-    <script type="text/javascript" language="javascript" src="/assets_editaccounts/js/example.js"></script>
-    <!-- Pagination products -->
-    <script type="text/javascript" src="/assets_editproducts/js/main.js"></script>
+    {{{block "scripts"}}}
     <!-- Statistic -->
     <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.7.1/themes/dark_turquoise.min.js"></script>
