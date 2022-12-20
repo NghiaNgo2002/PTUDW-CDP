@@ -40,7 +40,6 @@ exports.add = async (account, nextId) => {
     return result[0];
 }
 
-
 exports.getAllCategory = async () => {
     const result = await db.connection.execute('select distinct category from menu ');
     return result[0];
@@ -51,3 +50,19 @@ exports.getCategory = async (category) => {
     return result[0];
 }
 
+exports.getSearch = async (search) => {
+    const result = await db.connection.execute("select * from menu  where name like ?", [`%${search}%`]);
+    return result[0];
+}
+
+exports.getNameAsc = async () => {
+    const result = await db.connection.execute("select * from menu ORDER BY name ASC");
+    console.log(result[0]);
+    return result[0];
+}
+
+exports.getNameDesc = async () => {
+    const result = await db.connection.execute("select * from menu ORDER BY name DESC");
+    console.log(result[0]);
+    return result[0];
+}

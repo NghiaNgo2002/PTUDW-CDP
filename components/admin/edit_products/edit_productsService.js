@@ -40,3 +40,9 @@ exports.getCategory = (category) => {
 exports.getSearch = (category) => {
     return productsRepository.getSearch(category);
 }
+
+exports.getNameSorted = (sort) => {
+    if(sort == 'asc')
+        return productsRepository.getNameAsc();
+    return productsRepository.getNameDesc();
+}

@@ -65,6 +65,7 @@ exports.paginator = async (req, res) => {
     console.log(req.query.category);
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.size);
+    let search = req.query.search ? req.query.search : -1;
     let name = (req.query.namesorting === 'true');
     let price = (req.query.pricesorting === 'true');
     let category = req.query.category ? req.query.category : -1;
@@ -77,52 +78,64 @@ exports.paginator = async (req, res) => {
     var result = [];
     var arr = [];
 
-    // NOT Filtering with salary
-    if(category < 0 || category == 'All'){
-      result = await products.getAll();
-      for(var i in result)
+    if(search != -1){
+      result = await products.getSearch(search);
+      for (var i in result)
         arr.push(result[i]);
-      // not sorting with age
-      if(name == true) {
-        if(desc == false) { // sorting with name and ascending
-          arr.sort((a,b)=> a.NAME-b.NAME);
-        } else { // sorting with name and descending
-          console.log(result);
-          console.log("REVERSEEEEEEEEEEEEE");
-          arr.sort((a,b)=> b.NAME-a.NAME);
-          console.log(result);
-        }
-      }else if(price == true){
-        if(desc == false) { // sorting with price and ascending
-          arr.sort((a,b)=> a.PRICE-b.PRICE);
-        } else { // sorting with name and descending
-          arr.sort((a,b)=> b.PRICE-a.PRICE);
-        }
-      } else {
-        arr.sort(function(a, b){return a - b});
-      }
-    } else { // Filtering with category
-      // not sorting with age
-      if(name == false) {
-        result = await products.getCategory(category);
-        for(var i in result)
-          arr.push(result[i]);
-      } else {
-        if(desc == false) { // sorting with age and ascending
-
-          result = await products.getCategory(category);
-          for(var i in result)
+    }else {
+      // NOT Filtering with salary
+      if (category < 0 || category == 'All') {
+        // not sorting with name
+        if (name == true) {
+          if (desc == false) { // sorting with name and ascending
+            let sort = 'asc';
+            result = await products.getNameSorted(sort);
+            for (var i in result)
+              arr.push(result[i]);
+          } else { // sorting with name and descending
+            let sort = 'desc';
+            result = await products.getNameSorted(sort);
+            for (var i in result)
+              arr.push(result[i]);
+          }
+        } else if (price == true) {
+          result = await products.getAll();
+          for (var i in result)
             arr.push(result[i]);
-          arr.sort((a,b)=> a.NAME-b.NAME);
-        } else { // sorting with age and descending
-
-          result = await products.getCategory(category);
-          for(var i in result)
+          if (desc == false) { // sorting with price and ascending
+            arr.sort((a, b) => a.PRICE - b.PRICE);
+          } else { // sorting with name and descending
+            arr.sort((a, b) => b.PRICE - a.PRICE);
+          }
+        } else {
+          result = await products.getAll();
+          for (var i in result)
             arr.push(result[i]);
-          arr.sort((a,b)=> b.NAME-a.NAME);
+
+        }
+      } else { // Filtering with category
+        // not sorting with age
+        if (name == false) {
+          result = await products.getCategory(category);
+          for (var i in result)
+            arr.push(result[i]);
+        } else {
+          if (desc == false) { // sorting with age and ascending
+
+            result = await products.getCategory(category);
+            for (var i in result)
+              arr.push(result[i]);
+
+          } else { // sorting with name and descending
+
+            result = await products.getCategory(category);
+            for (var i in result)
+              arr.push(result[i]);
+          }
         }
       }
     }
+
     if(offset + limit >= result.length){
       var temp = arr.slice(offset, result.length);
     }

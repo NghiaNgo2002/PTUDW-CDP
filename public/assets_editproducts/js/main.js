@@ -2,7 +2,7 @@ $(document).ready(function(){
     function fetchproducts(page, size, search, category, namesorting, pricesorting, desc){
         let pageNumber = (typeof page !== 'undefined') ?  page : 0;
         let sizeNumber = (typeof size !== 'undefined') ?  size : 5;
-        let searched = (typeof search !== 'undefined') ? search : null;
+        let searched = (typeof search !== 'undefined') ? search : -1;
         let selectedcategory = (typeof category !== 'undefined') ?  category : -1;
         let nameSorted = (typeof namesorting !== 'undefined') ?  namesorting: false;
         let priceSorted = (typeof pricesorting !== 'undefined') ?  pricesorting: false;
@@ -89,7 +89,7 @@ $(document).ready(function(){
         let category = '-1';
         let search = null;
 
-        category = this.value;
+        search = this.value;
 
 
         let namesorting = false;
@@ -167,7 +167,7 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
-
+        let search = $("#search").value;
         //get value of check boxes
 
         /* namesorting checkbox */
@@ -189,10 +189,10 @@ $(document).ready(function(){
         console.log(selectedPageIndex);
         // just fetch again products from SpringBoot RestAPIs when sorting checkbox is checked
         if(namesorting){
-            fetchproducts(selectedPageIndex, 5, selectedCategory, namesorting, pricesorting, desc); // get next page value
+            fetchproducts(selectedPageIndex, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
         }
         if(pricesorting){
-            fetchproducts(selectedPageIndex, 5, selectedCategory, namesorting, pricesorting, desc); // get next page value
+            fetchproducts(selectedPageIndex, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
         }
     });
 
@@ -254,6 +254,7 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
+        let search = $("#search").value;
         if($("#name_sorting"). prop("checked") == true){
             namesorting = true;
         }
@@ -273,7 +274,7 @@ $(document).ready(function(){
             let totalPages = $("ul.pagination li").length - 4; // -2 beacause 1 for Previous and 1 for Next
             if(activeValue < totalPages){
                 let currentActive = $("li.active");
-                fetchproducts(activeValue, 5, selectedCategory, namesorting, pricesorting, desc); // get next page value
+                fetchproducts(activeValue, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
                 // remove .active class for the old li tag
                 $("li.active").removeClass("active");
                 // add .active to next-pagination li
@@ -283,25 +284,25 @@ $(document).ready(function(){
             let activeValue = parseInt($("ul.pagination li.active").text());
             if(activeValue > 1){
                 // get the previous page
-                fetchproducts(activeValue-2, 5, selectedCategory, namesorting, pricesorting, desc);
+                fetchproducts(activeValue-2, 5, search, selectedCategory, namesorting, pricesorting, desc);
                 let currentActive = $("li.active");
                 currentActive.removeClass("active");
                 // add .active to previous-pagination li
                 currentActive.prev().addClass("active");
             }
         } else if(val.toUpperCase()==="FIRST") {
-            fetchproducts(0, 5,  selectedCategory, namesorting, pricesorting, desc);
+            fetchproducts(0, 5, search,  selectedCategory, namesorting, pricesorting, desc);
             $("li.active").removeClass("active");
 
             $(".carousel-inner .carousel-item:first-child").addClass("active");
         } else if(val.toUpperCase()==="LAST") {
             let page = $("ul.pagination li").length -4;
-            fetchproducts(page -1, 5,  selectedCategory, namesorting, pricesorting, desc);
+            fetchproducts(page -1, 5, search,  selectedCategory, namesorting, pricesorting, desc);
             $("li.active").removeClass("active");
             $(".carousel-inner .carousel-item:last-child").addClass("active");
         }
         else {
-            fetchproducts(parseInt(val) - 1, 5,  selectedCategory, namesorting, pricesorting, desc);
+            fetchproducts(parseInt(val) - 1, 5, search,  selectedCategory, namesorting, pricesorting, desc);
             // add focus to the li tag
             $("li.active").removeClass("active");
             $(this).parent().addClass("active");
