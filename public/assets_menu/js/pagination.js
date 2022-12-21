@@ -109,6 +109,8 @@ $(document).ready(function () {
     evt.preventDefault();
     data.nameFilter = $("#search-bar-form").serializeArray()[0].value;
     data.sort = "";
+    data.$curContent = $("#TimKiem-content");
+    $("#tim-kiem-nav").tab("show");
     $.initData(data.nameFilter, data.sort).then(function () {
       $pagination.twbsPagination("destroy");
       $pagination.twbsPagination(defaultOpts);
