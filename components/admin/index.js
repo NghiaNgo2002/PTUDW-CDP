@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const upload = require('../../middleware/upload');
+
 const edit_accounts = require("./edit_accounts/accountsController");
 const edit_products = require("./edit_products/edit_productsController");
 const profile = require("./profile/profileController");
@@ -10,9 +12,14 @@ const register = require("./register/registerController");
 router.get("/", profile.profileRedirect);
 router.get("/edit_accounts", edit_accounts.account);
 router.get("/edit_products", edit_products.product);
+
 router.get("/profile", profile.profile);
-router.post("/profile", profile.editProfile);
+router.post("/profile/information", profile.editProfile);
+router.post("/profile/password", profile.changePassword);
+router.post("/profile/image", upload.single('image'), profile.editAvatar);
+router.get("/profile/remove-image", profile.removeAvatar);
 router.get('/signout', profile.signout);
+
 router.get("/statistic", statistic.statistic);
 router.get("/register", register.register);
 

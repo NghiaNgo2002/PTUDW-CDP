@@ -11,3 +11,9 @@ exports.verifyEmail = async (req, res)=>{
     const result = await apiService.emailExists(email);
     res.json(!result);
 }
+
+exports.verifyPassword = async (req, res)=>{
+    const {password:password} = req.params;
+    const result = await apiService.checkPassword(Object.values(req.user)[1], password);
+    res.json(result);
+}

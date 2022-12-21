@@ -19,3 +19,11 @@ exports.changePassword = async (phonenumber, password, newpassword) =>{
         return await profileRepository.changePassword(hash, phonenumber);
     }else throw new Error('Current password is not correct!');
 }
+
+exports.editAvatar = async(id) => {
+    return await profileRepository.editAvatar(id);
+}
+
+exports.removeAvatar = async(id) => {
+    return await profileRepository.removeAvatar(id);
+}

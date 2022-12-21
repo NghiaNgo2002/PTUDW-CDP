@@ -1,13 +1,10 @@
 module.exports = {
   type: 'object',
   properties: {
-    fullname: { type: 'string'},
-    phonenumber: {type: 'string'},
-    email: { type: 'string'},
-    password: { type: 'string'},
-    newpassword: { type: 'string'},
-    renewpassword: { type: 'string'},
+    fullname: { type: 'string', 'minLength': 1 },
+    phonenumber: {type: 'string', 'minLength': 1 },
+    email: { type: 'string', format: 'email' },
   },
-  
+  required: ['fullname', 'phonenumber', 'email'],
   additionalProperties: false,
 };
