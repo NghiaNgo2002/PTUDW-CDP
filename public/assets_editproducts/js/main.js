@@ -30,6 +30,7 @@ $(document).ready(function(){
                     let productRow = '<tr>' +
                         '<td>' + product.ID + '</td>' +
                         '<td>' + product.NAME + '</td>' +
+                        '<td>' + '<img src="/assets_menu/img/menu/' + product.IMAGE + '"width="200" height="100"</td>' +
                         '<td>' + product.PRICE + '</td>' +
                         '<td class="text-right">' + '<a class="btn btn-sm btn-dark" href="/admin/edit_products/' + product.ID +
                         '" role="button" title="Edit products">' +
