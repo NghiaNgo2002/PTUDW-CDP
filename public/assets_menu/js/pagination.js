@@ -42,6 +42,7 @@ $(document).ready(function () {
     totalPages: 1,
     nameFilter: "",
     sort: "",
+    $curContent: $("#TimKiem-content"),
   };
   $.initData = async function (nameFilter = "", sort = "") {
     let paramName = "&name=" + nameFilter;
@@ -68,7 +69,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           total_pages = response.pagination_info.total_pages;
-          $("#TimKiem").empty();
+          data.$curContent.empty();
           $.each(response.products, (i, product) => {
             let content =
               '<div class="col-lg-4 menu-item">' +
@@ -95,7 +96,7 @@ $(document).ready(function () {
               "</div>" +
               "</a>" +
               "</div>";
-            $("#TimKiem").append(content);
+            data.$curContent.append(content);
           });
         },
       });
@@ -122,5 +123,55 @@ $(document).ready(function () {
     data.sort = "high";
     $pagination.twbsPagination("destroy");
     $pagination.twbsPagination(defaultOpts);
+  });
+
+  $("#tim-kiem-nav").click(function () {
+    data.$curContent = $("#TimKiem-content");
+    data.nameFilter = "";
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
+    });
+  });
+
+  $("#com-nav").click(function () {
+    data.$curContent = $("#Com-content");
+    data.nameFilter = "Cơm";
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
+    });
+  });
+
+  $("#mi-nav").click(function () {
+    data.$curContent = $("#Mi-content");
+    data.nameFilter = "Mì";
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
+    });
+  });
+
+  $("#nuoc-nav").click(function () {
+    data.$curContent = $("#Nuoc-content");
+    data.nameFilter = "Nước";
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
+    });
+  });
+
+  $("#khac-nav").click(function () {
+    data.$curContent = $("#Khac-content");
+    data.nameFilter = "Khác";
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
+    });
   });
 });

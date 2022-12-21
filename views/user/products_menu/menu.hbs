@@ -49,6 +49,7 @@
             class="nav-link active show"
             data-bs-toggle="tab"
             data-bs-target="#menu-search"
+            id="tim-kiem-nav"
           >
             <h4>Tìm kiếm</h4>
           </a>
@@ -60,6 +61,8 @@
             class="nav-link"
             data-bs-toggle="tab"
             data-bs-target="#menu-starters"
+            id="com-nav"
+
           >
             <h4>Cơm</h4>
           </a>
@@ -71,13 +74,17 @@
             class="nav-link"
             data-bs-toggle="tab"
             data-bs-target="#menu-breakfast"
+            id="mi-nav"
+
           >
             <h4>Mì</h4>
           </a>
         </li><!-- End tab nav item -->
 
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch" 
+            id="nuoc-nav"
+          >
             <h4>Nước</h4>
           </a>
         </li><!-- End tab nav item -->
@@ -88,6 +95,8 @@
             class="nav-link"
             data-bs-toggle="tab"
             data-bs-target="#menu-dinner"
+            id="khac-nav"
+
           >
             <h4>Khác</h4>
           </a>
@@ -102,7 +111,7 @@
             <p>Menu</p>
             <h3>Tìm kiếm</h3>
           </div>
-          <div class="row gy-5" id="TimKiem">
+          <div class="row gy-5" id="TimKiem-content">
             
           </div>
         </div><!-- End Starter Menu Content -->
@@ -113,28 +122,8 @@
             <p>Menu</p>
             <h3>Cơm</h3>
           </div>
-          <div class="row gy-5">
-            {{#each products_menu_Com}}
-              <div class="col-lg-4 menu-item">
-                <a href="products/{{ID}}">
-                  <div>
-                    <img
-                      src="/assets_menu/img/menu/{{IMAGE}}"
-                      class="menu-img img-fluid"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h4>{{NAME}}</h4>
-
-                    <p class="price">
-                      {{PRICE}}
-                      VNĐ
-                    </p>
-                  </div>
-                </a>
-              </div><!-- Menu Item -->
-            {{/each}}
+          <div class="row gy-5" id="Com-content">
+           
           </div>
         </div><!-- End Starter Menu Content -->
 
@@ -145,30 +134,9 @@
             <h3>Mì</h3>
           </div>
 
-          <div class="row gy-5">
+          <div class="row gy-5" id="Mi-content">
 
-            {{#each products_menu_Mi}}
-              <div class="col-lg-4 menu-item">
-                <a href="products/{{ID}}">
-                  <div>
-                    <img
-                      src="/assets_menu/img/menu/{{IMAGE}}"
-                      class="menu-img img-fluid"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h4>{{NAME}}</h4>
-
-                
-                    <p class="price">
-                      {{PRICE}}
-                      VNĐ
-                    </p>
-                  </div>
-                </a>
-              </div><!-- Menu Item -->
-            {{/each}}
+            
 
           </div>
         </div><!-- End Breakfast Menu Content -->
@@ -180,29 +148,9 @@
             <h3>Nước</h3>
           </div>
 
-          <div class="row gy-5">
+          <div class="row gy-5" id="Nuoc-content">
 
-            {{#each products_menu_Nuoc}}
-              <div class="col-lg-4 menu-item">
-                <a href="products/{{ID}}">
-                  <div>
-                    <img
-                      src="/assets_menu/img/menu/{{IMAGE}}"
-                      class="menu-img img-fluid"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h4>{{NAME}}</h4>
-
-                    <p class="price">
-                      {{PRICE}}
-                      VNĐ
-                    </p>
-                  </div>
-                </a>
-              </div><!-- Menu Item -->
-            {{/each}}
+          
 
           </div>
         </div><!-- End Lunch Menu Content -->
@@ -214,31 +162,9 @@
             <h3>Khác</h3>
           </div>
 
-          <div class="row gy-5">
+          <div class="row gy-5" id="Khac-content">
 
-            {{#each products_menu_Khac}}
-              <div class="col-lg-4 menu-item">
-                <a href="products/{{ID}}">
-                  <div>
-                    <img
-                      src="/assets_menu/img/menu/{{IMAGE}}"
-                      class="menu-img img-fluid"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h4>{{NAME}}</h4>
-
-                 
-                    <p class="price">
-                      {{PRICE}}
-                      VNĐ
-                    </p>
-                  </div>
-                </a>
-              </div><!-- Menu Item -->
-            {{/each}}
-
+           
           </div>
         </div><!-- End Dinner Menu Content -->
 
