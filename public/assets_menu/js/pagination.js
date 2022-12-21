@@ -38,86 +38,89 @@ function _mapUrlParams(queryString) {
 }
 
 $(document).ready(function () {
-  $.ajax({
-    //The URL to process the request
-    url: "api/products_menu",
-    //The type of request, also known as the "method" in HTML forms
-    //Can be 'GET' or 'POST'
-    type: "GET",
-    //Any post-data/get-data parameters
-    //This is optional
-    data: {
-      page: 1,
-      limit: 3,
+  var data = {
+    totalPages: 1,
+    nameFilter: "",
+    sort: "",
+  };
+  $.initData = async function (nameFilter = "", sort = "") {
+    let paramName = "&name=" + nameFilter;
+    let paramSort = "&sort=" + sort;
+
+    let initReq = await $.get(
+      "api/products_menu?page=1" + paramName + paramSort
+    );
+    data.totalPages = initReq.pagination_info.total_pages;
+    defaultOpts.totalPages = data.totalPages;
+  };
+  var $pagination = $("#pagination-demo");
+
+  var defaultOpts = {
+    totalPages: data.totalPages,
+    onPageClick: function (evt, page) {
+      $.ajax({
+        url: "api/products_menu",
+        type: "GET",
+        data: {
+          page: page,
+          name: data.nameFilter,
+          sort: data.sort,
+        },
+        success: function (response) {
+          total_pages = response.pagination_info.total_pages;
+          $("#TimKiem").empty();
+          $.each(response.products, (i, product) => {
+            let content =
+              '<div class="col-lg-4 menu-item">' +
+              '<a href="products/' +
+              product.ID +
+              '">' +
+              " <div>" +
+              "<img " +
+              'src="/assets_menu/img/menu/' +
+              product.IMAGE +
+              '"' +
+              ' class="menu-img img-fluid"' +
+              ' alt=""' +
+              "/>" +
+              "</div>" +
+              "<div>" +
+              "<h4>" +
+              product.NAME +
+              "</h4>" +
+              '<p class="price">' +
+              product.PRICE +
+              "VNĐ" +
+              "</p>" +
+              "</div>" +
+              "</a>" +
+              "</div>";
+            $("#TimKiem").append(content);
+          });
+        },
+      });
     },
-    //The response from the server
-    success: function (response) {
-      //You can use any jQuery/JavaScript here!!!
-      total_pages = response.pagination_info.total_pages;
-      params = getUrlParams(location.search);
-      if (response == "success") {
-        alert("request sent!");
-      }
-    },
-  }).then(function () {
-    $("#pagination-demo").twbsPagination({
-      totalPages: total_pages,
-      visiblePages: 3,
-      onPageClick: function (event, page) {
-        console.log(1, total_pages);
-        $.ajax({
-          //The URL to process the request
-          url: "api/products_menu",
-          //The type of request, also known as the "method" in HTML forms
-          //Can be 'GET' or 'POST'
-          type: "GET",
-          //Any post-data/get-data parameters
-          //This is optional
-          data: {
-            page: page,
-            name: params.name,
-          },
-          //The response from the server
-          success: function (response) {
-            //You can use any jQuery/JavaScript here!!!
-            total_pages = response.pagination_info.total_pages;
-            console.log(0, response.pagination_info.total_pages);
-            console.log(2, response);
-            if (response == "success") {
-              alert("request sent!");
-            }
-            $("#TimKiem").empty();
-            $.each(response.products, (i, product) => {
-              let content =
-                '<div class="col-lg-4 menu-item">' +
-                '<a href="products/' +
-                product.ID +
-                '">' +
-                " <div>" +
-                "<img " +
-                'src="/assets_menu/img/menu/' +
-                product.IMAGE +
-                '"' +
-                ' class="menu-img img-fluid"' +
-                ' alt=""' +
-                "/>" +
-                "</div>" +
-                "<div>" +
-                "<h4>" +
-                product.NAME +
-                "</h4>" +
-                '<p class="price">' +
-                product.PRICE +
-                "VNĐ" +
-                "</p>" +
-                "</div>" +
-                "</a>" +
-                "</div>";
-              $("#TimKiem").append(content);
-            });
-          },
-        });
-      },
+  };
+  $.initData().then(function () {
+    $pagination.twbsPagination(defaultOpts);
+  });
+  $("#search-bar-form").submit(function (evt) {
+    evt.preventDefault();
+    data.nameFilter = $("#search-bar-form").serializeArray()[0].value;
+    data.sort = "";
+    $.initData(data.nameFilter, data.sort).then(function () {
+      $pagination.twbsPagination("destroy");
+      $pagination.twbsPagination(defaultOpts);
     });
+  });
+  $("#priceLow").click(function () {
+    data.sort = "low";
+    $pagination.twbsPagination("destroy");
+    $pagination.twbsPagination(defaultOpts);
+  });
+  $("#priceHigh").click(function () {
+    data.sort = "high";
+    $pagination.twbsPagination("destroy");
+    $pagination.twbsPagination(defaultOpts);
   });
 });

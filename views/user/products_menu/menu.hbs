@@ -1,6 +1,6 @@
 <main id="main" class="main">
   <div class="search-bar">
-    <form class="search-form d-flex align-items-center" method="GET" action="">
+    <form class="search-form d-flex align-items-center" id="search-bar-form">
       <input
         type="text"
         name="name"
@@ -15,8 +15,8 @@
                                             Sort by
                                         </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId" style="">
-                                    <a class="dropdown-item" href="{{originalUrl}}&sort=low">Price (Low) </a>
-                                    <a class="dropdown-item" href="{{originalUrl}}&sort=high">Price (High)</a>
+                                    <button class="dropdown-item" id="priceLow" type="button">Price (Low) </button>
+                                    <button class="dropdown-item" id="priceHigh" type="button">Price (High)</button>
                                 </div>
                             </div>
  <!-- Price range-->
@@ -243,15 +243,6 @@
         </div><!-- End Dinner Menu Content -->
 
       </div>
-{{!-- <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav> --}}
 
      <ul id="pagination-demo" class="pagination-sm"></ul>
     </div>
