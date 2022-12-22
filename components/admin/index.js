@@ -37,7 +37,7 @@ router.post("/edit_products/del",edit_products.delete);
 
 //update
 router.post("/edit_accounts/patch", edit_accounts.saveEdit);
-router.post("/edit_products/patch", edit_products.saveEdit);
+router.post("/edit_products/patch", upload.single('image'), edit_products.saveEdit);
 //lock and unlock
 router.post("/edit_accounts/lock", edit_accounts.setLock);
 router.post("/edit_accounts/unlock", edit_accounts.setUnLock);

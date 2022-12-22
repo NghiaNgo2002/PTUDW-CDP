@@ -9,11 +9,19 @@
                     <label for="txtUserID" class="font-weight-bold">AccountID</label>
                     <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
                 </div>
-                <div class="form-group">
-                    <label for="txtUserPhonenumber" class="font-weight-bold">Phone number</label>
-                    <input type="text" class="form-control" id="txtPhonenumber" name="PhoneNumber" value="{{detail.PHONENUMBER}}"
-                           autofocus>
-                </div>
+                {{#when detail.PHONENUMBER 'eq' 'admin'}}
+                    <div class="form-group">
+                        <label for="txtUserPhonenumber" class="font-weight-bold">Phone number</label>
+                        <input type="text" class="form-control" id="txtPhonenumber" name="PhoneNumber" value="{{detail.PHONENUMBER}}"
+                              readonly>
+                    </div>
+                {{else}}
+                    <div class="form-group">
+                        <label for="txtUserPhonenumber" class="font-weight-bold">Phone number</label>
+                        <input type="text" class="form-control" id="txtPhonenumber" name="PhoneNumber" value="{{detail.PHONENUMBER}}"
+                               autofocus>
+                    </div>
+                {{/when}}
                 <div class="form-group">
                     <label for="txtUserName">Full Name</label>
                     <input type="text" class="form-control" id="txtUserName" name="Fullname" value="{{detail.FULLNAME}}">
@@ -43,18 +51,18 @@
                     <i class="fa fa-backward" aria-hidden="true"></i>
                     Back to List
                 </a>
-
-                {{#when detail.ACTIVE 'eq' 0}}
-                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/unlock">
-                        <i class="fa fa-unlock" aria-hidden="true"></i>
-                        Unlock
-                    </button>
-                {{else}}
-                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/lock">
-                        <i class="fas fa-user-lock    "></i>
-                        Lock
-                    </button>
-                {{/when}}
+                {{#when detail.PHONENUMBER 'noteq' 'admin'}}
+                    {{#when detail.ACTIVE 'eq' 0}}
+                        <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/unlock">
+                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                            Unlock
+                        </button>
+                    {{else}}
+                        <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/lock">
+                            <i class="fas fa-user-lock    "></i>
+                            Lock
+                        </button>
+                    {{/when}}
 
 
                 <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_accounts/del">
@@ -65,6 +73,12 @@
                     <i class="fa fa-check" aria-hidden="true"></i>
                     Save
                 </button>
+                {{else}}
+                <button type="submit" class="btn btn-dark" formaction="/admin/edit_accounts/patch">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+                {{/when}}
             </div>
         </div>
     </form>

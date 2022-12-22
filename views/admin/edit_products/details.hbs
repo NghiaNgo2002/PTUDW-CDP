@@ -1,6 +1,6 @@
 <main id="main" class="main">
-    <form method="POST">
-        <div class="card">
+    <div class="card">
+        <form method="POST" encType="multipart/form-data">
             <h5 class="card-header">
                 Accounts Editor
             </h5>
@@ -21,20 +21,17 @@
                 <div class="form-group">
                     <label for="CategorySelect">Category</label>
                     <select name="Category" id="CategorySelect" class="form-control">
-                        <option value="1">Cơm</option>
-                        <option value="2">Mì</option>
-                        <option value="3">Nước</option>
-                        <option value="4">Khác</option>
+                        <option value="Cơm">Cơm</option>
+                        <option value="Mì">Mì</option>
+                        <option value="Nước">Nước</option>
+                        <option value="Khác">Khác</option>
                     </select>
                 </div>
-                <div class="form-group" class="font-weight-bold">
-                    <form action="/" method="POST" encType="multipart/form-data">
-                        <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
-                        <input id="file" type="file" name="sampleFile" accept="image/*" width="400" height="300"/>
-                    </form>
-                    <div class="card">
-                        <img id="image" class="card__image" src="/assets_menu/img/menu/{{detail.IMAGE}}" alt="" width="400" height="300"/>
-                    </div>
+
+                <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
+                <input type="file" name="image" accept="image/*"/>
+                <div class="card">
+                    <img id="image" class="card__image" src="/assets_menu/img/menu/{{detail.IMAGE}}" alt="" width="400" height="300"/>
                 </div>
             </div>
             <div class="card-footer text-muted">
@@ -52,8 +49,11 @@
                     Save
                 </button>
             </div>
-        </div>
-    </form>
+        </form>
+
+
+    </div>
+
 </main>
 
 {{#extend "scripts"}}

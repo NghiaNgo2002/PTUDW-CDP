@@ -1,5 +1,8 @@
 const products = require("./edit_productsService");
 const qs = require("qs");
+const path = require('path');
+const upload = require('../../../middleware/upload');
+const resize = require('../../../middleware/edit_products/resize');
 exports.product = async (req, res) => {
   const { name: nameFilter } = req.query;
   let list_products = [];
@@ -37,12 +40,22 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.saveEdit = async (req, res, next) => {
+  const id = req.body.UserID;
+  const imagePath = path.join(__dirname,'../../../','/public/assets_menu/img/menu');
   const product = req.body;
+  if (!req.file) {
+    await products.saveEdit(product);
+    res.redirect("/admin/edit_products");
+  }
+  else {
+    const fileUpload = new resize(imagePath, id);
 
-  await products.saveEdit(product);
-
-  res.redirect("/admin/edit_products");
+    const filename = await fileUpload.save(req.file.buffer);
+    await products.saveEdit(product);
+    res.redirect("/admin/edit_products");
+  }
 };
+
 
 exports.add = (req, res, next) => {
   res.render('admin/edit_products/add', {

@@ -213,9 +213,12 @@ $(document).ready(function(){
             // adding .active class on the first pageIndex for the loading time
             if(i==1){
 
-                pageIndex = "<li class='page-item active'><a class='page-link'>"
+                pageIndex = "<li class='page-item active' id='first-page'><a class='page-link'>"
                     + i + "</a></li>"
-            } else {
+            } else if(i==totalPages) {
+                pageIndex = "<li class='page-item' id='last-page'><a class='page-link'>"
+                    + i + "</a></li>"
+            }else{
                 pageIndex = "<li class='page-item'><a class='page-link'>"
                     + i + "</a></li>"
             }
@@ -296,11 +299,15 @@ $(document).ready(function(){
             $("li.active").removeClass("active");
 
             $(".carousel-inner .carousel-item:first-child").addClass("active");
+            $("#first-page").addClass("active");
+
         } else if(val.toUpperCase()==="LAST") {
             let page = $("ul.pagination li").length -4;
             fetchproducts(page -1, 5, search,  selectedCategory, namesorting, pricesorting, desc);
             $("li.active").removeClass("active");
             $(".carousel-inner .carousel-item:last-child").addClass("active");
+            $("#last-page").addClass("active");
+
         }
         else {
             fetchproducts(parseInt(val) - 1, 5, search,  selectedCategory, namesorting, pricesorting, desc);

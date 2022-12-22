@@ -1,5 +1,5 @@
 $("input").change(function(e) {
-    $("#upload-image").remove();
+
     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
         var file = e.originalEvent.srcElement.files[i];
