@@ -20,23 +20,34 @@
                     </div>
                     <select onchange="getDataOfYear()" class="wide w-100 combo-box" id="year">
                         <option value="" selected>Năm {{selectedYear}}</option>
-                        {{#each allYear}}
-                            <option value="">{{this}}</option>
-                        {{/each}}
+
                     </select>
                 </div>
 
                 <div id="myChart" style="width:100%; height:280px"></div>
-                <button id="addDataPoint">Add Data Point</button>
-                <button id="updateDataPoint">Update Data Point</button>
 
-                <div class="result" style="display:none;"> {{arr}} </div>
 
             </div>
             <div class="col">
                 <div class="top-ten">
                     <div class="title-left">
                         <h3>Top sản phẩm bán chạy</h3>
+                        <table id="statisticTable" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    Product
+                                </th>
+                                <th scope="col">
+                                    Counts
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
                     </div>
                     <div class="products">
                     </div>
@@ -45,61 +56,11 @@
         </div>
     </div>
     </div>
-    <script src="js/chart.js"></script>
-    <script id="top-product" type="text/x-handlebars-template">
-    \{{#each this}}
-    <div class="product">
-        <img class="product-image"
-            src="\{{image_link}}">
-        <div class="product-info">
-            <p class="product-title"><span class="number-sale">Tên sách: </span>\{{title}}</p>
-        </div>
-    </div>
-    \{{/each}}
-    </script>
+
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script>
-
-        window.onload = function () {
-            var rawValues = document.getElementsByClassName("result");
-            console.log(rawValues);
-            console.log("RAW VALUES");
-            var chart = new CanvasJS.Chart("myChart", {
-                title: {
-                    text: "Adding & Updating dataPoints"
-                },
-                data: [
-                    {
-                        type: "spline",
-                        dataPoints: [
-                            { y: 10 },
-                            { y:  4 },
-                            { y: 18 },
-                            { y:  8 }
-                        ]
-                    }
-                ]
-            });
-            chart.render();
-
-            $("#addDataPoint").click(function () {
-
-                var length = chart.options.data[0].dataPoints.length;
-                chart.options.title.text = "New DataPoint Added at the end";
-                chart.options.data[0].dataPoints.push({y: 25 - Math.random() * 10});
-                chart.render();
-
-            });
-
-            $("#updateDataPoint").click(function () {
-
-                var length = chart.options.data[0].dataPoints.length;
-                chart.options.title.text = "Last DataPoint Updated";
-                chart.options.data[0].dataPoints[length - 1].y = 15 - Math.random() * 10;
-                chart.render();
-
-            });
-        }
-    </script>
 </main><!-- End #main -->
+
+{{#extend "scripts"}}
+    <script type="text/javascript" src="/assets_statistic/main.js"></script>
+{{/extend}}

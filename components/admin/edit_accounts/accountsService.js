@@ -48,6 +48,10 @@ exports.getNameSorted = (sort) => {
     return accountsRepository.getNameDesc();
 }
 
-exports.getAllActive = () => {
-    return accountsRepository.getAllActive();
+exports.getAllActive = (category) => {
+    return accountsRepository.getAllActive(category);
+};
+
+exports.getCategory = () => {
+    return accountsRepository.getCategory();
 };

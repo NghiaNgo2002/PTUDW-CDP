@@ -90,7 +90,7 @@ $(document).ready(function(){
         let category = '-1';
         let search = null;
 
-        search = this.value;
+        category = this.value;
 
 
         let namesorting = false;

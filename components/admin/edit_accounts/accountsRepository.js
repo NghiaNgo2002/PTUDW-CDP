@@ -60,7 +60,15 @@ exports.setLockUnlock = async (id) => {
     await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[6], obj[0]]);
 }
 
-exports.getAllActive = async () => {
+exports.getAllActive = async (category) => {
+    if(category == "Ban")
+        category = 0;
+    else category = 1;
+    const result = await db.connection.execute("select * from accounts where ACTIVE = ?", [category]);
+    return result[0];
+}
+
+exports.getCategory = async () => {
     const result = await db.connection.execute("select distinct ACTIVE from accounts");
     return result[0];
 }
@@ -71,12 +79,12 @@ exports.getSearch = async (search) => {
 }
 
 exports.getNameAsc = async () => {
-    const result = await db.connection.execute("select * from accounts ORDER BY name ASC");
+    const result = await db.connection.execute("select * from accounts ORDER BY PHONENUMBER ASC");
     return result[0];
 }
 
 exports.getNameDesc = async () => {
-    const result = await db.connection.execute("select * from menu ORDER BY name DESC");
+    const result = await db.connection.execute("select * from menu ORDER BY PHONENUMBER DESC");
     console.log(result[0]);
     return result[0];
 }

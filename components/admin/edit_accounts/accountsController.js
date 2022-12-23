@@ -1,5 +1,4 @@
 const accounts = require("./accountsService");
-const qs = require("qs");
 const bcrypt = require('bcryptjs');
 
 exports.account = async (req, res) => {
@@ -34,7 +33,6 @@ exports.account = async (req, res) => {
   res.render("admin/edit_accounts/accounts", {
     list_accounts,
     layout: "admin_layout",
-    originalUrl: `${req.baseUrl}/edit_accounts?${qs.stringify(withoutSort)}`,
   });
 };
 
@@ -119,6 +117,7 @@ exports.paginator = async (req, res) => {
       result = await accounts.getSearch(search);
       for (var i in result)
         arr.push(result[i]);
+      console.log(arr);
     }else {
       // NOT Filtering with salary
       if (category < 0 || category == 'All') {
@@ -196,10 +195,11 @@ exports.paginator = async (req, res) => {
 
 exports.getActive = async (req, res) => {
   try {
-    const result = await accounts.getAllActive();
+    const result = await accounts.getCategory();
     var category = [];
     for(var i in result)
       category.push([result[i]['ACTIVE']]);
+    console.log(category)
     res.send(category);
   } catch(error) {
     res.status(500).send({

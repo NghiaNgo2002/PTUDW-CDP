@@ -21,6 +21,7 @@ router.get("/profile/remove-image", profile.removeAvatar);
 router.get('/signout', profile.signout);
 
 router.get("/statistic", statistic.statistic);
+router.get("/statistic/value", statistic.statisticData);
 router.get("/register", register.register);
 
 //add

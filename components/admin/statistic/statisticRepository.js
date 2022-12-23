@@ -16,6 +16,6 @@ exports.getId = async (id) => {
 }
 
 exports.getPrice = async () => {
-    const result =  await db.connection.execute('select PRICE from history');
+    const result =  await db.connection.execute('select PRICE, TIME from history');
     return result[0];
 }
