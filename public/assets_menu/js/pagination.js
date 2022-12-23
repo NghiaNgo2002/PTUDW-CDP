@@ -51,6 +51,7 @@ $(document).ready(function () {
     let initReq = await $.get(
       "api/products_menu?page=1" + paramName + paramSort
     );
+    console.log(initReq);
     data.totalPages = initReq.pagination_info.total_pages;
     defaultOpts.totalPages = data.totalPages;
   };

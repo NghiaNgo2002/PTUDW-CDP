@@ -5,9 +5,25 @@ exports.getAll = async () => {
   return result[0];
 };
 
-exports.getLimit = async (products, first, last) => {
-  first = first < last ? first : last;
-  return products.slice(first, last + 1);
+exports.count = async (name) => {
+  let result;
+  if(name!=""){
+    result = await db.connection.execute(
+      "select count(*) as count_all from menu where name like ? or category like ?",
+      [`%${name}%`, `%${name}%`]
+    );
+
+  }else{
+    result = await db.connection.execute(
+      "select count(*) from menu"
+    );
+  }
+  return result[0];
+};
+
+exports.getLimit = async (limit, offset,name="") => {
+  const result = await db.connection.execute("SELECT * FROM menu where name like ? or category like ? limit " + limit + " offset "+offset  ,[`%${name}%`, `%${name}%`]);
+  return result[0];
 };
 
 exports.getCategory = async (category) => {

@@ -5,8 +5,12 @@ exports.getAll = () => {
   return products_menuRepository.getAll();
 };
 
-exports.getLimit = (products, first, last) => {
-  return products_menuRepository.getLimit(products, first, last);
+exports.count = (name) => {
+  return products_menuRepository.count(name);
+};
+
+exports.getLimit = (limit, offset, name) => {
+  return products_menuRepository.getLimit(limit, offset, name);
 };
 
 exports.getCategory = (category) => {
