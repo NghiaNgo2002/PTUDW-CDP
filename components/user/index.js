@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require('../../middleware/upload');
+const upload = require("../../middleware/upload");
 
 const cart = require("./cart/cartController");
 const contact = require("./contact/contactController");
@@ -11,6 +11,7 @@ const orders_history = require("./orders_history/orders_historyController");
 const products = require("./products/productsController");
 const products_menu = require("./products_menu/products_menuController");
 const menu_api = require("./products_menu/menu_api/menu_api");
+const cart_api = require("./cart/api/cart_api");
 
 router.get("/", profile.profileRedirect);
 router.get("/cart", cart.cart);
@@ -19,7 +20,7 @@ router.get("/contact", contact.contact);
 router.get("/profile", profile.profile);
 router.post("/profile/information", profile.editProfile);
 router.post("/profile/password", profile.changePassword);
-router.post("/profile/image", upload.single('image'), profile.editAvatar);
+router.post("/profile/image", upload.single("image"), profile.editAvatar);
 router.get("/profile/remove-image", profile.removeAvatar);
 router.get("/signout", profile.signout);
 
@@ -28,5 +29,8 @@ router.get("/orders_history", orders_history.orders_history);
 router.get("/products/:productId", products.details);
 router.get("/products_menu", products_menu.products_menu);
 router.get("/api/products_menu", menu_api.getProductPage);
+
+router.get("/api/cart", cart_api.cartDetail);
+router.post("/api/cart/add", cart_api.add);
 
 module.exports = router;

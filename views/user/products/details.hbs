@@ -5,17 +5,21 @@
         <div class="col-md-6 border-end">
           <div class="d-flex flex-column justify-content-center">
             <div class="main_image">
-              <img src="/assets_menu/img/menu/{{product.IMAGE}}"" id="main_product_image" width="350" />
+              <img
+                src="/assets_menu/img/menu/{{product.IMAGE}}"
+                id="main_product_image"
+                width="350"
+              />
             </div>
             <div class="thumbnail_images">
               <ul id="thumbnail">
                 {{#each relatedProducts}}
-                <li><a href="{{originalUrl}}{{ID}}"><img
-                    onclick="changeImage(this)"
-                    src="/assets_menu/img/menu/{{IMAGE}}"
-                    width="70"
-                  /></a></li>
-                  {{/each}}
+                  <li><a href="{{originalUrl}}{{ID}}"><img
+                        onclick="changeImage(this)"
+                        src="/assets_menu/img/menu/{{IMAGE}}"
+                        width="70"
+                      /></a></li>
+                {{/each}}
               </ul>
             </div>
           </div>
@@ -27,7 +31,11 @@
               <span class="heart"><i class="bx bx-heart"></i></span>
             </div>
             <div class="mt-2 pr-3 content">
-              <p>Category: <a href="{{originalUrl}}/products_menu?name={{product.CATEGORY}}"><span>{{product.CATEGORY}}</span></a></p>
+              <p>ID: <span id="ID">{{product.ID}}</span></p>
+              <p>Category:
+                <a
+                  href="{{originalUrl}}/products_menu?name={{product.CATEGORY}}"
+                ><span>{{product.CATEGORY}}</span></a></p>
             </div>
             <h3>{{product.PRICE}}</h3>
             <div class="ratings d-flex flex-row align-items-center">
@@ -53,8 +61,8 @@
               </div>
             </div>
             <div class="buttons d-flex flex-row mt-5 gap-3">
-              <button class="btn btn-outline-dark">Buy Now</button>
-              <button class="btn btn-dark">Add to Basket</button>
+              <button id="BuyNow" class="btn btn-outline-dark">Buy Now</button>
+              <button id="AddToCart" class="btn btn-dark">Add to Basket</button>
             </div>
             <div class="search-option">
               <i class="bx bx-search-alt-2 first-search"></i>
