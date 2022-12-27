@@ -27,22 +27,20 @@ $(document).ready(function(){
         chart.render();
     }
     function fetchproducts(){
+
         $.ajax({
             type : "GET",
-            url : "/admin/api/edit_products",
-            data: {
-                name: name,
-                counts: counts,
-            },
+            url : "/admin/api/statistic/top_products",
+
             success: function(response){
-                $('#productsTable tbody').empty();
-                $.each(response.products, (i, product) => {
-                    let tr_id = 'tr_' + product.id;
+                $('#statisticTable tbody').empty();
+                $.each(response, (i, product) => {
                     let productRow = '<tr>' +
-                        '<td>' + product.NAME + '</td>' +
-                        '<td>' + product.COUNTS + '</td>' +
+                        '<td>' + product.name + '</td>' +
+                        '<td>' + product.counts + '</td>' +
                         '</tr>';
-                    $('#productsTable tbody').append(productRow);
+                    $('#statisticTable tbody').append(productRow);
+
                 });
             },
             error : function(e) {

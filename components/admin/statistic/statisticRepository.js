@@ -19,3 +19,9 @@ exports.getPrice = async () => {
     const result =  await db.connection.execute('select PRICE, TIME from history');
     return result[0];
 }
+
+exports.getTopProducts = async () => {
+    console.log("????????");
+    const result =  await db.connection.execute('select name, count(*) as counts from history_detail group by NAME order by count(*) desc limit 3');
+    return result[0];
+}

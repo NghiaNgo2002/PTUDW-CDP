@@ -15,3 +15,6 @@ exports.getId = (id) => {
 exports.getPrice = () => {
     return statisticRepository.getPrice();
 };
+exports.getTopProducts = () => {
+    return statisticRepository.getTopProducts();
+};
