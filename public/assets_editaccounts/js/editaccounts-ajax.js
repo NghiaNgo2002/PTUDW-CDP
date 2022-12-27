@@ -27,7 +27,6 @@ $(document).ready(function(){
                 $('#accountsTable tbody').empty();
                 $.each(response.accounts, (i, account) => {
                     let check = null;
-                    console.log(account);
                     if(account.ACTIVE == 1)
                     {
                         check = '<i class="fa fa-unlock" style="color:green;" aria-hidden="true"></i>';
@@ -35,9 +34,9 @@ $(document).ready(function(){
                     else check = '<i class="fa fa-lock" style="color:red;" aria-hidden="true"></i>';
 
                     let tmp = account.CREATEDDATE.split("-");
-                    let date = [2] + "-" + tmp[1] + "-" + tmp[0];
-                    console.log(date);
-                    let tr_id = 'tr_' + account.id;
+                    let dd = tmp[2].split("T");
+                    let date = (parseInt(dd[0]) + 1) + "-" + tmp[1] + "-" + tmp[0];
+
                     let accountRow = '<tr>' +
                         '<td>' + account.ID + '</td>' +
                         '<td>' + account.PHONENUMBER + '</td>' +

@@ -42,10 +42,16 @@ exports.getSearch = (search) => {
     return accountsRepository.getSearch(search);
 }
 
-exports.getNameSorted = (sort) => {
+exports.getNameSorted = (category, sort, offset, limit) => {
     if(sort == 'asc')
-        return accountsRepository.getNameAsc();
-    return accountsRepository.getNameDesc();
+        return accountsRepository.getNameAsc(category, offset, limit);
+    return accountsRepository.getNameDesc(category, offset, limit);
+}
+
+exports.getDateSorted = (category, sort, offset, limit) => {
+    if(sort == 'asc')
+        return accountsRepository.getDateAsc(category, offset, limit);
+    return accountsRepository.getDateDesc(category, offset, limit);
 }
 
 exports.getAllActive = (category) => {
@@ -55,3 +61,11 @@ exports.getAllActive = (category) => {
 exports.getCategory = () => {
     return accountsRepository.getCategory();
 };
+
+exports.getLimitAccounts = (category, offset, limit) => {
+    return accountsRepository.getLimitAccounts(category, offset, limit);
+};
+
+exports.countAll = () => {
+    return accountsRepository.countAll();
+}

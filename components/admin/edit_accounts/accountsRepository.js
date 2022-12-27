@@ -48,9 +48,9 @@ exports.add = async (account) => {
     var tmp = obj[5].split("-");
 
     obj[5] = tmp[2] + "-" + tmp[1] + "-" + tmp[0];
-    console.log(obj);
-    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, EMAIL = ?, CREATEDDATE = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?',
-                                                                            [obj[0], obj[1], obj[2], obj[3], obj[4], obj[5], obj[6], 'null', obj[7], 1]);
+
+    const result =  await db.connection.execute('insert into accounts set ID = ?, PHONENUMBER = ?, PASSWORD = ?, FULLNAME = ?, EMAIL = ?, CREATEDDATE = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?, VERIFIED= ?',
+                                                                            [obj[0], obj[1], obj[2], obj[3], obj[4], obj[5], obj[6], 'null', obj[7], 1, 0]);
 
     return result[0];
 }
@@ -60,11 +60,14 @@ exports.setLockUnlock = async (id) => {
     await db.connection.execute("UPDATE accounts SET ACTIVE = ? where ID = ?;", [obj[6], obj[0]]);
 }
 
-exports.getAllActive = async (category) => {
+exports.getAllActive = async (category, offset, limit) => {
     if(category == "Ban")
         category = 0;
     else category = 1;
-    const result = await db.connection.execute("select * from accounts where ACTIVE = ?", [category]);
+    const result = await db.connection.execute("select * from accounts where ACTIVE = ? limit " +
+                                                                                            limit +
+                                                                                                " offset " +
+                                                                                                offset, [category]);
     return result[0];
 }
 
@@ -78,13 +81,104 @@ exports.getSearch = async (search) => {
     return result[0];
 }
 
-exports.getNameAsc = async () => {
-    const result = await db.connection.execute("select * from accounts ORDER BY PHONENUMBER ASC");
+exports.getNameAsc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from accounts ORDER BY PHONENUMBER ASC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        if(category == "Ban")
+            category = 0;
+        else category = 1;
+         result = await db.connection.execute("select * from accounts where category = ? ORDER BY PHONENUMBER ASC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
     return result[0];
 }
 
-exports.getNameDesc = async () => {
-    const result = await db.connection.execute("select * from menu ORDER BY PHONENUMBER DESC");
-    console.log(result[0]);
+exports.getNameDesc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from accounts ORDER BY PHONENUMBER DESC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        if(category == "Ban")
+            category = 0;
+        else category = 1;
+        result = await db.connection.execute("select * from accounts where category = ? ORDER BY PHONENUMBER DESC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getDateAsc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from accounts ORDER BY CREATEDDATE ASC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        if(category == "Ban")
+            category = 0;
+        else category = 1;
+        result = await db.connection.execute("select * from accounts where category = ? ORDER BY CREATEDDATE ASC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getDateDesc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from accounts ORDER BY CREATEDDATE DESC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        if(category == "Ban")
+            category = 0;
+        else category = 1;
+        result = await db.connection.execute("select * from accounts where category = ? ORDER BY CREATEDDATE DESC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getLimitAccounts = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from accounts limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else {
+        result = await db.connection.execute("select * from accounts where category = ? limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.countAll = async () => {
+    const result = await db.connection.execute("select count(*) as count_all from accounts");
     return result[0];
 }
