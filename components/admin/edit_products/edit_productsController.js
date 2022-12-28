@@ -189,7 +189,7 @@ exports.getCategory = async (req, res) => {
     res.send(category);
   } catch(error) {
     res.status(500).send({
-      message: "Error -> Can NOT get all customer's salaries",
+      message: "Error -> Can NOT get all category",
       error: error.message
     });
   }

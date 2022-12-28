@@ -51,5 +51,6 @@ router.get("/api/edit_products/category", edit_products.getCategory);
 router.get("/api/edit_products", edit_products.paginator);
 
 router.get("/api/statistic/top_products", statistic.topProductsData);
+router.get("/api/statistic/value_current", statistic.statisticDataByMonth);
 
 module.exports = router;

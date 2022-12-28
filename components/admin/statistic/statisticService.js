@@ -12,9 +12,18 @@ exports.getId = (id) => {
     return statisticRepository.getId(id);
 };
 
-exports.getPrice = () => {
-    return statisticRepository.getPrice();
+exports.getPrice = (year) => {
+    return statisticRepository.getPrice(year);
 };
+
 exports.getTopProducts = () => {
     return statisticRepository.getTopProducts();
+};
+
+exports.getYear = () => {
+    return statisticRepository.getYear();
+};
+
+exports.getMonth = (month) => {
+    return statisticRepository.getMonth(month);
 };

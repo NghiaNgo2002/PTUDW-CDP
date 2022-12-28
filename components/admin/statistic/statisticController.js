@@ -1,37 +1,40 @@
 const statistic = require("./statisticService")
 exports.statistic = async (req, res) => {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  let result = await statistic.getYear();
   res.render("admin/statistic/statistic", {
+    result,
+    monthNames,
     layout: "admin_layout" });
 };
 
+
 exports.statisticData = async (req, res) => {
+  var year = req.query;
+  let result = await statistic.getPrice(year.year);
+  res.send(result);
+};
 
-  var arr = []
-
-  let result = await statistic.getPrice();
-
+exports.statisticDataByMonth = async (req, res) => {
+  var month = req.query.month;
+  var months = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  var month1 = months.indexOf(month) + 1;
+  let result = await statistic.getMonth(month1);
+  var year = new Date().getFullYear();
   for(let i =  0; i < result.length; i++)
   {
     var t = result[i]['TIME'];
-    var t = t.toString();
-    var m = t.split(" ");
-    m[1] = m[1].toLowerCase();
-
-    var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-    m[1] = months.indexOf(m[1]);
-    var new_date = m[2] + "-" + m[1] + "-" + m[3];
-    t = new_date;
-    result[i]['TIME'] = t;
+    var m = "-" + month1 + "-" + year;
+    result[i]['TIME'] = result[i]['TIME'] + m;
   }
-
-  arr = Object.values(result);
-  res.send(arr);
+  res.send(result);
 };
 
 exports.topProductsData = async (req, res) => {
-  var arr = []
-
   let result = await statistic.getTopProducts();
-  console.log(result);
   res.send(result);
 }
