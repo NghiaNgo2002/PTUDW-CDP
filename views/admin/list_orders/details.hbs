@@ -1,0 +1,38 @@
+<main id="main" class="main">
+    <form method="POST">
+        <div class="card">
+            <h5 class="card-header">
+                Order Details
+            </h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="txtUserID" class="font-weight-bold">AccountID</label>
+                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="txtUserName">Full Name</label>
+                    <input type="text" class="form-control" id="txtUserName" name="Fullname" value="{{detail.FULLNAME}}">
+                </div>
+
+
+            </div>
+            <div class="card-footer text-muted">
+                <a class="btn btn-outline-secondary" href="/admin/list_orders" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Back to List
+                </a>
+
+                <button type="submit" class="btn btn-outline-dark" formaction="/admin/list_orders/del">
+                    <i class="fas fa-user-alt-slash    "></i>
+                    Delete
+                </button>
+                <button type="submit" class="btn btn-dark" formaction="/admin/list_orders/done">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Done
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
