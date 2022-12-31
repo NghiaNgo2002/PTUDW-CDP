@@ -9,14 +9,14 @@
                     <label for="txtUserID" class="font-weight-bold">AccountID</label>
                     <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
                 </div>
-
-
                 <div class="form-group">
                     <label for="txtUserName">Full Name</label>
-                    <input type="text" class="form-control" id="txtUserName" name="Fullname" value="{{detail.FULLNAME}}">
+                    <input type="text" class="form-control" id="txtUserName" name="Fullname" value="{{detail.PHONENUMBER}}" readonly>
                 </div>
-
-
+                <div class="form-group">
+                    <label for="txtPrice">Price</label>
+                    <input type="text" class="form-control" id="txtPrice" name="Price" value="{{detail.PRICE}}" readonly>
+                </div>
             </div>
             <div class="card-footer text-muted">
                 <a class="btn btn-outline-secondary" href="/admin/list_orders" role="button">
@@ -24,11 +24,11 @@
                     Back to List
                 </a>
 
-                <button type="submit" class="btn btn-outline-dark" formaction="/admin/list_orders/del">
+                <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_orders/del">
                     <i class="fas fa-user-alt-slash    "></i>
                     Delete
                 </button>
-                <button type="submit" class="btn btn-dark" formaction="/admin/list_orders/done">
+                <button type="submit" class="btn btn-dark" formaction="/admin/edit_orders/{{detail.idparam}}/patch">
                     <i class="fa fa-check" aria-hidden="true"></i>
                     Done
                 </button>

@@ -12,13 +12,13 @@ exports.statistic = async (req, res) => {
 
 
 exports.statisticData = async (req, res) => {
-  var year = req.query;
+  var year = req.body;
   let result = await statistic.getPrice(year.year);
   res.send(result);
 };
 
 exports.statisticDataByMonth = async (req, res) => {
-  var month = req.query.month;
+  var month = req.body.month;
   var months = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];

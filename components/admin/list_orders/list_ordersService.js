@@ -1,7 +1,7 @@
 const ordersRepository = require("./list_ordersRepository");
 
-exports.getAll = () => {
-    return ordersRepository.getAll();
+exports.getLimit = ( offset, limit) => {
+    return ordersRepository.getLimit(offset, limit);
 };
 
 exports.filter = (name) => {
@@ -33,16 +33,11 @@ exports.getAllCategory = () => {
     return ordersRepository.getAllCategory();
 }
 
-exports.getCategory = (category) => {
-    return ordersRepository.getCategory(category);
+exports.getCategoryLimit = (category, offset, limit) => {
+    return ordersRepository.getCategoryLimit(category, offset, limit);
 }
 
-exports.getSearch = (category) => {
-    return ordersRepository.getSearch(category);
+exports.getSearch = (search) => {
+    return ordersRepository.getSearch(search);
 }
 
-exports.getNameSorted = (sort) => {
-    if(sort == 'asc')
-        return ordersRepository.getNameAsc();
-    return ordersRepository.getNameDesc();
-}

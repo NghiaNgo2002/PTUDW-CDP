@@ -12,7 +12,7 @@ $(document).ready(function(){
          * Do a fetching to get data from Backend's RESTAPI
          */
         $.ajax({
-            type : "GET",
+            type : "POST",
             url : "/admin/api/edit_products",
             data: {
                 page: pageNumber,
@@ -118,7 +118,7 @@ $(document).ready(function(){
      */
     function getListCategory(){
         $.ajax({
-            type : "GET",
+            type : "POST",
             url : "/admin/api/edit_products/category",
             success: function(response){
                 $("#selected_form").empty();

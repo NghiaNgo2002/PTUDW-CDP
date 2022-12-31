@@ -6,7 +6,7 @@ $(document).ready(function(){
         let value = [];
         year_data = (typeof year !== 'undefined') ?  year : new Date().getFullYear() ;
         $.ajax({
-            type : "GET",
+            type : "POST",
             url : "/admin/statistic/value",
             data: {
                 year: year_data
@@ -62,7 +62,7 @@ $(document).ready(function(){
     function fetchproducts(){
 
         $.ajax({
-            type : "GET",
+            type : "POST",
             url : "/admin/api/statistic/top_products",
 
             success: function(response){

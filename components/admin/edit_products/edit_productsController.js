@@ -75,13 +75,13 @@ exports.saveAdd = async (req, res, next) => {
 
 exports.paginator = async (req, res) => {
   try{
-    let page = parseInt(req.query.page);
-    let limit = parseInt(req.query.size);
-    let search = req.query.search ? req.query.search : -1;
-    let name = (req.query.namesorting === 'true');
-    let price = (req.query.pricesorting === 'true');
-    let category = req.query.category ? req.query.category : -1;
-    let desc = (req.query.desc === 'true');
+    let page = parseInt(req.body.page);
+    let limit = parseInt(req.body.size);
+    let search = req.body.search ? req.body.search : -1;
+    let name = (req.body.namesorting === 'true');
+    let price = (req.body.pricesorting === 'true');
+    let category = req.body.category ? req.body.category : -1;
+    let desc = (req.body.desc === 'true');
 
     const offset = page ? page * limit : 0;
 
