@@ -20,7 +20,6 @@ class Resize {
         return filename;
     }
     filename() {
-        console.log(this.id);
         return `menu-item-${this.id}.jpg`;
     }
     filepath(filename) {

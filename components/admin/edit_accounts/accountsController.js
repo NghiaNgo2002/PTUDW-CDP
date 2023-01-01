@@ -17,13 +17,6 @@ exports.details = async (req, res, next) => {
     layout: "admin_layout"});
 };
 
-exports.delete = async (req, res, next) => {
-  const account = req.body;
-
-  await accounts.delete(account);
-  res.redirect("/admin/edit_accounts");
-};
-
 exports.saveEdit = async (req, res, next) => {
   const account = req.body;
   await accounts.saveEdit(account);
@@ -33,6 +26,7 @@ exports.saveEdit = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
   const nextId = await accounts.nextId();
+
   res.render('admin/edit_accounts/add', {
     nextId,
     layout: "admin_layout"
@@ -133,7 +127,7 @@ exports.paginator = async (req, res) => {
           }
         }
         else{
-            result = await accounts.getAllActive(category);
+            result = await accounts.getLimitAccounts(category, offset, limit);
         }
       }
     }

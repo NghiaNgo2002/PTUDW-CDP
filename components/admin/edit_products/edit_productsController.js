@@ -3,24 +3,10 @@ const qs = require("qs");
 const path = require('path');
 const upload = require('../../../middleware/upload');
 const resize = require('../../../middleware/edit_products/resize');
+const accounts = require("../edit_accounts/accountsService");
 exports.product = async (req, res) => {
-  const { name: nameFilter } = req.query;
-  let list_products = [];
-  const { sort, withoutSort } = req.query;
-  if (nameFilter) {
-    list_products = await products.filter(nameFilter);
-  } else list_products = await products.getAll();
-
-  if(sort=="name"){
-    list_products.sort((a,b)=> a.NAME-b.NAME);
-  }else if(sort=="price"){
-    list_products.sort((a,b)=> a.PRICE - b.PRICE);
-  }
-
   res.render("admin/edit_products/products", {
-    list_products,
     layout: "admin_layout",
-    originalUrl: `${req.baseUrl}/edit_products?${qs.stringify(withoutSort)}`,
   });
 };
 
@@ -34,8 +20,7 @@ exports.details = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-  const { id:id } = req.params;
-  await products.delete(id);
+  await products.delete(req.body.ProductID);
   res.redirect("/admin/edit_products");
 };
 
@@ -49,28 +34,36 @@ exports.saveEdit = async (req, res, next) => {
   }
   else {
     const fileUpload = new resize(imagePath, id);
-
     const filename = await fileUpload.save(req.file.buffer);
-    await products.saveEdit(product);
     res.redirect("/admin/edit_products");
   }
 };
 
 
-exports.add = (req, res, next) => {
+exports.add = async (req, res, next) => {
+  const nextId = await products.nextId();
+  var id = nextId[0].nextId
   res.render('admin/edit_products/add', {
+    id,
     layout: "admin_layout"
   });
 }
 
 exports.saveAdd = async (req, res, next) => {
+  const id = req.body.ID;
+  const imagePath = path.join(__dirname,'../../../','/public/assets_menu/img/menu');
   const product = req.body;
-
-  const nextId = await products.nextId();
-  await products.add(product, nextId);
-  res.render('admin/edit_products', {
-    layout: "admin_layout"
-  });
+  if (!req.file) {
+    await products.add(product);
+    res.redirect("/admin/edit_products");
+  }
+  else {
+    const fileUpload = new resize(imagePath, id);
+    const filename = await fileUpload.save(req.file.buffer);
+    await products.add(product);
+    console.log("Co anh");
+    res.redirect("/admin/edit_products");
+  }
 }
 
 exports.paginator = async (req, res) => {
@@ -89,87 +82,69 @@ exports.paginator = async (req, res) => {
 
     var result = [];
     var arr = [];
-
+    var countTotal = -1;
     if(search != -1){
       result = await products.getSearch(search);
-      for (var i in result)
-        arr.push(result[i]);
     }else {
       // NOT Filtering with salary
       if (category < 0 || category == 'All') {
+        countTotal = await accounts.countAll();
         // not sorting with name
         if (name == true) {
           if (desc == false) { // sorting with name and ascending
             let sort = 'asc';
-            result = await products.getNameSorted(sort);
-            for (var i in result)
-              arr.push(result[i]);
+            result = await products.getNameSorted(category, sort, offset, limit);
           } else { // sorting with name and descending
             let sort = 'desc';
-            result = await products.getNameSorted(sort);
-            for (var i in result)
-              arr.push(result[i]);
+            result = await products.getNameSorted(category, sort, offset, limit);
           }
         } else if (price == true) {
-          result = await products.getAll();
-          for (var i in result)
-            arr.push(result[i]);
-          if (desc == false) { // sorting with price and ascending
-            arr.sort((a, b) => a.PRICE - b.PRICE);
+          if (desc == false) {
+            let sort = 'asc';
+            result = await products.getPriceSorted(category, sort, offset, limit);
           } else { // sorting with name and descending
-            arr.sort((a, b) => b.PRICE - a.PRICE);
+            let sort = 'desc';
+            result = await products.getPriceSorted(category, sort, offset, limit);
           }
         } else {
-          result = await products.getAll();
-          for (var i in result)
-            arr.push(result[i]);
-
+          result = await products.getLimitProducts(category, offset, limit);
         }
       } else { // Filtering with category
         // not sorting with name
         if (name == true) {
           if (desc == false) { // sorting with name and ascending
-            result = await products.getCategory(category);
-            for (var i in result)
-              arr.push(result[i]);
-
+            let sort = 'asc';
+            result = await products.getNameSorted(category, sort, offset, limit);
           } else { // sorting with name and descending
-
-            result = await products.getCategory(category);
-            for (var i in result)
-              arr.push(result[i]);
+            let sort = 'desc';
+            result = await products.getNameSorted(category, sort, offset, limit);
           }
         } else if(price == true){
-          result = await products.getCategory(category);
-          for (var i in result)
-            arr.push(result[i]);
-          if (desc == false) { // sorting with price and ascending
-            arr.sort((a, b) => a.PRICE - b.PRICE);
+          if (desc == false) {
+            let sort = 'asc';
+            result = await products.getPriceSorted(category, sort, offset, limit);
           } else { // sorting with name and descending
-            arr.sort((a, b) => b.PRICE - a.PRICE);
+            let sort = 'desc';
+            result = await products.getPriceSorted(category, sort, offset, limit);
           }
         }
         else {
-          result = await products.getCategory(category);
-          for (var i in result)
-            arr.push(result[i]);
+          result = await products.getLimitProducts(category, offset, limit);
         }
       }
     }
 
-    if(offset + limit >= result.length){
-      var temp = arr.slice(offset, result.length);
-    }
-    else{
-      var temp = arr.slice(offset, offset + limit);
-    }
+    var tmp;
+    if(countTotal == -1)
+      tmp = result.length
+    else tmp = Object.values(countTotal)[0].count_all;
 
-    const totalPages = Math.ceil(result.length / limit);
+    const totalPages = Math.ceil(tmp / limit);
     const response = {
       "totalPages": totalPages,
       "pageNumber": page,
       "pageSize": result.length,
-      "products": temp
+      "products": result
     };
     res.send(response);
   }catch(error) {

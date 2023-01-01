@@ -15,7 +15,8 @@ exports.details = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-    const { id:id } = req.params;
+    const id = req.params.id;
+    console.log(req.params);
     await orders.delete(id);
     res.redirect("/admin/list_orders");
 };
@@ -23,7 +24,6 @@ exports.delete = async (req, res, next) => {
 exports.saveEdit = async (req, res, next) => {
     const product = req.body;
     product["idbill"] = req.params.id;
-    console.log(product);
     await orders.saveEdit(product);
     res.redirect("/admin/list_orders");
 
@@ -43,19 +43,38 @@ exports.paginator = async (req, res) => {
         console.log("offset = " + offset);
 
         var result = [];
+        var count = -1;
 
         if(search != -1){
-            result = await orders.getSearch(search);
+            let date=search.split("-");
+            if(parseInt(date[0]) <= 9 && date[0].length == 1)
+            {
+                date[0] = "0" + date[0];
+            }
+            if(parseInt(date[1]) <= 9 && date[1].length == 1)
+            {
+                date[1] = "0" + date[1];
+            }
+            let tmp = date[2] + "-" + date[1] + "-" + date[0];
+            result = await orders.getSearch(tmp);
         }else {
             // NOT Filtering
             if (category < 0 || category == 'All') {
                 result = await orders.getLimit(offset, limit);
+                count = await orders.countAll(category);
             } else { // Filtering with category
                 result = await orders.getCategoryLimit(category, offset, limit);
+                count = await orders.countAll(category);
             }
         }
 
-        const totalPages = 5;
+        var tmp;
+        if(count == -1)
+        {
+            tmp = result.length
+        }
+        else tmp = Object.values(count)[0].countAll;
+        const totalPages = Math.ceil(tmp / limit);;
         const response = {
             "totalPages": totalPages,
             "pageNumber": page,
@@ -71,17 +90,4 @@ exports.paginator = async (req, res) => {
     }
 }
 
-exports.getCategory = async (req, res) => {
-    try {
-        const result = await orders.getAllCategory();
-        var category = [];
-        for(var i in result)
-            category.push([result[i]['category']]);
-        res.send(category);
-    } catch(error) {
-        res.status(500).send({
-            message: "Error -> Can NOT get all category",
-            error: error.message
-        });
-    }
-}
+

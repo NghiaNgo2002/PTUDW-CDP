@@ -20,8 +20,8 @@ exports.saveEdit = (id) => {
     return productsRepository.saveEdit(id);
 };
 
-exports.add = (account) => {
-    return productsRepository.add(account);
+exports.add = (product) => {
+    return productsRepository.add(product);
 };
 
 exports.nextId = () => {
@@ -41,8 +41,18 @@ exports.getSearch = (category) => {
     return productsRepository.getSearch(category);
 }
 
-exports.getNameSorted = (sort) => {
+exports.getNameSorted = (category, sort, offset, limit) => {
     if(sort == 'asc')
-        return productsRepository.getNameAsc();
-    return productsRepository.getNameDesc();
+        return productsRepository.getNameAsc(category, offset, limit);
+    return productsRepository.getNameDesc(category, offset, limit);
+}
+
+exports.getPriceSorted = (category, sort, offset, limit) => {
+    if(sort == 'asc')
+        return productsRepository.getPriceAsc(category, offset, limit);
+    return productsRepository.getPriceDesc(category, offset, limit);
+}
+
+exports.getLimitProducts = (category, offset, limit) => {
+    return productsRepository.getLimitProducts(category, offset, limit);
 }

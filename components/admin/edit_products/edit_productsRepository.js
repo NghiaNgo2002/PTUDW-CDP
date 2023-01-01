@@ -17,26 +17,22 @@ exports.getId = async (id) => {
 
 
 exports.delete = async (id) => {
-    await db.connection.execute('delete * from menu where id = ?', [id]);
+    await db.connection.execute('delete from menu where id = ?', [id]);
 }
 
 exports.saveEdit = async (id) => {
     var obj = Object.values(id);
-    console.log(obj);
-    const result = await db.connection.execute("UPDATE menu SET NAME = ?, IMAGE = ?, PRICE = ?, CATEGORY = ? where ID = ?;", [obj[1],`menu-item-${obj[0]}.jpg`, obj[2], obj[3],obj[0]]);
+    const result = await db.connection.execute("UPDATE menu SET NAME = ?, IMAGE = ?, PRICE = ?, CATEGORY = ? where ID = ?;", [obj[1],`menu-item-${obj[0]}.png`, obj[2], obj[3],obj[0]]);
     return result[0][0];
 }
 
 exports.nextId = async () => {
-    const result = await db.connection.execute("SELECT MAX(ID) + 1 FROM menu");
-    var obj = Object.values(result);
-
-    return obj[0];
+    const result = await db.connection.execute("SELECT MAX(ID) + 1 as nextId FROM menu");
+    return result[0];
 }
-exports.add = async (account, nextId) => {
-    var obj = Object.values(account);
-    var id = Object.values(nextId);
-    const result =  await db.connection.execute('insert into menu set ID = ?, name = ?, PASSWORD = ?, FULLNAME = ?, LEVEL = ?, IMAGE = ?, BUDGET = ?, ACTIVE = ?', [id[0], obj[0], obj[1], obj[2], 'waiting', obj[3], obj[4], 1]);
+exports.add = async (product) => {
+    var obj = Object.values(product);
+    const result =  await db.connection.execute('insert into menu set ID = ?, NAME = ?, IMAGE = ?, PRICE = ?, CATEGORY = ?, STATUS = ?', [obj[0], obj[1], `menu-item-${obj[0]}.png`, obj[2], obj[3], obj[4]]);
     //const result =  await db.connection.execute("insert into menu set ?", [account]);
     return result[0];
 }
@@ -56,14 +52,87 @@ exports.getSearch = async (search) => {
     return result[0];
 }
 
-exports.getNameAsc = async () => {
-    const result = await db.connection.execute("select * from menu ORDER BY name ASC");
-    console.log(result[0]);
+exports.getNameAsc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from menu ORDER BY NAME ASC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        result = await db.connection.execute("select * from menu where category = ? ORDER BY NAME ASC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
     return result[0];
 }
 
-exports.getNameDesc = async () => {
-    const result = await db.connection.execute("select * from menu ORDER BY name DESC");
-    console.log(result[0]);
+exports.getNameDesc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from menu ORDER BY NAME DESC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        result = await db.connection.execute("select * from menu where category = ? ORDER BY NAME DESC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getPriceAsc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from menu ORDER BY PRICE ASC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        result = await db.connection.execute("select * from menu where category = ? ORDER BY PRICE ASC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getPriceDesc = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from menu ORDER BY PRICE DESC limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else{
+        result = await db.connection.execute("select * from menu where category = ? ORDER BY PRICE DESC limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
+    return result[0];
+}
+
+exports.getLimitProducts = async (category, offset, limit) => {
+    var result;
+    if(category < 0 || category == 'All') {
+        result = await db.connection.execute("select * from menu limit " +
+            limit +
+            " offset " +
+            offset);
+    }
+    else {
+        result = await db.connection.execute("select * from menu where category = ? limit " +
+            limit +
+            " offset " +
+            offset, [category]);
+    }
     return result[0];
 }

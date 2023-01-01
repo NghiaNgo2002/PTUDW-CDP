@@ -24,14 +24,10 @@ exports.add = (account) => {
     return ordersRepository.add(account);
 };
 
-exports.nextId = () => {
-    return ordersRepository.nextId();
+exports.countAll = (category) => {
+    return ordersRepository.countAll(category);
 }
 
-
-exports.getAllCategory = () => {
-    return ordersRepository.getAllCategory();
-}
 
 exports.getCategoryLimit = (category, offset, limit) => {
     return ordersRepository.getCategoryLimit(category, offset, limit);

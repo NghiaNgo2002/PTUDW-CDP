@@ -23,25 +23,25 @@ router.get("/profile/remove-image", profile.removeAvatar);
 router.get('/signout', profile.signout);
 
 router.get("/statistic", statistic.statistic);
-router.get("/statistic/value", statistic.statisticData);
+router.post("/statistic/value", statistic.statisticData);
 router.get("/register", register.register);
 
 //add
 router.get("/edit_accounts/add",edit_accounts.add);
 router.post('/edit_accounts/add', edit_accounts.saveAdd);
-router.get("/edit_products/add",edit_accounts.add);
-router.post('/edit_products/add', edit_accounts.saveAdd);
+router.get("/edit_products/add",edit_products.add);
+router.post('/edit_products/add', upload.single('image'), edit_products.saveAdd);
 //edit
 router.get("/edit_accounts/:id", edit_accounts.details);
 router.get("/edit_products/:id", edit_products.details);
 router.get("/edit_orders/:id", list_orders.details);
 // del
-router.post("/edit_accounts/del",edit_accounts.delete);
 router.post("/edit_products/del",edit_products.delete);
-router.post("/edit_orders/del", list_orders.delete);
+router.post("/edit_orders/:id/del", list_orders.delete);
 //update
 router.post("/edit_accounts/patch", edit_accounts.saveEdit);
-router.post("/edit_products/patch", upload.single('image'), edit_products.saveEdit);
+router.post("/edit_products/patch", edit_products.saveEdit);
+router.post("/edit_products/saveImage", upload.single('image'), edit_products.saveEdit);
 router.post("/edit_orders/:id/patch", list_orders.saveEdit);
 //lock and unlock
 router.post("/edit_accounts/lock", edit_accounts.setLock);
@@ -57,7 +57,7 @@ router.post("/api/edit_products/category", edit_products.getCategory);
 router.post("/api/edit_products", edit_products.paginator);
 
 router.post("/api/statistic/top_products", statistic.topProductsData);
-router.post("/api/statistic/value_current", statistic.statisticDataByMonth);
+router.post("/api/statistic/month", statistic.statisticDataByMonth);
 
 router.post("/api/list_orders", list_orders.paginator);
 module.exports = router;

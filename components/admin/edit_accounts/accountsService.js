@@ -14,10 +14,6 @@ exports.getId = (id) => {
     return accountsRepository.getId(id);
 };
 
-exports.delete = (id) => {
-    return accountsRepository.delete(id);
-};
-
 exports.saveEdit = (id) => {
     return accountsRepository.saveEdit(id);
 };

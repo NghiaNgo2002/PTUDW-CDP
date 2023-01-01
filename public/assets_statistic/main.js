@@ -4,7 +4,7 @@ $(document).ready(function(){
     }
     function loadStatisticByYear (year) {
         let value = [];
-        year_data = (typeof year !== 'undefined') ?  year : new Date().getFullYear() ;
+        year_data = $("#selectYear").val();
         $.ajax({
             type : "POST",
             url : "/admin/statistic/value",
@@ -98,13 +98,12 @@ $(document).ready(function(){
             month_data = monthNames[d.getMonth()];
         }
             $.ajax({
-            type : "GET",
-            url : "/admin/api/statistic/value_current",
+            type : "POST",
+            url : "/admin/api/statistic/month",
             data: {
                 month: month_data
             },
             success: function(response) {
-                console.log(response)
                 value = Object.values(response);
                 var data_arr = [];
 

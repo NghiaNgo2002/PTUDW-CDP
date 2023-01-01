@@ -1,17 +1,17 @@
 <main id="main" class="main">
     <div class="card">
-        <form method="POST" encType="multipart/form-data">
+        <form method="POST" >
             <h5 class="card-header">
-                Accounts Editor
+                Products Editor
             </h5>
             <div class="card-body">
                 <div class="form-group">
-                    <label for="txtUserID" class="font-weight-bold">AccountID</label>
-                    <input type="text" class="form-control" id="txtUserID" name="UserID" value="{{detail.ID}}" readonly>
+                    <label for="txtProductID" class="font-weight-bold">ProductID</label>
+                    <input type="text" class="form-control" id="txtProductID" name="ProductID" value="{{detail.ID}}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="txtUserName" class="font-weight-bold">Name</label>
-                    <input type="text" class="form-control" id="txtUserName" name="NAME" value="{{detail.NAME}}">
+                    <label for="txtProductName" class="font-weight-bold">Name</label>
+                    <input type="text" class="form-control" id="txtProductName" name="NAME" value="{{detail.NAME}}">
                 </div>
 
                 <div class="form-group" class="font-weight-bold">
@@ -28,20 +28,15 @@
                     </select>
                 </div>
 
-                <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
-                <input type="file" name="image" accept="image/*"/>
-                <div class="card">
-                    <img id="image" class="card__image" src="/assets_menu/img/menu/{{detail.IMAGE}}" alt="" width="400" height="300"/>
-                </div>
+
             </div>
             <div class="card-footer text-muted">
                 <a class="btn btn-outline-secondary" href="/admin/edit_products" role="button">
                     <i class="fa fa-backward" aria-hidden="true"></i>
                     Back to List
                 </a>
-
                 <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_products/del">
-                    <i class="fas fa-user-alt-slash    "></i>
+                    <i class="fas fa-Product-alt-slash    "></i>
                     Delete
                 </button>
                 <button type="submit" class="btn btn-dark" formaction="/admin/edit_products/patch">
@@ -51,7 +46,21 @@
             </div>
         </form>
 
-
+        <form method="POST" encType="multipart/form-data">
+            <div style="display: none;">
+                <label for="txtProductID" class="font-weight-bold">ProductID</label>
+                <input type="text" class="form-control" id="txtProductID" name="ProductID" value="{{detail.ID}}" >
+            </div>
+            <label for="txtIMAGE" class="font-weight-bold">IMAGE</label>
+            <input type="file" name="image" accept="image/*"/>
+            <div class="card">
+                <img id="image" class="card__image" src="/assets_menu/img/menu/{{detail.IMAGE}}" alt="" width="400" height="300"/>
+            </div>
+            <button type="submit" class="btn btn-dark" formaction="/admin/edit_products/saveImage">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Save Image
+            </button>
+        </form>
     </div>
 
 </main>

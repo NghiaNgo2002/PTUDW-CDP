@@ -21,7 +21,7 @@ $(document).ready(function(){
                 $('#ordersTable tbody').empty();
                 $.each(response.orders, (i, order) => {
                     let check = null;
-                    if(order.STATUS == "Done")
+                    if(order.STATUS == "Done" || order.STATUS == "Cancel")
                     {
                         check = '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
                     }
@@ -61,12 +61,13 @@ $(document).ready(function(){
     /**
      * Search
      */
-    $("#searchButton").click(function (){
+    $(document).on("click", "#searchButton", function (){
         let category = '-1';
-        let search = $("#search").value;
+        let search = $("#search").val();
 
         category = $("#selected_form").value;
-        console.log(search)
+        console.log(category)
+
         // re-fetch customer list again
         fetchorders(0, 5, search, category);
     });
@@ -100,9 +101,12 @@ $(document).ready(function(){
             // adding .active class on the first pageIndex for the loading time
             if(i==1){
 
-                pageIndex = "<li class='page-item active'><a class='page-link'>"
+                pageIndex = "<li class='page-item active' id='first-page'><a class='page-link'>"
                     + i + "</a></li>"
-            } else {
+            } else if(i==totalPages) {
+                pageIndex = "<li class='page-item' id='last-page'><a class='page-link'>"
+                    + i + "</a></li>"
+            }else{
                 pageIndex = "<li class='page-item'><a class='page-link'>"
                     + i + "</a></li>"
             }
@@ -165,13 +169,15 @@ $(document).ready(function(){
         } else if(val.toUpperCase()==="FIRST") {
             fetchorders(0, 5, search,  selectedCategory);
             $("li.active").removeClass("active");
-
             $(".carousel-inner .carousel-item:first-child").addClass("active");
+            $("#first-page").addClass("active");
         } else if(val.toUpperCase()==="LAST") {
             let page = $("ul.pagination li").length -4;
             fetchorders(page -1, 5, search,  selectedCategory);
             $("li.active").removeClass("active");
             $(".carousel-inner .carousel-item:last-child").addClass("active");
+            $("#last-page").addClass("active");
+
         }
         else {
             fetchorders(parseInt(val) - 1, 5, search,  selectedCategory);
@@ -182,3 +188,5 @@ $(document).ready(function(){
     });
 
 });
+
+

@@ -16,12 +16,6 @@ exports.getId = async (id) => {
     return result[0][0];
 }
 
-
-exports.delete = async (account) => {
-    var obj = Object.values(account);
-    await db.connection.execute('delete from accounts where id = ?', [obj[0]]);
-}
-
 exports.saveEdit = async (id) => {
     var obj = Object.values(id);
     
