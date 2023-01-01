@@ -11,9 +11,11 @@ const authRouter = require("./components/_auth/index");
 const usersRouter = require("./components/user/index");
 const adminRouter = require("./components/admin/index");
 const apiRouter = require("./components/_auth/api/index");
+const verifyRouter = require("./components/verify/index");
 const user_auth = require("./middleware/user");
 const admin_auth = require("./middleware/admin");
 const auth_auth = require("./middleware/auth");
+const verify_auth = require("./middleware/verify");
 const passport = require("./components/_auth/passport/index");
 const hbs = require("express-handlebars");
 const app = express();
@@ -84,6 +86,7 @@ app.use("/api", apiRouter);
 app.use("/auth", auth_auth, authRouter);
 app.use("/user", user_auth, usersRouter);
 app.use("/admin", admin_auth, adminRouter);
+app.use("/verify", verify_auth, verifyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

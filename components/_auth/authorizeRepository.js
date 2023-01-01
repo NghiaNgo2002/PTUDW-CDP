@@ -17,5 +17,5 @@ exports.emailExists = async(email) => {
 }
 
 exports.insertUser = async(fullname, phonenumber, email, hash) => {
-    await db.connection.execute('insert into accounts (PHONENUMBER,PASSWORD,FULLNAME,EMAIL,CREATEDDATE,LEVEL,IMAGE,BUDGET,ACTIVE) VALUES (?,?,?,?,?,?,?,?)',[phonenumber, hash, fullname, email, moment().format(),'Bronze','default-user.jpg','0','1']);
+    await db.connection.execute('insert into accounts (PHONENUMBER,PASSWORD,FULLNAME,EMAIL,CREATEDDATE,LEVEL,IMAGE,BUDGET,ACTIVE,VERIFIED) VALUES (?,?,?,?,?,?,?,?,?,?)',[phonenumber, hash, fullname, email, moment().format(),'Bronze','default-user.jpg','0','1','0']);
 }

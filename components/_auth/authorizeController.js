@@ -43,5 +43,11 @@ exports.register = async (req, res) => {
         res.render('_auth/register', { title: 'Express', layout: false, error: e.message});
         return;
     }
-    res.redirect('/');
+    const user = await authorizeService.getUserByPhonenumber(phonenumber);
+    req.logIn(user, function(error){
+        if(!error){
+            res.redirect('/verify/account');
+            //res.redirect("/admin/profile");
+        }
+    });
 }

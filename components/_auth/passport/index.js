@@ -20,7 +20,8 @@ passport.serializeUser(function(user, cb) {
         LEVEL: Object.values(user)[6],
         IMAGE: Object.values(user)[7],
         BUDGET: Object.values(user)[8],
-        ACTIVE: Object.values(user)[9]
+        ACTIVE: Object.values(user)[9],
+        VERIFIED: Object.values(user)[10]
     });
   });
 });
