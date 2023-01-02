@@ -1,6 +1,10 @@
 const authorizeRepository = require('./authorizeRepository');
 const bcrypt = require('bcryptjs');
 
+exports.getUserByPhonenumber = async(phonenumber) => {
+    return await authorizeRepository.getUserByPhonenumber(phonenumber);
+}
+
 exports.register = async (fullname, phonenumber, email, password)=>{
     if(await authorizeRepository.phonenumberExists(phonenumber))
         throw new Error('Phone number is exists!');
