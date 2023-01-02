@@ -24,4 +24,7 @@ function(req, res){
 router.get('/register', authorizeController.showRegisterForm);
 router.post('/register', authorizeController.register);
 
+router.get('/password', authorizeController.showResetPasswordForm);
+router.post('/password', authorizeController.resetPassword);
+
 module.exports = router;

@@ -3,6 +3,7 @@ const authorizeService = require('./authorizeService');
 const Ajv = require('ajv');
 const addFormats = require('ajv-formats');
 const registerSchema = require('./schema/register');
+const emailSchema = require('./schema/email');
 
 const ajv = new Ajv();
 addFormats(ajv);
@@ -47,7 +48,27 @@ exports.register = async (req, res) => {
     req.logIn(user, function(error){
         if(!error){
             res.redirect('/verify/account');
-            //res.redirect("/admin/profile");
         }
     });
+}
+
+exports.showResetPasswordForm = (req, res) =>{
+    res.render('_auth/password', {layout: false});
+}
+
+exports.resetPassword = async (req, res) =>{
+    if(!ajv.validate(emailSchema, req.body)){
+        res.render('_auth/password', { layout: false, error: 'Invalid input!'});
+        return;
+    }
+    const {
+        email : email,
+    } = req.body;
+    try{
+        await authorizeService.checkEmail(email);
+    }catch(e){
+        res.render('_auth/password', { layout: false, error: e.message});
+        return;
+    }
+    res.redirect('/verify/password?email='+email);
 }

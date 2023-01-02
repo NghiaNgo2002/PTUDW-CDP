@@ -1,7 +1,9 @@
 module.exports = (req, res, next) => {
     if(!req.user){
-        res.redirect("/");
-        return;
+        if(req.path !== '/password' && req.path !== '/verifyPassword'){
+            res.redirect("/");
+            return;
+        }
     }
     next();
 }

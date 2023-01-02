@@ -5,6 +5,11 @@ exports.getUserByPhonenumber = async(phonenumber) => {
     return await authorizeRepository.getUserByPhonenumber(phonenumber);
 }
 
+exports.checkEmail = async(email) => {
+    if(!await authorizeRepository.emailExists(email))
+        throw new Error('Email is not exists!');
+}
+
 exports.register = async (fullname, phonenumber, email, password)=>{
     if(await authorizeRepository.phonenumberExists(phonenumber))
         throw new Error('Phone number is exists!');
