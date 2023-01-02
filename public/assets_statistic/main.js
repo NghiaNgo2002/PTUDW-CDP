@@ -54,19 +54,34 @@ $(document).ready(function(){
     }
     $("#year").change(function() {
         let val = this.value;
-        console.log(val);
         loadStatisticByYear(val);
     })
     $("#month").change(function() {
         let val = this.value;
         loadStatisticByMonth(val);
     })
-    function fetchproducts(){
+
+    $("#dayProduct").click(function() {
+        let val = this.value;
+        console.log(val);
+        fetchproducts(val);
+    })
+    $("#monthProduct").click(function() {
+        let val = this.value;
+        fetchproducts(val);
+    })
+    $("#yearProduct").click(function() {
+        let val = this.value;
+        fetchproducts(val);
+    })
+    function fetchproducts(type){
 
         $.ajax({
             type : "POST",
             url : "/admin/api/statistic/top_products",
-
+            data: {
+                data: type
+            },
             success: function(response){
                 $('#statisticTable tbody').empty();
                 $.each(response, (i, product) => {
@@ -93,11 +108,13 @@ $(document).ready(function(){
             month_data = month;
         }
         else{
+            //set current month default
             const monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
             ];
             const d = new Date();
             month_data = monthNames[d.getMonth()];
+            $("#month").val(month_data).change();
         }
             $.ajax({
             type : "POST",
@@ -108,14 +125,18 @@ $(document).ready(function(){
             success: function(response) {
                 value = Object.values(response);
                 var data_arr = [];
-
-                for (i = 0; i < value.length; i++) {
+                if(value.length != 0) {
+                    for (i = 0; i < value.length; i++) {
+                        data_arr.push({
+                            y: parseInt(value[i]['PRICE']),
+                            label: value[i]['TIME']
+                        });
+                    }
+                }else{
                     data_arr.push({
-                        y: parseInt(value[i]['PRICE']),
-                        label: value[i]['TIME']
+                        label: "Nothing to display"
                     });
                 }
-
                 var chart = new CanvasJS.Chart("monthChart", {
                     title: {
                         text: "Statistic"
@@ -129,6 +150,7 @@ $(document).ready(function(){
                     exportEnabled: true
                 });
                 chart.render();
+
             },
             error : function(e) {
                 alert("ERROR: ", e);
@@ -139,7 +161,7 @@ $(document).ready(function(){
 
     (function(){
         loadStatisticByYear();
-        fetchproducts();
+        fetchproducts("dayProduct");
         loadStatisticByMonth();
     })();
 });

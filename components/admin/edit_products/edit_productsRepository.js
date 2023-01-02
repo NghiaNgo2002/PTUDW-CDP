@@ -22,7 +22,7 @@ exports.delete = async (id) => {
 
 exports.saveEdit = async (id) => {
     var obj = Object.values(id);
-    const result = await db.connection.execute("UPDATE menu SET NAME = ?, IMAGE = ?, PRICE = ?, CATEGORY = ? where ID = ?;", [obj[1],`menu-item-${obj[0]}.png`, obj[2], obj[3],obj[0]]);
+    const result = await db.connection.execute("UPDATE menu SET NAME = ?, IMAGE = ?, PRICE = ?, CATEGORY = ?, STATUS = ? where ID = ?;", [obj[1],`menu-item-${obj[0]}.png`, obj[2], obj[3], obj[4],obj[0]]);
     return result[0][0];
 }
 

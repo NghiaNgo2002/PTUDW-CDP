@@ -33,6 +33,9 @@
                 <div class="top-ten">
                     <div class="title-left">
                         <h3>Top sale products</h3>
+                        <button id="dayProduct" class="btn btn-primary btn-sm" title="Product Day" value="dayProduct">Day</button>
+                        <button id="monthProduct" class="btn btn-primary btn-sm" title="Product Month" value="monthProduct">Month</button>
+                        <button id="yearProduct" class="btn btn-primary btn-sm" title="Product Year" value="yearProduct">Year</button>
                         <table id="statisticTable" class="table table-hover">
                             <thead>
                             <tr>
@@ -59,9 +62,9 @@
             <div class="title-left">
                 <h3>Revenue by Month</h3>
             </div>
-            <select class="wide w-100 combo-box" id="month">
+            <select class="combo-box" id="month">
                 {{#each monthNames}}
-                    <option value="{{this}}" selected>{{this}}</option>
+                    <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
             <div id="monthChart" style="width:100%; height:280px"></div>

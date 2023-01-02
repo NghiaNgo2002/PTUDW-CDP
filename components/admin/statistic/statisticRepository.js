@@ -10,8 +10,18 @@ exports.getPrice = async (year) => {
     return result[0];
 }
 
-exports.getTopProducts = async () => {
-    const result =  await db.connection.execute('select name, count(*) as counts from history_food group by NAME order by count(*) desc limit 3');
+exports.getTopProducts = async (type) => {
+    var result;
+    const d = new Date();
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    let yy = new Date().getFullYear();
+    let dd = String(d.getDate()).padStart(2, '0');
+    let current = yy + "-" + mm + "-" + dd;
+    if(type == "yearProduct")
+        result =  await db.connection.execute('select name, sum(count) as counts from history_food where year(TIME) = ? group by NAME order by count(*) desc limit 3', [yy]);
+    else if(type == "monthProduct")
+        result =  await db.connection.execute('select name, sum(count) as counts from history_food where month(TIME) = ? and year(TIME) = ? group by NAME order by count(*) desc limit 3', [mm, yy]);
+    else result =  await db.connection.execute('select name, sum(count) as counts from history_food where TIME = ? group by NAME order by count(*) desc limit 3', [current]);
     return result[0];
 }
 

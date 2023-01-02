@@ -8,8 +8,8 @@ exports.getPrice = (year) => {
     return statisticRepository.getPrice(year);
 };
 
-exports.getTopProducts = () => {
-    return statisticRepository.getTopProducts();
+exports.getTopProducts = (type) => {
+    return statisticRepository.getTopProducts(type);
 };
 
 exports.getYear = () => {

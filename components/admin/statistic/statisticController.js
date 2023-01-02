@@ -34,6 +34,6 @@ exports.statisticDataByMonth = async (req, res) => {
 };
 
 exports.topProductsData = async (req, res) => {
-  let result = await statistic.getTopProducts();
+  let result = await statistic.getTopProducts(req.body.data);
   res.send(result);
 }
