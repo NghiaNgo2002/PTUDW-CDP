@@ -79,8 +79,9 @@ $(document).ready(function () {
               '">' +
               " <div>" +
               "<img " +
-              'src="/assets_menu/img/menu/' +
-              product.IMAGE +
+              'src="/assets_menu/img/menu/menu-item-' +
+              product.ID +
+              ".png" +
               '"' +
               ' class="menu-img img-fluid"' +
               ' alt=""' +

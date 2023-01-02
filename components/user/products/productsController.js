@@ -19,7 +19,7 @@ exports.details = async (req, res, next) => {
       ? Object.keys(relatedProducts).length
       : 4;
 
-  relatedProducts.slice(-max - 1, -1);
+  relatedProducts.splice(-max - 1, -1);
   console.log(relatedProducts);
   res.render("user/products/details", {
     product,

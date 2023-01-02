@@ -6,7 +6,7 @@
           <div class="d-flex flex-column justify-content-center">
             <div class="main_image">
               <img
-                src="/assets_menu/img/menu/{{product.IMAGE}}"
+                src="/assets_menu/img/menu/menu-item-{{product.ID}}.png"
                 id="main_product_image"
                 width="350"
               />
@@ -16,7 +16,7 @@
                 {{#each relatedProducts}}
                   <li><a href="{{originalUrl}}{{ID}}"><img
                         onclick="changeImage(this)"
-                        src="/assets_menu/img/menu/{{IMAGE}}"
+                        src="/assets_menu/img/menu/menu-item-{{ID}}.png"
                         width="70"
                       /></a></li>
                 {{/each}}
@@ -61,7 +61,9 @@
               </div>
             </div>
             <div class="buttons d-flex flex-row mt-5 gap-3">
-              <button id="BuyNow" class="btn btn-outline-dark">Buy Now</button>
+              <a href="/user/cart">
+                <button id="BuyNow" class="btn btn-outline-dark">Buy Now</button>
+              </a>
               <button id="AddToCart" class="btn btn-dark">Add to Basket</button>
             </div>
             <div class="search-option">

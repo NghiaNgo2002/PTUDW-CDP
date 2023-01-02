@@ -32,5 +32,10 @@ router.get("/api/products_menu", menu_api.getProductPage);
 
 router.get("/api/cart", cart_api.cartDetail);
 router.post("/api/cart/add", cart_api.add);
+router.post("/api/cart/edit", cart_api.edit);
+router.post("/api/cart/remove", cart_api.remove);
+router.get("/api/cart/removeAll", cart_api.removeAll);
+router.get("/api/cart/getBudget", cart_api.getBudget);
+router.post("/api/cart/checkOut", cart_api.checkOut);
 
 module.exports = router;
