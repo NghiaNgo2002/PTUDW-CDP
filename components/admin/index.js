@@ -38,6 +38,7 @@ router.get("/edit_orders/:id", list_orders.details);
 // del
 router.post("/edit_products/del",edit_products.delete);
 router.post("/edit_orders/:id/del", list_orders.delete);
+router.get("/edit_products/remove-image/:id",edit_products.removeImage);
 //update
 router.post("/edit_accounts/patch", edit_accounts.saveEdit);
 router.post("/edit_products/patch", edit_products.saveEdit);

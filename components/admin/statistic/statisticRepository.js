@@ -5,23 +5,13 @@ exports.getAll = async () => {
     return result[0];
 }
 
-exports.filter = async (name) => {
-    const result =  await db.connection.execute("select * from accounts where name like ?", [`%${name}%`]);
-    return result[0];
-}
-
-exports.getId = async (id) => {
-    const result =  await db.connection.execute('select * from accounts where id = ?', [id]);
-    return result[0][0];
-}
-
 exports.getPrice = async (year) => {
     const result =  await db.connection.execute('select sum(PRICE) as PRICE, MONTH(TIME) as TIME from history where YEAR(TIME) = ? group by MONTH(TIME)', [year]);
     return result[0];
 }
 
 exports.getTopProducts = async () => {
-    const result =  await db.connection.execute('select name, count(*) as counts from history_detail group by NAME order by count(*) desc limit 3');
+    const result =  await db.connection.execute('select name, count(*) as counts from history_food group by NAME order by count(*) desc limit 3');
     return result[0];
 }
 

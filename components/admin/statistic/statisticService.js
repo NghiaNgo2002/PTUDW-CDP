@@ -4,14 +4,6 @@ exports.getAll = () => {
     return statisticRepository.getAll();
 };
 
-exports.filter = (name) => {
-    return statisticRepository.filter(name);
-};
-
-exports.getId = (id) => {
-    return statisticRepository.getId(id);
-};
-
 exports.getPrice = (year) => {
     return statisticRepository.getPrice(year);
 };

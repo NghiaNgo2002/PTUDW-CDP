@@ -4,7 +4,7 @@ $(document).ready(function(){
     }
     function loadStatisticByYear (year) {
         let value = [];
-        year_data = $("#selectYear").val();
+        year_data = $("#year").val();
         $.ajax({
             type : "POST",
             url : "/admin/statistic/value",
@@ -41,7 +41,8 @@ $(document).ready(function(){
                                 }
                             }]
                         }
-                    }
+                    },
+                    exportEnabled: true
                 });
                 chart.render();
             },
@@ -53,6 +54,7 @@ $(document).ready(function(){
     }
     $("#year").change(function() {
         let val = this.value;
+        console.log(val);
         loadStatisticByYear(val);
     })
     $("#month").change(function() {
@@ -123,7 +125,8 @@ $(document).ready(function(){
                             type: "column",
                             dataPoints: data_arr
                         }
-                    ]
+                    ],
+                    exportEnabled: true
                 });
                 chart.render();
             },

@@ -26,6 +26,11 @@ exports.saveEdit = async (id) => {
     return result[0][0];
 }
 
+exports.editImage = async (id) => {
+    const result = await db.connection.execute("UPDATE menu SET IMAGE = ? where ID = ?;", [`menu-item-${id}.png`, id]);
+    return result[0][0];
+}
+
 exports.nextId = async () => {
     const result = await db.connection.execute("SELECT MAX(ID) + 1 as nextId FROM menu");
     return result[0];
@@ -37,13 +42,17 @@ exports.add = async (product) => {
     return result[0];
 }
 
+exports.countAll = async () => {
+    const result = await db.connection.execute("select count(*) as count_all from menu");
+    return result[0];
+}
 exports.getAllCategory = async () => {
-    const result = await db.connection.execute('select distinct category from menu ');
+    const result = await db.connection.execute("select distinct category from menu ");
     return result[0];
 }
 
 exports.getCategory = async (category) => {
-    const result = await db.connection.execute('select * from menu where category = ?', [category]);
+    const result = await db.connection.execute("select * from menu where category = ?", [category]);
     return result[0];
 }
 
@@ -135,4 +144,8 @@ exports.getLimitProducts = async (category, offset, limit) => {
             offset, [category]);
     }
     return result[0];
+}
+
+exports.removeImage = async(id) => {
+    await db.connection.execute("UPDATE menu SET IMAGE = ? WHERE ID = ?;", ['default-item.png', id]);
 }

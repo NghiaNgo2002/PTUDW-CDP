@@ -20,6 +20,14 @@ exports.saveEdit = (id) => {
     return productsRepository.saveEdit(id);
 };
 
+exports.editImage = (id) => {
+    return productsRepository.editImage(id);
+};
+
+exports.removeImage = (id) => {
+    return productsRepository.removeImage(id);
+};
+
 exports.add = (product) => {
     return productsRepository.add(product);
 };
@@ -28,6 +36,9 @@ exports.nextId = () => {
     return productsRepository.nextId();
 }
 
+exports.countAll = () => {
+    return productsRepository.countAll();
+}
 
 exports.getAllCategory = () => {
     return productsRepository.getAllCategory();

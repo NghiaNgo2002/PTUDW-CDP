@@ -1,7 +1,7 @@
 const db = require('../../../db');
 
 exports.getLimit = async (offset, limit) => {
-    const result =  await db.connection.execute("SELECT IDBILL, PHONENUMBER, TASK, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TASK = 'top up' order by TIME desc, IDBILL desc limit " +
+    const result =  await db.connection.execute("SELECT IDBILL, PHONENUMBER, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID order by TIME desc, IDBILL desc limit " +
                                                                         limit +
                                                                         " offset " +
                                                                         offset);
@@ -34,10 +34,10 @@ exports.countAll = async (category) => {
     var result;
     if(category < 0 || category == 'All')
     {
-        result = await db.connection.execute("SELECT count(*) as countAll FROM history where TASK = 'top up'");
+        result = await db.connection.execute("SELECT count(*) as countAll FROM history");
     }
     else{
-        result = await db.connection.execute("SELECT count(*) as countAll FROM history where TASK = 'top up' and STATUS = ?", [category]);
+        result = await db.connection.execute("SELECT count(*) as countAll FROM history where STATUS = ?", [category]);
     }
     return result[0];
 }
@@ -51,7 +51,7 @@ exports.add = async (account, nextId) => {
 
 
 exports.getCategoryLimit = async (category, offset, limit) => {
-    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, TASK, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TASK = 'top up' and history.STATUS = ? order by TIME desc, IDBILL desc limit " +
+    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and history.STATUS = ? order by TIME desc, IDBILL desc limit " +
                                                                     limit +
                                                                     " offset " +
                                                                     offset, [category]);
@@ -59,7 +59,7 @@ exports.getCategoryLimit = async (category, offset, limit) => {
 }
 
 exports.getSearch = async (search) => {
-    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, TASK, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TASK = 'top up' and TIME like ? order by TIME desc, IDBILL desc ", [`%${search}%`]);
+    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TIME like ? order by TIME desc, IDBILL desc ", [`%${search}%`]);
     return result[0];
 }
 

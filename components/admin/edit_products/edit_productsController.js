@@ -14,6 +14,7 @@ exports.details = async (req, res, next) => {
   const { id:id } = req.params;
 
   const detail = await products.getId(id);
+  console.log(detail);
   res.render('admin/edit_products/details', {
     detail,
     layout: "admin_layout"});
@@ -25,9 +26,10 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.saveEdit = async (req, res, next) => {
-  const id = req.body.UserID;
+  const id = req.body.ProductID;
   const imagePath = path.join(__dirname,'../../../','/public/assets_menu/img/menu');
   const product = req.body;
+
   if (!req.file) {
     await products.saveEdit(product);
     res.redirect("/admin/edit_products");
@@ -35,6 +37,7 @@ exports.saveEdit = async (req, res, next) => {
   else {
     const fileUpload = new resize(imagePath, id);
     const filename = await fileUpload.save(req.file.buffer);
+    await products.editImage(id);
     res.redirect("/admin/edit_products");
   }
 };
@@ -50,7 +53,7 @@ exports.add = async (req, res, next) => {
 }
 
 exports.saveAdd = async (req, res, next) => {
-  const id = req.body.ID;
+  const id = req.body.Id;
   const imagePath = path.join(__dirname,'../../../','/public/assets_menu/img/menu');
   const product = req.body;
   if (!req.file) {
@@ -61,11 +64,15 @@ exports.saveAdd = async (req, res, next) => {
     const fileUpload = new resize(imagePath, id);
     const filename = await fileUpload.save(req.file.buffer);
     await products.add(product);
-    console.log("Co anh");
     res.redirect("/admin/edit_products");
   }
 }
 
+exports.removeImage = async (req, res) => {
+  const id = req.params.id;
+  await products.removeImage(id);
+  res.redirect("/admin/edit_products");
+}
 exports.paginator = async (req, res) => {
   try{
     let page = parseInt(req.body.page);
@@ -88,7 +95,7 @@ exports.paginator = async (req, res) => {
     }else {
       // NOT Filtering with salary
       if (category < 0 || category == 'All') {
-        countTotal = await accounts.countAll();
+        countTotal = await products.countAll();
         // not sorting with name
         if (name == true) {
           if (desc == false) { // sorting with name and ascending

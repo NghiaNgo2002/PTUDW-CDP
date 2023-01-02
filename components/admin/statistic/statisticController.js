@@ -10,7 +10,6 @@ exports.statistic = async (req, res) => {
     layout: "admin_layout" });
 };
 
-
 exports.statisticData = async (req, res) => {
   var year = req.body;
   let result = await statistic.getPrice(year.year);

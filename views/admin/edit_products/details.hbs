@@ -21,10 +21,30 @@
                 <div class="form-group">
                     <label for="CategorySelect">Category</label>
                     <select name="Category" id="CategorySelect" class="form-control">
-                        <option value="Cơm">Cơm</option>
-                        <option value="Mì">Mì</option>
-                        <option value="Nước">Nước</option>
-                        <option value="Khác">Khác</option>
+                        {{#when detail.CATEGORY 'eq' "Cơm"}}
+                            <option value="Cơm" selected>Cơm</option>
+                            <option value="Mì">Mì</option>
+                            <option value="Nước">Nước</option>
+                            <option value="Khác">Khác</option>
+                        {{/when}}
+                        {{#when detail.CATEGORY 'eq' "Mì"}}
+                            <option value="Cơm">Cơm</option>
+                            <option value="Mì" selected>Mì</option>
+                            <option value="Nước">Nước</option>
+                            <option value="Khác">Khác</option>
+                        {{/when}}
+                        {{#when detail.CATEGORY 'eq' "Nước"}}
+                            <option value="Cơm" >Cơm</option>
+                            <option value="Mì">Mì</option>
+                            <option value="Nước" selected>Nước</option>
+                            <option value="Khác">Khác</option>
+                        {{/when}}
+                        {{#when detail.CATEGORY 'eq' "Khác"}}
+                            <option value="Cơm" >Cơm</option>
+                            <option value="Mì">Mì</option>
+                            <option value="Nước">Nước</option>
+                            <option value="Khác" selected>Khác</option>
+                        {{/when}}
                     </select>
                 </div>
 
@@ -60,6 +80,7 @@
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Save Image
             </button>
+            <a href="/admin/edit_products/remove-image/{{detail.ID}}" class="btn btn-danger " title="Remove product image"><i class="bi bi-trash"></i> Remove Image</a>
         </form>
     </div>
 

@@ -20,7 +20,7 @@ class Resize {
         return filename;
     }
     filename() {
-        return `menu-item-${this.id}.jpg`;
+        return `menu-item-${this.id}.png`;
     }
     filepath(filename) {
         return path.resolve(`${this.folder}/${filename}`)
