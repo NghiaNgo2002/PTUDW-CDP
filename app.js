@@ -61,7 +61,7 @@ app.engine('.hbs',
 ));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-
+app.listen(3000, "0.0.0.0");
 app.use(session({
     secret: 'very secret keyboard cat',
     resave: false,
