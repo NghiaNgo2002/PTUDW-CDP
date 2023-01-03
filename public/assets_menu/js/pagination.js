@@ -205,6 +205,7 @@ function confirmAddBudgetOnline() {
   let amount = parseFloat($("#add-amount0").val());
   if (amount !== 0) {
     amount *= 0.000042;
+    amount = Math.round(amount*100)/100;
     let addAmount = {
       addBudget: amount
     };
