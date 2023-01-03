@@ -1,5 +1,9 @@
 const orders_historyRepository = require("./orders_historyRepository");
 
-exports.insertHistory = async (product) => {
-  await orders_historyRepository.insertHistory(product);
+exports.insertHistoryFood = async (product, user, note) => {
+  await orders_historyRepository.insertHistory(product, user, note);
+};
+
+exports.insertHistory = async (userID, price) => {
+  await orders_historyRepository.insertHistory(userID, price);
 };

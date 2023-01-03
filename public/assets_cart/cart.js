@@ -109,17 +109,22 @@ function checkOut() {
     $("#notyet-check-out").show();
     return;
   }
+  const note = $("#note-cart").val();
   $.get("/user/api/cart/getBudget", function (data) {
     if (data.BUDGET >= total) {
       data.BUDGET -= total;
       let cart_checkout = {
         remainBudget: data.BUDGET,
         userID: data.ID,
+        note: note,
       };
-      $.post("/user/api/cart/checkOut", cart_checkout);
+      $.post("/user/api/cart/checkOut", cart_checkout).then(function () {
+        $.get("/user/profile/reload");
+      });
       $.get("/user/api/cart/removeAll").then(function () {
         renderCart();
       });
+      document.getElementById("note-cart").value = "";
       $("#success-check-out").show();
     } else {
       $("#fail-check-out").show();

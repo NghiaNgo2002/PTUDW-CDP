@@ -5,7 +5,7 @@ const Paginator = require("paginator");
 exports.getProductPage = async (req, res) => {
   // Arguments are `per_page` and `length`. `per_page` changes the number of
   // results per page, `length` changes the number of links displayed.
-  let paginator = new Paginator(3, 3);
+  let paginator = new Paginator(6, 3);
   const { page: curPage } = req.query;
   const { name: nameFilter } = req.query;
   const count = await products_menuService.count(nameFilter);

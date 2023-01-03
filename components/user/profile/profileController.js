@@ -156,3 +156,14 @@ exports.signout = (req, res) => {
     res.redirect("/");
   });
 };
+
+//
+exports.reload = async (req, res) => {
+  const user = await profileService.getProfile(Object.values(req.user)[0]);
+  req.logIn(user, function (error) {
+    if (!error) {
+      console.log(req.user);
+      res.redirect("/user/profile");
+    }
+  });
+};

@@ -64,3 +64,11 @@ exports.editBudget = async (id, money) => {
   );
   return result[0][0];
 };
+
+exports.getProfile = async (id) => {
+  const result = await db.connection.execute(
+    "SELECT * FROM accounts where ID like ?;",
+    [id]
+  );
+  return result[0][0];
+};

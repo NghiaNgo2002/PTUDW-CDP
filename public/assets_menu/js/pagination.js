@@ -179,3 +179,18 @@ $(document).ready(function () {
     });
   });
 });
+
+function confirmAddBudget() {
+  let amount = parseInt($("#add-amount").val());
+  if (amount != 0) {
+    let addAmount = {
+      addBudget: amount,
+    };
+
+    $.post("/user/api/cart/reqBudget", addAmount);
+    $("#req-budget-alert").show();
+    $("#cancel-add-budget").click();
+  } else {
+    $("#cancel-add-budget").click();
+  }
+}

@@ -22,6 +22,8 @@ router.post("/profile/information", profile.editProfile);
 router.post("/profile/password", profile.changePassword);
 router.post("/profile/image", upload.single("image"), profile.editAvatar);
 router.get("/profile/remove-image", profile.removeAvatar);
+router.get("/profile/reload", profile.reload);
+
 router.get("/signout", profile.signout);
 
 router.get("/faq", faq.faq);
@@ -37,5 +39,8 @@ router.post("/api/cart/remove", cart_api.remove);
 router.get("/api/cart/removeAll", cart_api.removeAll);
 router.get("/api/cart/getBudget", cart_api.getBudget);
 router.post("/api/cart/checkOut", cart_api.checkOut);
+router.post("/api/cart/reqBudget", cart_api.reqBudget);
+
+// router.post("/api/cart/addBudget", cart_api.addBudget);
 
 module.exports = router;

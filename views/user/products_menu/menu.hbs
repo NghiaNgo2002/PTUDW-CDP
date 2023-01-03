@@ -1,4 +1,10 @@
 <main id="main" class="main">
+  <div class="alert alert-success alert-dismissible fade show" style="display:none;" id="req-budget-alert" role="alert">
+  <strong>Send request successfully!</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
   <div class="search-bar">
     <form class="search-form d-flex align-items-center" id="search-bar-form">
       <input
@@ -20,6 +26,36 @@
                                 </div>
                             </div>
  <!-- Price range-->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add Budget
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-outline" style="width: 22rem;">
+    <i class="fas fa-dollar-sign trailing"></i>
+    <input type="number" id="add-amount" min="0" step="5000" value="0" class="form-control form-icon-trailing" />
+    <label class="form-label" for="add-amount">Enter the amount</label>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel-add-budget" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="confirmAddBudget()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
 
       <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">

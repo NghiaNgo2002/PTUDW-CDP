@@ -45,3 +45,7 @@ exports.removeAvatar = async (id) => {
 exports.editBudget = async (id, money) => {
   return await profileRepository.editBudget(id, money);
 };
+
+exports.getProfile = async (id) => {
+  return await profileRepository.getProfile(id);
+};
