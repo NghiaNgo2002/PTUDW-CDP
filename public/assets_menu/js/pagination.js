@@ -178,6 +178,14 @@ $(document).ready(function () {
       $pagination.twbsPagination(defaultOpts);
     });
   });
+  $("#req-budget-alert").hide();
+  $("#confirm-req-budget").click(function showAlert() {
+    $("#req-budget-alert")
+      .fadeTo(2000, 500)
+      .slideUp(500, function () {
+        $("#req-budget-alert").slideUp(500);
+      });
+  });
 });
 
 function confirmAddBudget() {
@@ -186,9 +194,7 @@ function confirmAddBudget() {
     let addAmount = {
       addBudget: amount,
     };
-
     $.post("/user/api/cart/reqBudget", addAmount);
-    $("#req-budget-alert").show();
     $("#cancel-add-budget").click();
   } else {
     $("#cancel-add-budget").click();

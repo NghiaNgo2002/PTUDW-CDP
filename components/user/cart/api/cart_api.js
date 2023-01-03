@@ -45,12 +45,14 @@ exports.checkOut = async (req, res) => {
   const { remainBudget: money } = req.body;
   const { userID: userID } = req.body;
   const { note: note } = req.body;
-
+  let idFoodBill = parseInt(await orders_historyService.countHistoryFood());
   const user = await cartService.checkOut(userID, money);
-
   const curCart = await cartService.cartDetails(req.session.cart);
+
+  idFoodBill += 1;
   Object.values(curCart.products).forEach((value) => {
-    orders_historyService.insertHistoryFood(value, user, note);
+    console.log(idFoodBill, value, userID, note);
+    orders_historyService.insertHistoryFood(idFoodBill, value, userID, note);
   });
   req.user = user;
   res.json(user);
@@ -59,9 +61,15 @@ exports.checkOut = async (req, res) => {
 exports.reqBudget = async (req, res) => {
   const { addBudget: money } = req.body;
   const userID = Object.values(req.user)[0];
+  const idBill = parseInt(await orders_historyService.countHistory());
 
-  console.log(money, userID);
-  const user = await orders_historyService.insertHistory(userID, money);
+  console.log(idBill, money, userID);
+
+  const user = await orders_historyService.insertHistory(
+    idBill + 1,
+    userID,
+    money
+  );
 
   req.user = user;
   res.json(user);
