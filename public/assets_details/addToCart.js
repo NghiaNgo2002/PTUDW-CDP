@@ -16,4 +16,13 @@ $(document).ready(function () {
     await $.post("/user/api/cart/add", data);
     window.location.href = "/user/cart";
   });
+  $("#ViewReview").on("click", async function (e) {
+    e.preventDefault();
+    const productID = parseInt($("#ID").text());
+    const data = {
+      productID: productID,
+    };
+
+    window.location.href = "/user/cart";
+  });
 });

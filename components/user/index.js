@@ -12,6 +12,7 @@ const products = require("./products/productsController");
 const products_menu = require("./products_menu/products_menuController");
 const menu_api = require("./products_menu/menu_api/menu_api");
 const cart_api = require("./cart/api/cart_api");
+const product_api = require("./products/api/product_api");
 
 router.get("/", profile.profileRedirect);
 router.get("/cart", cart.cart);
@@ -30,6 +31,8 @@ router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
 router.get("/orders_history_food", orders_history.orders_history_food);
 router.get("/products/:productId", products.details);
+router.get("/api/review", product_api.getReviewList);
+
 router.get("/products_menu", products_menu.products_menu);
 router.get("/api/products_menu", menu_api.getProductPage);
 

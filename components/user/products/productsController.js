@@ -28,3 +28,9 @@ exports.details = async (req, res, next) => {
     layout: "user_layout",
   });
 };
+
+// exports.review = async (req, res, next) => {
+//   res.render("user/products/review", {
+//     layout: "user_layout",
+//   });
+// };
