@@ -2,7 +2,6 @@ $(document).ready(function () {
   (function () {
     $.get("/user/api/cart").then(function () {
       renderCart();
-      console.log(123);
     });
   })();
 });

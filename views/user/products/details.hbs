@@ -77,62 +77,57 @@ vertical-align: middle;"
             </div>
 
           </div>
-          <div class="buttons d-flex flex-row mt-5 gap-3">
-            <a href="#">
-              <button
-                type="button"
-                id="ViewReview"
-                class="btn btn-info"
-              >Review</button>
-            </a>
 
-          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container" id="review-content">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-2">
-            <img
-              src="https://image.ibb.co/jw55Ex/def_face.jpg"
-              class="img img-rounded img-fluid"
-            />
-            <p class="text-secondary text-center">15 Minutes Ago</p>
-          </div>
-          <div class="col-md-10">
-            <p>
-              <strong>Maniruzzaman Akash</strong>
-              <span class="float-right"><i
-                  class="text-warning fa fa-star"
-                ></i></span>
-              <span class="float-right"><i
-                  class="text-warning fa fa-star"
-                ></i></span>
-              <span class="float-right"><i
-                  class="text-warning fa fa-star"
-                ></i></span>
-              <span class="float-right"><i
-                  class="text-warning fa fa-star"
-                ></i></span>
 
-            </p>
-            <div class="clearfix"></div>
-            <p>Lorem Ipsum is simply dummy text of the pr make but also the leap
-              into electronic typesetting, remaining essentially unchanged. It
-              was popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.</p>
-          </div>
-        </div>
+  </div>
+  <ul id="pagination-review" class="pagination-sm"></ul>
+
+  <div class="row" id="post-review-box">
+    <div class="col-md-12">
+      <textarea
+        class="form-control animated"
+        cols="50"
+        id="new-review"
+        name="comment"
+        placeholder="Enter your review here..."
+        rows="5"
+      ></textarea>
+
+      <div class="text-right">
+        {{! <a
+            class="btn btn-danger btn-sm"
+            href="#"
+            id="close-review-box"
+            style="margin-right: 10px;"
+          >
+            <span class="glyphicon glyphicon-remove"></span>Cancel</a> }}
+        <button class="btn btn-success btn-lg" id="sendNewComment">Save</button>
       </div>
     </div>
-    <ul id="pagination-review" class="pagination-sm"></ul>
-
+    <div
+      class="alert alert-warning"
+      id="notyet-save-review"
+      style="display:none; text-align: left;
+vertical-align: middle;"
+      role="alert"
+    >
+      Please enter review !
+    </div>
+    <div
+      class="alert alert-success"
+      id="success-save-review"
+      style="display:none; text-align: left;
+vertical-align: middle;"
+      role="alert"
+    >
+      Successful!
+    </div>
   </div>
 
 </main>

@@ -33,6 +33,7 @@ router.get("/orders_history", orders_history.orders_history);
 router.get("/orders_history_food", orders_history.orders_history_food);
 router.get("/products/:productId", products.details);
 router.get("/api/review", product_api.getReviewList);
+router.post("/api/review/add", product_api.insertReview);
 
 router.get("/products_menu", products_menu.products_menu);
 router.get("/api/products_menu", menu_api.getProductPage);
