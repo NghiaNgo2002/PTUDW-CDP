@@ -13,6 +13,7 @@ const products_menu = require("./products_menu/products_menuController");
 const menu_api = require("./products_menu/menu_api/menu_api");
 const cart_api = require("./cart/api/cart_api");
 const product_api = require("./products/api/product_api");
+const paypal_api = require("./paypal/paypalController");
 
 router.get("/", profile.profileRedirect);
 router.get("/cart", cart.cart);
@@ -44,6 +45,12 @@ router.get("/api/cart/removeAll", cart_api.removeAll);
 router.get("/api/cart/getBudget", cart_api.getBudget);
 router.post("/api/cart/checkOut", cart_api.checkOut);
 router.post("/api/cart/reqBudget", cart_api.reqBudget);
+
+router.get("/paypal", paypal_api.showPaypal);
+router.post("/paypal", paypal_api.changeAmount);
+router.post("/api/orders", paypal_api.orders);
+router.post("/api/orders/:orderID/capture", paypal_api.capture);
+router.get("/paypal-complete", paypal_api.complete);
 
 // router.post("/api/cart/addBudget", cart_api.addBudget);
 

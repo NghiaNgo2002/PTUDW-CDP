@@ -200,3 +200,18 @@ function confirmAddBudget() {
     $("#cancel-add-budget").click();
   }
 }
+
+function confirmAddBudgetOnline() {
+  let amount = parseFloat($("#add-amount0").val());
+  if (amount !== 0) {
+    amount *= 0.000042;
+    let addAmount = {
+      addBudget: amount
+    };
+    $.post("/user/paypal", addAmount);
+    window.location.href = "/user/paypal";
+    $("#cancel-add-budget0").click();
+  } else {
+    $("#cancel-add-budget0").click();
+  }
+}
