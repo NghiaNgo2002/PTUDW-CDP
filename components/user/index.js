@@ -28,6 +28,7 @@ router.get("/signout", profile.signout);
 
 router.get("/faq", faq.faq);
 router.get("/orders_history", orders_history.orders_history);
+router.get("/orders_history_food", orders_history.orders_history_food);
 router.get("/products/:productId", products.details);
 router.get("/products_menu", products_menu.products_menu);
 router.get("/api/products_menu", menu_api.getProductPage);

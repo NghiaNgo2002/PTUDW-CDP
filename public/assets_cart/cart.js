@@ -1,7 +1,9 @@
 $(document).ready(function () {
   (function () {
-    // get first-page at initial time
-    renderCart();
+    $.get("/user/api/cart").then(function () {
+      renderCart();
+      console.log(123);
+    });
   })();
 });
 
@@ -107,6 +109,9 @@ function checkOut() {
   let total = parseInt(document.getElementById("total").innerText);
   if (total == 0) {
     $("#notyet-check-out").show();
+    $("#success-check-out").hide();
+    $("#fail-check-out").hide();
+
     return;
   }
   const note = $("#note-cart").val();
@@ -119,14 +124,20 @@ function checkOut() {
         note: note,
       };
       $.post("/user/api/cart/checkOut", cart_checkout).then(function () {
-        $.get("/user/profile/reload");
+        $.get("/user/profile/reload").then(function () {
+          $.get("/user/api/cart/removeAll").then(function () {
+            renderCart();
+          });
+          document.getElementById("note-cart").value = "";
+          $("#notyet-check-out").hide();
+          $("#success-check-out").show();
+          $("#fail-check-out").hide();
+          $("#budget-ui").text(cart_checkout.remainBudget);
+        });
       });
-      $.get("/user/api/cart/removeAll").then(function () {
-        renderCart();
-      });
-      document.getElementById("note-cart").value = "";
-      $("#success-check-out").show();
     } else {
+      $("#notyet-check-out").hide();
+      $("#success-check-out").hide();
       $("#fail-check-out").show();
     }
   });

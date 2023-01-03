@@ -20,3 +20,11 @@ exports.countHistory = () => {
 exports.countHistoryFood = () => {
   return orders_historyRepository.countHistoryFood();
 };
+
+exports.getHistory = (userID) => {
+  return orders_historyRepository.getHistory(userID);
+};
+
+exports.getHistoryFood = (userID) => {
+  return orders_historyRepository.getHistoryFood(userID);
+};

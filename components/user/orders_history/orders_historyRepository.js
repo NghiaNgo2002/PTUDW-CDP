@@ -33,3 +33,19 @@ exports.countHistoryFood = async () => {
   let result = await db.connection.execute("select count(*) from history_food");
   return result[0][0]["count(*)"];
 };
+
+exports.getHistory = async (userID) => {
+  const result = await db.connection.execute(
+    "SELECT * FROM history where IDUSER like ?",
+    [userID]
+  );
+  return result[0];
+};
+
+exports.getHistoryFood = async (userID) => {
+  const result = await db.connection.execute(
+    "SELECT * FROM history_food where USER_ID like ?",
+    [userID]
+  );
+  return result[0];
+};
