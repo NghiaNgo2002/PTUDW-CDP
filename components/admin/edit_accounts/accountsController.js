@@ -132,7 +132,6 @@ exports.paginator = async (req, res) => {
       }
     }
 
-
     if(countTotal == -1)
       tmp = result.length
     else tmp = Object.values(countTotal)[0].count_all;

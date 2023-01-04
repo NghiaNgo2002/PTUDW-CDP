@@ -159,6 +159,7 @@ $(document).ready(function(){
         });
     }
 
+
     (function(){
         loadStatisticByYear();
         fetchproducts("dayProduct");

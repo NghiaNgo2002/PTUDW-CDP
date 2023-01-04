@@ -23,15 +23,20 @@
                     <i class="fa fa-backward" aria-hidden="true"></i>
                     Back to List
                 </a>
+                {{#when detail.STATUS 'eq' 'Waiting'}}
+                    <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_orders/{{detail.idparam}}/del">
+                        <i class="fas fa-times    "></i>
+                        Cancel
+                    </button>
 
-                <button type="submit" class="btn btn-outline-dark" formaction="/admin/edit_orders/{{detail.idparam}}/del">
-                    <i class="fas fa-times    "></i>
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-dark" formaction="/admin/edit_orders/{{detail.idparam}}/patch">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Done
-                </button>
+                    <button type="submit" class="btn btn-dark" formaction="/admin/edit_orders/{{detail.idparam}}/patch">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Done
+                    </button>
+                {{/when}}
+                {{#when detail.STATUS 'eq' 'Cancel'}}
+                    <label for="txtNotice" class="font-weight-bold">Already canceled</label>
+                {{/when}}
             </div>
         </div>
     </form>

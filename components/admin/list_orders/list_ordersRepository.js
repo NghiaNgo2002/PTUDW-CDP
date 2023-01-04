@@ -14,7 +14,7 @@ exports.filter = async (name) => {
 }
 
 exports.getId = async (id) => {
-    const result =  await db.connection.execute('select accounts.ID as ID, accounts.PHONENUMBER as PHONENUMBER, history.PRICE as PRICE from history, accounts where idbill = ? and iduser = accounts.id', [id]);
+    const result =  await db.connection.execute('select accounts.ID as ID, accounts.PHONENUMBER as PHONENUMBER, history.PRICE as PRICE, STATUS from history, accounts where idbill = ? and iduser = accounts.id', [id]);
     return result[0][0];
 }
 

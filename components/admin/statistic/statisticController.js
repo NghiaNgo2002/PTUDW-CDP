@@ -4,6 +4,7 @@ exports.statistic = async (req, res) => {
     "July", "August", "September", "October", "November", "December"
   ];
   let result = await statistic.getYear();
+  result["currentYear"] = new Date().getFullYear();
   res.render("admin/statistic/statistic", {
     result,
     monthNames,

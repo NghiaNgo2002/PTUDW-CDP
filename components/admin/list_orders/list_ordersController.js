@@ -9,6 +9,7 @@ exports.details = async (req, res, next) => {
     const { id:idparam } = req.params;
     const detail = await orders.getId(idparam);
     detail["idparam"] = idparam;
+    console.log(detail)
     res.render('admin/list_orders/details', {
         detail,
         layout: "admin_layout"});
@@ -16,7 +17,6 @@ exports.details = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     const id = req.params.id;
-    console.log(req.params);
     await orders.delete(id);
     res.redirect("/admin/list_orders");
 };
@@ -62,9 +62,11 @@ exports.paginator = async (req, res) => {
             if (category < 0 || category == 'All') {
                 result = await orders.getLimit(offset, limit);
                 count = await orders.countAll(category);
+                //count = 1;
             } else { // Filtering with category
                 result = await orders.getCategoryLimit(category, offset, limit);
                 count = await orders.countAll(category);
+                //count = 1;
             }
         }
 
@@ -72,6 +74,10 @@ exports.paginator = async (req, res) => {
         if(count == -1)
         {
             tmp = result.length
+        }
+        else if(Object.values(count)[0].countAll > 25)
+        {
+            tmp = 25;
         }
         else tmp = Object.values(count)[0].countAll;
         const totalPages = Math.ceil(tmp / limit);;
