@@ -46,16 +46,17 @@ function renderReviewList() {
     totalPages: 1,
     productID: productID,
   };
-  $.initData = async function () {
+  $.initCart = async function () {
     let initReq = await $.get("/user/api/review?page=1", data);
     data.totalPages = initReq.pagination_info.total_pages;
-    defaultOpts.totalPages = data.totalPages;
+    defaultOption.totalPages = data.totalPages;
   };
 
-  var $pagination = $("#pagination-review");
+  var $review = $("#pagination-review");
 
-  var defaultOpts = {
+  var defaultOption = {
     totalPages: data.totalPages,
+    startPage: 1,
     onPageClick: function (evt, page) {
       $.ajax({
         url: "/user/api/review",
@@ -105,8 +106,8 @@ function renderReviewList() {
       });
     },
   };
-  $.initData().then(function () {
-    $pagination.twbsPagination("destroy");
-    $pagination.twbsPagination(defaultOpts);
+  $.initCart().then(function () {
+    if ($review.data("twbs-pagination")) $review.twbsPagination("destroy");
+    $review.twbsPagination(defaultOption);
   });
 }

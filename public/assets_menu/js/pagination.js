@@ -114,7 +114,8 @@ $(document).ready(function () {
     data.$curContent = $("#TimKiem-content");
     $("#tim-kiem-nav").tab("show");
     $.initData(data.nameFilter, data.sort).then(function () {
-      $pagination.twbsPagination("destroy");
+      if ($pagination.data("twbs-pagination"))
+        $pagination.twbsPagination("destroy");
       $pagination.twbsPagination(defaultOpts);
     });
   });
@@ -205,9 +206,9 @@ function confirmAddBudgetOnline() {
   let amount = parseFloat($("#add-amount0").val());
   if (amount !== 0) {
     amount *= 0.000042;
-    amount = Math.round(amount*100)/100;
+    amount = Math.round(amount * 100) / 100;
     let addAmount = {
-      addBudget: amount
+      addBudget: amount,
     };
     $.post("/user/paypal", addAmount);
     window.location.href = "/user/paypal";

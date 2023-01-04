@@ -22,8 +22,8 @@ exports.getReviewList = async (productID, limit, offset) => {
 exports.countReviewList = async (productId) => {
   let result;
   result = await db.connection.execute(
-    "select count(*) from review where IDPRODUCT like ?",
-    [`%${productId}%`]
+    "select count(*) from review where IDPRODUCT = ?",
+    [productId]
   );
 
   return result[0][0]["count(*)"];
