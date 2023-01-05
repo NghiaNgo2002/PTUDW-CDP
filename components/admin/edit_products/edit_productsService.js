@@ -40,6 +40,10 @@ exports.countAll = () => {
     return productsRepository.countAll();
 }
 
+exports.countSearch = (search) => {
+    return productsRepository.countSearch(search);
+}
+
 exports.getAllCategory = () => {
     return productsRepository.getAllCategory();
 }
@@ -48,8 +52,8 @@ exports.getCategory = (category) => {
     return productsRepository.getCategory(category);
 }
 
-exports.getSearch = (category) => {
-    return productsRepository.getSearch(category);
+exports.getSearch = (category, offset, limit) => {
+    return productsRepository.getSearch(category, offset, limit);
 }
 
 exports.getNameSorted = (category, sort, offset, limit) => {

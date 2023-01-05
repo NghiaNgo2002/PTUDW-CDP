@@ -56,7 +56,8 @@ exports.paginator = async (req, res) => {
                 date[1] = "0" + date[1];
             }
             let tmp = date[2] + "-" + date[1] + "-" + date[0];
-            result = await orders.getSearch(tmp);
+            result = await orders.getSearch(tmp, offset, limit);
+            count = await orders.countSearch(tmp);
         }else {
             // NOT Filtering
             if (category < 0 || category == 'All') {
@@ -80,6 +81,7 @@ exports.paginator = async (req, res) => {
             tmp = 25;
         }
         else tmp = Object.values(count)[0].countAll;
+        console.log(tmp)
         const totalPages = Math.ceil(tmp / limit);;
         const response = {
             "totalPages": totalPages,

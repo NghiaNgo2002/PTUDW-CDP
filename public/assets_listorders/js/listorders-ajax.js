@@ -65,8 +65,7 @@ $(document).ready(function(){
         let category = '-1';
         let search = $("#search").val();
 
-        category = $("#selected_form").value;
-        console.log(category)
+        category = $("#selected_form").val();
 
         // re-fetch customer list again
         fetchorders(0, 5, search, category);
@@ -87,7 +86,7 @@ $(document).ready(function(){
 
     /**
      *
-     * Build the pagination Bar from totalPages
+     * Build the pagination from totalPages
      */
     function buildPagination(totalPages){
         // Build paging navigation
@@ -119,7 +118,7 @@ $(document).ready(function(){
     }
 
     /**
-     * Get the selectedSalary for filtering
+     * Get the selectedCategory for filtering
      */
     function getSeletedCategory(){
         return $("select").val();
@@ -140,14 +139,14 @@ $(document).ready(function(){
      */
     $(document).on("click", "ul.pagination li a", function() {
         let selectedCategory = getSeletedCategory();
-        let search = $("#search").value;
+        let search = $("#search").val();
 
         let val = $(this).text();
 
         // click on the NEXT tag
         if(val.toUpperCase()==="NEXT"){
             let activeValue = parseInt($("ul.pagination li.active").text());
-            let totalPages = $("ul.pagination li").length - 4; // -2 beacause 1 for Previous and 1 for Next
+            let totalPages = $("ul.pagination li").length - 4; // -4 beacause 1 for Previous and 1 for Next
             if(activeValue < totalPages){
                 let currentActive = $("li.active");
                 fetchorders(activeValue, 5, search, selectedCategory); // get next page value

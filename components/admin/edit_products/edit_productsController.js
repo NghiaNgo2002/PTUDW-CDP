@@ -91,7 +91,8 @@ exports.paginator = async (req, res) => {
     var arr = [];
     var countTotal = -1;
     if(search != -1){
-      result = await products.getSearch(search);
+      result = await products.getSearch(search, offset, limit);
+      countTotal = await products.countSearch(search);
     }else {
       // NOT Filtering with salary
       if (category < 0 || category == 'All') {

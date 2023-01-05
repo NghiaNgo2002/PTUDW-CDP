@@ -66,7 +66,7 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
 
-        category = $("#selected_form").value;
+        category = $("#selected_form").val();
 
         if($("#name_sorting"). prop("checked") == true){
             namesorting = true;
@@ -97,24 +97,24 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
 
-        if($("#name_sorting"). prop("checked") == true){
+        if($("#name_sorting"). prop("checked") === true){
             namesorting = true;
         }
 
-        if($("#price_sorting"). prop("checked") == true){
+        if($("#price_sorting"). prop("checked") === true){
             pricesorting = true;
         }
 
-        if($("#desc_sorting"). prop("checked") == true){
+        if($("#desc_sorting"). prop("checked") === true){
             desc = true;
         }
 
-        // re-fetch customer list again
+        // re-fetch list again
         fetchproducts(0, 5, search, category, namesorting, pricesorting, desc);
     });
 
     /**
-     * Get a list of distinct salaries
+     * Get a list of category
      */
     function getListCategory(){
         $.ajax({
@@ -168,26 +168,26 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
-        let search = $("#search").value;
+        let search = $("#search").val();
         //get value of check boxes
 
         /* namesorting checkbox */
-        if($("#name_sorting"). prop("checked") == true){
+        if($("#name_sorting"). prop("checked") === true){
             namesorting = true;
         }
 
-        if($("#price_sorting"). prop("checked") == true){
+        if($("#price_sorting"). prop("checked") === true){
             pricesorting = true;
         }
 
         /* desc checkbox */
-        if($("#desc_sorting"). prop("checked") == true){
+        if($("#desc_sorting"). prop("checked") === true){
             desc = true;
         }
 
         // get the active index of pagination bar
         let selectedPageIndex = parseInt($("ul.pagination li.active").text()) - 1;
-        console.log(selectedPageIndex);
+
         // just fetch again products from SpringBoot RestAPIs when sorting checkbox is checked
         if(namesorting){
             fetchproducts(selectedPageIndex, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value
@@ -258,7 +258,7 @@ $(document).ready(function(){
         let pricesorting = false;
         let desc = false;
         let selectedCategory = getSeletedCategory();
-        let search = $("#search").value;
+        let search = $("#search").val();
         if($("#name_sorting"). prop("checked") == true){
             namesorting = true;
         }
@@ -275,7 +275,7 @@ $(document).ready(function(){
         // click on the NEXT tag
         if(val.toUpperCase()==="NEXT"){
             let activeValue = parseInt($("ul.pagination li.active").text());
-            let totalPages = $("ul.pagination li").length - 4; // -2 beacause 1 for Previous and 1 for Next
+            let totalPages = $("ul.pagination li").length - 4; // -4 beacause 1 for Previous and 1 for Next
             if(activeValue < totalPages){
                 let currentActive = $("li.active");
                 fetchproducts(activeValue, 5, search, selectedCategory, namesorting, pricesorting, desc); // get next page value

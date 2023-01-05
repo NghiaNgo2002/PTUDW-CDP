@@ -56,8 +56,15 @@ exports.getCategory = async (category) => {
     return result[0];
 }
 
-exports.getSearch = async (search) => {
-    const result = await db.connection.execute("select * from menu  where name like ?", [`%${search}%`]);
+exports.getSearch = async (search, offset, limit) => {
+    const result = await db.connection.execute("select * from menu  where name like ? limit " +
+                                            limit +
+                                            " offset " +
+                                            offset, [`%${search}%`]);
+    return result[0];
+}
+exports.countSearch = async (search) => {
+    const result = await db.connection.execute("select count(*) as count_all from menu where name like ?", [`%${search}%`]);
     return result[0];
 }
 

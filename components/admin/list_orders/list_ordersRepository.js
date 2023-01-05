@@ -30,6 +30,11 @@ exports.saveEdit = async (id) => {
     return result[0];
 }
 
+exports.countSearch = async (search) => {
+    const result = await db.connection.execute("select count(*) as countAll from history  where TIME like ?" , [`%${search}%`]);
+    return result[0];
+}
+
 exports.countAll = async (category) => {
     var result;
     if(category < 0 || category == 'All')
@@ -58,8 +63,11 @@ exports.getCategoryLimit = async (category, offset, limit) => {
     return result[0];
 }
 
-exports.getSearch = async (search) => {
-    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TIME like ? order by TIME desc, IDBILL desc ", [`%${search}%`]);
+exports.getSearch = async (search, offset, limit) => {
+    const result = await db.connection.execute("SELECT IDBILL, PHONENUMBER, PRICE, TIME, STATUS FROM history, accounts where history.IDUSER = accounts.ID and TIME like ? order by TIME desc, IDBILL desc limit " +
+        limit +
+        " offset " +
+        offset, [`%${search}%`]);
     return result[0];
 }
 

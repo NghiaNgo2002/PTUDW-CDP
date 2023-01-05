@@ -70,11 +70,18 @@ exports.getCategory = async () => {
     return result[0];
 }
 
-exports.getSearch = async (search) => {
-    const result = await db.connection.execute("select * from accounts  where PHONENUMBER like ?", [`%${search}%`]);
+exports.getSearch = async (search, offset, limit) => {
+    const result = await db.connection.execute("select * from accounts  where PHONENUMBER like ? limit " +
+        limit +
+        " offset " +
+        offset, [`%${search}%`]);
     return result[0];
 }
 
+exports.countSearch = async (search) => {
+    const result = await db.connection.execute("select count(*) as count_all from accounts  where PHONENUMBER like ?" , [`%${search}%`]);
+    return result[0];
+}
 exports.getNameAsc = async (category, offset, limit) => {
     var result;
     if(category < 0 || category == 'All') {
@@ -87,7 +94,7 @@ exports.getNameAsc = async (category, offset, limit) => {
         if(category == "Ban")
             category = 0;
         else category = 1;
-         result = await db.connection.execute("select * from accounts where category = ? ORDER BY PHONENUMBER ASC limit " +
+         result = await db.connection.execute("select * from accounts where ACTIVE= ? ORDER BY PHONENUMBER ASC limit " +
             limit +
             " offset " +
             offset, [category]);
@@ -107,7 +114,7 @@ exports.getNameDesc = async (category, offset, limit) => {
         if(category == "Ban")
             category = 0;
         else category = 1;
-        result = await db.connection.execute("select * from accounts where category = ? ORDER BY PHONENUMBER DESC limit " +
+        result = await db.connection.execute("select * from accounts where ACTIVE = ? ORDER BY PHONENUMBER DESC limit " +
             limit +
             " offset " +
             offset, [category]);
@@ -127,7 +134,7 @@ exports.getDateAsc = async (category, offset, limit) => {
         if(category == "Ban")
             category = 0;
         else category = 1;
-        result = await db.connection.execute("select * from accounts where category = ? ORDER BY CREATEDDATE ASC limit " +
+        result = await db.connection.execute("select * from accounts where ACTIVE = ? ORDER BY CREATEDDATE ASC limit " +
             limit +
             " offset " +
             offset, [category]);
@@ -147,7 +154,7 @@ exports.getDateDesc = async (category, offset, limit) => {
         if(category == "Ban")
             category = 0;
         else category = 1;
-        result = await db.connection.execute("select * from accounts where category = ? ORDER BY CREATEDDATE DESC limit " +
+        result = await db.connection.execute("select * from accounts where ACTIVE = ? ORDER BY CREATEDDATE DESC limit " +
             limit +
             " offset " +
             offset, [category]);
@@ -164,10 +171,14 @@ exports.getLimitAccounts = async (category, offset, limit) => {
             offset);
     }
     else {
-        result = await db.connection.execute("select * from accounts where category = ? limit " +
+        if(category == "Ban")
+            category = 0;
+        else category = 1;
+        result = await db.connection.execute("select * from accounts where ACTIVE = ? limit " +
             limit +
             " offset " +
             offset, [category]);
+        console.log(result);
     }
     return result[0];
 }

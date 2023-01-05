@@ -28,12 +28,15 @@ exports.countAll = (category) => {
     return ordersRepository.countAll(category);
 }
 
+exports.countSearch = (search) => {
+    return ordersRepository.countSearch(search);
+}
 
 exports.getCategoryLimit = (category, offset, limit) => {
     return ordersRepository.getCategoryLimit(category, offset, limit);
 }
 
-exports.getSearch = (search) => {
-    return ordersRepository.getSearch(search);
+exports.getSearch = (search, offset, limit) => {
+    return ordersRepository.getSearch(search, offset, limit);
 }
 

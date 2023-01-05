@@ -34,8 +34,11 @@ exports.setUnLock = (id) => {
     return accountsRepository.setLockUnlock(id);
 }
 
-exports.getSearch = (search) => {
-    return accountsRepository.getSearch(search);
+exports.getSearch = (search, offset, limit) => {
+    return accountsRepository.getSearch(search, offset, limit);
+}
+exports.countSearch = (search) => {
+    return accountsRepository.countSearch(search);
 }
 
 exports.getNameSorted = (category, sort, offset, limit) => {

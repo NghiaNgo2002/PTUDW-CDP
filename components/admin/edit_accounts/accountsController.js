@@ -70,14 +70,14 @@ exports.paginator = async (req, res) => {
     const offset = page ? page * limit : 0;
 
     console.log("offset = " + offset);
-
     var result = [];
     var arr = [];
     var countTotal = -1;
     var tmp;
 
     if(search != -1){
-      result = await accounts.getSearch(search);
+      result = await accounts.getSearch(search, offset, limit);
+      countTotal = await accounts.countSearch(search);
     }
     else {
       // NOT Filtering with salary
@@ -118,10 +118,11 @@ exports.paginator = async (req, res) => {
           }
         }
         else if (date == true) {
-          if (desc == false) { // sorting with price and ascending
+          if (desc == false) { // sorting with date and ascending
             let sort = 'asc';
             result = await accounts.getDateSorted(category, sort, offset, limit);
-          } else { // sorting with name and descending
+          }
+          else { // sorting with name and descending
             let sort = 'desc';
             result = await accounts.getDateSorted(category, sort, offset, limit);
           }
@@ -135,7 +136,6 @@ exports.paginator = async (req, res) => {
     if(countTotal == -1)
       tmp = result.length
     else tmp = Object.values(countTotal)[0].count_all;
-
     const totalPages = Math.ceil(tmp / limit);
     const response = {
       "totalPages": totalPages,
